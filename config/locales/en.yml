@@ -1,0 +1,10 @@
+---
+en:
+  decidim:
+    homepage_interactive_map:
+      content_blocks:
+        interactive_map:
+          name: Interactive map
+    components:
+      homepage_interactive_map:
+        name: HomepageInteractiveMap
