@@ -39,7 +39,7 @@ module Decidim
                 name: form.name,
                 organization: form.organization,
                 code: form.code,
-                geojson: parsed_json,
+                geojson: geojson,
                 scope_type: form.scope_type,
                 parent: @parent_scope
             },
@@ -50,8 +50,12 @@ module Decidim
         )
       end
 
+      def geojson
+        parsed_json.merge(color: form.geojson[:color])
+      end
+
       def parsed_json
-        JSON.parse(form.geojson)
+        JSON.parse(form.geojson[:geometry])
       end
     end
   end

@@ -18,6 +18,10 @@ $(document).ready(() => {
         continuousWorld: true
     }).addTo(mymap);
 
-    let geoJsonLayer = L.Proj.geoJson(geoJson).addTo(mymap);
+    let geoJsonLayer = L.Proj.geoJson(geoJson, {
+        style: (feature) => {
+            return {color: feature.color}
+        }
+    }).addTo(mymap);
     mymap.fitBounds(geoJsonLayer.getBounds());
 });

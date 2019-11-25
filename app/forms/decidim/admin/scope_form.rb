@@ -5,13 +5,17 @@ module Decidim
     # A form object to create or update scopes.
     class ScopeForm < Form
       include TranslatableAttributes
+      include JsonbAttributes
 
       translatable_attribute :name, String
       attribute :organization, Decidim::Organization
       attribute :code, String
       attribute :parent_id, Integer
       attribute :scope_type_id, Integer
-      attribute :geojson, String
+      jsonb_attribute :geojson, [
+          [:geometry, String],
+          [:color, String]
+      ]
 
       mimic :scope
 

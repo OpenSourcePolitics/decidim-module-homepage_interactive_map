@@ -33,27 +33,31 @@ module Decidim
 
       def update_scope
         Decidim.traceability.update!(
-          @scope,
-          form.current_user,
-          attributes,
-          extra: {
-            parent_name: @scope.parent.try(:name),
-            scope_type_name: form.scope_type.try(:name)
-          }
+            @scope,
+            form.current_user,
+            attributes,
+            extra: {
+                parent_name: @scope.parent.try(:name),
+                scope_type_name: form.scope_type.try(:name)
+            }
         )
       end
 
       def attributes
         {
-          name: form.name,
-          code: form.code,
-          geojson: parsed_json,
-          scope_type: form.scope_type
+            name: form.name,
+            code: form.code,
+            geojson: geojson,
+            scope_type: form.scope_type
         }
       end
 
+      def geojson
+        parsed_json.merge(color: form.geojson[:color])
+      end
+
       def parsed_json
-        JSON.parse(form.geojson)
+        JSON.parse(form.geojson[:geometry])
       end
     end
   end
