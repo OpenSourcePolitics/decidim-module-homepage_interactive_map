@@ -5,16 +5,8 @@ module Decidim
   module HomepageInteractiveMap
     module ContentBlocks
       class InteractiveMapCell < Decidim::ViewModel
-        def geojson_data
-          geolocalized_scopes.map do |scope|
-            scope.geojson.merge(scope: scope)
-          end.to_json
-        end
-
-        private
-
         def geolocalized_scopes
-          @geolocalized_scopes ||= current_organization.scopes.where.not(geojson: nil)
+          @geolocalized_scopes ||= current_organization.scopes.where.not(geojson: nil).pluck(:geojson).to_json
         end
       end
     end

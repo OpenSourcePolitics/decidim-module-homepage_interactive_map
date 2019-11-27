@@ -51,11 +51,12 @@ module Decidim
       end
 
       def geojson
-        parsed_json.merge(color: form.geojson[:color])
-      end
-
-      def parsed_json
-        JSON.parse(form.geojson[:geometry])
+        {
+            color: form.geojson[:color],
+            geometry: form.geojson[:geometry],
+            parsed_geometry: JSON.parse(form.geojson[:geometry]),
+            scope: scope.id
+        }
       end
     end
   end
