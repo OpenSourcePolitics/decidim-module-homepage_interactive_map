@@ -5,8 +5,10 @@ module Decidim
   module HomepageInteractiveMap
     module ContentBlocks
       class InteractiveMapCell < Decidim::ViewModel
-        def data_geojson
-          geolocalized_scopes.map { |scope| scope.geojson }.to_json
+        def geojson_data
+          geolocalized_scopes.map do |scope|
+            scope.geojson.merge(scope: scope)
+          end.to_json
         end
 
         private
