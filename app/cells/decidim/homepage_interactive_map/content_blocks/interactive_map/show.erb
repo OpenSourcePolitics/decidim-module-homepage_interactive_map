@@ -1,20 +1,43 @@
-<% unless geolocalized_scopes.blank? %>
+<% unless geolocalized_assemblies.blank? %>
   <section class="extended home-section" id="html-block">
     <div class="wrapper-home">
       <div class="column">
-        <div class="google-map"
-             id="mapid"
-             data-geojson='<%= geolocalized_scopes %>'
-             data-app-id="<%= Rails.application.secrets.geocoder[:here_app_id] %>"
-             data-app-code="<%= Rails.application.secrets.geocoder[:here_app_code] %>"
-        >
-        </div>
+        <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
+          <template id="marker-popup">
+            <div class="map-info__content">
+              <h3>${title}</h3>
+              <div id="bodyContent">
+                <p>{{html description}}</p>
+                <div class="map__date-adress">
+                  <div class="card__datetime">
+                    <div class="card__datetime__date">
+                      ${startTimeDay} <span class="card__datetime__month">${startTimeMonth} ${startTimeYear}</span>
+                    </div>
+                    <div class="card__datetime__time">${starTime}</div>
+                  </div>
+                  <div class="address card__extra">
+                    <div class="address__icon">{{html icon}}</div>
+                    <div class="address__details">
+                      <strong>{{html location}}</strong><br>
+                      <span>${address}</span><br>
+                      <span>{{html locationHints}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="map-info__button">
+                  <a href="${link}" class="button button--sc">
+                    <%= t("decidim.meetings.meetings_map.view_meeting") %>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </template>
+          <%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
+          <%= stylesheet_link_tag "decidim/map" %>
+          <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
+        <% end %>
       </div>
     </div>
     </div>
   </section>
-
-  <%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
-  <%= stylesheet_link_tag "decidim/map" %>
-  <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
 <% end %>

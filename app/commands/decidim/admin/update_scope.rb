@@ -56,8 +56,7 @@ module Decidim
         {
             color: form.geojson[:color],
             geometry: form.geojson[:geometry],
-            parsed_geometry: JSON.parse(form.geojson[:geometry]),
-            scope: scope.id
+            parsed_geometry: JSON.parse(form.geojson[:geometry])
         }
       end
     end
