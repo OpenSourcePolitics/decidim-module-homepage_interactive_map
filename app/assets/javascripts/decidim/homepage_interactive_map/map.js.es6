@@ -4,6 +4,7 @@
 // = require leaflet.markercluster
 // = require proj4
 // = require proj4leaflet
+// = require jquery-tmpl
 // = require_self
 
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
@@ -24,6 +25,8 @@ $(document).ready(() => {
     const here_app_code = $("#interactive_map").data("here-app-code");
     const geoJson = $("#interactive_map").data("geojson-data");
     let markerClusters = L.markerClusterGroup();
+    const popupTemplateId = "marker-popup";
+    $.template(popupTemplateId, $(`#${popupTemplateId}`).html());
 
     const map = L.map('interactive_map');
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -37,11 +40,20 @@ $(document).ready(() => {
 
     function addMarker(feature, layer) {
         console.log(feature);
-        feature.participatory_processes.forEach(() => {
+        feature.participatory_processes.forEach((process) => {
             let marker = L.marker(layer.getBounds().getCenter(), {
                 icon: new L.DivIcon.SVGIcon.DecidimIcon()
             });
-            marker.bindPopup("Hello!");
+            let node = document.createElement("div");
+
+            $.tmpl(popupTemplateId, process).appendTo(node);
+            marker.bindPopup(node, {
+                maxwidth: 640,
+                minWidth: 500,
+                keepInView: true,
+                className: "map-info"
+            }).openPopup();
+
             markerClusters.addLayer(marker)
         });
     }

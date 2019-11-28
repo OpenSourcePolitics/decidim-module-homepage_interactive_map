@@ -8,6 +8,7 @@ en:
           no_assembly: No assembly
       content_blocks:
         interactive_map:
+          view_participatory_processes: View participatory processes
           name: Interactive map
     components:
       homepage_interactive_map:

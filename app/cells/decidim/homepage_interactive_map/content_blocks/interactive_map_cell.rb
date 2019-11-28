@@ -28,8 +28,31 @@ module Decidim
           assembly.scope.geojson["parsed_geometry"].merge(
               color: assembly.scope.geojson["color"],
               link: assembly_path(assembly),
-              participatory_processes: assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes")
+              participatory_processes: participatory_processes_data_for_map(assembly)
           )
+        end
+
+        def participatory_processes_data_for_map(assembly)
+          participatory_processes(assembly).map do |participatory_process|
+            participatory_process_data_for_map(participatory_process)
+          end
+        end
+
+        def participatory_process_data_for_map(participatory_process)
+          {
+              title: translated_attribute(participatory_process.title),
+              start_date: l(participatory_process.start_date, format: :decidim_short),
+              end_date: l(participatory_process.end_date, format: :decidim_short),
+              link: participatory_process_path(participatory_process)
+          }
+        end
+
+        def participatory_processes(assembly)
+          assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes")
+        end
+
+        def participatory_process_path(participatory_process)
+          Decidim::EngineRouter.main_proxy(participatory_process).participatory_process_path(participatory_process)
         end
 
         def assembly_path(assembly)
