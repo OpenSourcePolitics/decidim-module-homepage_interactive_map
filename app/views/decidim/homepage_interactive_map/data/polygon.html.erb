@@ -1,0 +1,14 @@
+<% if @assemblies.present? %>
+  <div class="map-info__content">
+    <h3><%= t(".view_assemblies") %></h3>
+    <% @assemblies.each do |assembly| %>
+      <div class="map-info__button">
+        <%= link_to translated_attribute(assembly.title), assembly_path(assembly), class: "button button--sc" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="map-info__content">
+    <h3><%= t(".no_assembly") %></h3>
+  </div>
+<% end %>

@@ -10,9 +10,13 @@ module Decidim
       isolate_namespace Decidim::HomepageInteractiveMap
 
       routes do
-        # Add engine routes here
-        # resources :homepage_interactive_map
-        # root to: "homepage_interactive_map#index"
+        get "/data/polygon/:id", to: "data#polygon", as: :data_polygon
+      end
+
+      initializer "decidim_homepage_interactive_map.mount_routes" do |_app|
+        Decidim::Core::Engine.routes do
+          mount Decidim::HomepageInteractiveMap::Engine => "/homepage_interactive_map"
+        end
       end
 
       initializer "decidim_homepage_interactive_map.add_cells_view_paths" do

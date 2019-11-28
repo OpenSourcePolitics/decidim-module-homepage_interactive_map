@@ -2,6 +2,10 @@
 en:
   decidim:
     homepage_interactive_map:
+      data:
+        polygon:
+          view_assemblies: View assemblies
+          no_assembly: No assembly
       content_blocks:
         interactive_map:
           name: Interactive map

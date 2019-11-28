@@ -1,18 +1,20 @@
-<section class="extended home-section" id="html-block">
-  <div class="wrapper-home">
-    <div class="column">
-      <div class="google-map"
-           id="mapid"
-           data-geojson='<%= geolocalized_scopes %>'
-           data-app-id="<%= Rails.application.secrets.geocoder[:here_app_id] %>"
-           data-app-code="<%= Rails.application.secrets.geocoder[:here_app_code] %>"
-      >
+<% unless geolocalized_scopes.blank? %>
+  <section class="extended home-section" id="html-block">
+    <div class="wrapper-home">
+      <div class="column">
+        <div class="google-map"
+             id="mapid"
+             data-geojson='<%= geolocalized_scopes %>'
+             data-app-id="<%= Rails.application.secrets.geocoder[:here_app_id] %>"
+             data-app-code="<%= Rails.application.secrets.geocoder[:here_app_code] %>"
+        >
+        </div>
       </div>
     </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
-<%= stylesheet_link_tag "decidim/map" %>
-<%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
+  <%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
+  <%= stylesheet_link_tag "decidim/map" %>
+  <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
+<% end %>
