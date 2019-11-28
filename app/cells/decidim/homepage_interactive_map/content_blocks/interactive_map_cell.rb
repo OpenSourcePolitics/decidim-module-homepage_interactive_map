@@ -27,7 +27,8 @@ module Decidim
         def assembly_data_for_map(assembly)
           assembly.scope.geojson["parsed_geometry"].merge(
               color: assembly.scope.geojson["color"],
-              link: assembly_path(assembly)
+              link: assembly_path(assembly),
+              participatory_processes: assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes")
           )
         end
 

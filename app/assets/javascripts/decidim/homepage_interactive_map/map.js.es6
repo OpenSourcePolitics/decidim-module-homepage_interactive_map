@@ -36,11 +36,14 @@ $(document).ready(() => {
     }).addTo(map);
 
     function addMarker(feature, layer) {
-        let marker = L.marker(layer.getBounds().getCenter(), {
-            icon: new L.DivIcon.SVGIcon.DecidimIcon()
+        console.log(feature);
+        feature.participatory_processes.forEach(() => {
+            let marker = L.marker(layer.getBounds().getCenter(), {
+                icon: new L.DivIcon.SVGIcon.DecidimIcon()
+            });
+            marker.bindPopup("Hello!");
+            markerClusters.addLayer(marker)
         });
-        marker.bindPopup("Hello!");
-        markerClusters.addLayer(marker)
     }
 
     function onEachFeature(feature, layer) {
