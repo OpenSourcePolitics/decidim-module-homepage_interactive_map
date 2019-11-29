@@ -1,15 +1,20 @@
 ---
 en:
   decidim:
-    homepage_interactive_map:
-      data:
-        polygon:
-          view_assemblies: View assemblies
-          no_assembly: No assembly
-      content_blocks:
-        interactive_map:
-          view_participatory_processes: View participatory processes
-          name: Interactive map
     components:
       homepage_interactive_map:
+        map:
+          view_participatory_processes: View participatory processes
         name: HomepageInteractiveMap
+    homepage_interactive_map:
+      content_blocks:
+        interactive_map:
+          name: Interactive map
+          view_participatory_processes: View participatory processes
+      data:
+        polygon:
+          no_assembly: No assembly
+          view_assemblies: View assemblies
+    scope:
+      errors:
+        geojson_error: Geojson error

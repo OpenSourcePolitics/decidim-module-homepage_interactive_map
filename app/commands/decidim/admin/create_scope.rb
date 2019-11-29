@@ -51,10 +51,12 @@ module Decidim
       end
 
       def geojson
+        return nil if form.geolocalized.blank?
+
         {
             color: form.geojson[:color],
             geometry: form.geojson[:geometry],
-            parsed_geometry: JSON.parse(form.geojson[:geometry])
+            parsed_geometry: form.geojson[:parsed_geometry]
         }
       end
     end

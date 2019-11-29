@@ -12,6 +12,11 @@
 </div>
 
 <div class="row column">
-  <%= form.text_area :geometry %>
-  <%= form.color_field :color %>
+  <%= form.check_box :geolocalized %>
+  <div id="geojson">
+    <%= form.text_area :geometry %>
+    <%= form.color_field :color %>
+  </div>
 </div>
+
+<%= javascript_include_tag "decidim/homepage_interactive_map/scope" %>

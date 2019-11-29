@@ -51,7 +51,6 @@ $(document).ready(() => {
     }).addTo(map);
 
     function addMarker(feature, layer) {
-        console.log(feature);
         feature.participatory_processes.forEach((process) => {
             let marker = L.marker(layer.getBounds().getCenter(), {
                 icon: new L.DivIcon.SVGIcon.DecidimIcon()
@@ -73,14 +72,26 @@ $(document).ready(() => {
     function onEachFeature(feature, layer) {
         addMarker(feature, layer);
         layer.on("click", (e) => {
-            window.location = feature.link;
+            return window.location = feature.link;
+        });
+
+        layer.on("mouseover", function () {
+            this.setStyle({fillOpacity: 0.5});
+        });
+
+        layer.on("mouseout", function () {
+            this.setStyle({fillOpacity: 0.2});
         });
     }
 
     const geoJsonLayer = L.Proj.geoJson(geoJson, {
         onEachFeature: onEachFeature,
         style: (feature) => {
-            return {color: feature.color}
+            return {
+                color: feature.color,
+                stroke: false,
+                fillOpacity: 0.2
+            }
         }
     });
 

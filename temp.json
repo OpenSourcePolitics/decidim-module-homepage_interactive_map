@@ -98,7 +98,8 @@
         "id": "142",
         "crs": {"type": "name", "properties": {"name": "EPSG:3943"}},
         "bbox": [1571804.1916999999, 2268058.4482999872, 1573967.6557999998, 2269611.967399989]
-    }, {
+    },
+        {
         "type": "Feature",
         "properties": {
             "infobulle": "1.3\nLes Chalets / Bayard / Belfort / Saint-Aubin / Dupuy\nSecteur Toulouse Centre\nMaire de quartier : Jacqueline Winnepenninckx-Kieser",
@@ -129,7 +130,8 @@
         "id": "143",
         "crs": {"type": "name", "properties": {"name": "EPSG:3943"}},
         "bbox": [1573864.4303, 2267226.4562999886, 1575430.5514999998, 2269625.055299987]
-    }, {
+    },
+        {
         "type": "Feature",
         "properties": {
             "infobulle": "2.2\nCroix-de-Pierre / Route d'Espagne\nSecteur Toulouse Rive Gauche\nMaire de quartier : Franck Biasotto",
@@ -160,7 +162,8 @@
         "id": "145",
         "crs": {"type": "name", "properties": {"name": "EPSG:3943"}},
         "bbox": [1572318.5173999998, 2264468.4268999887, 1573609.6967999998, 2267028.4871999873]
-    }, {
+    },
+        {
         "type": "Feature",
         "properties": {
             "infobulle": "2.3\nFontaine-Lestang/Bagatelle/Papus/Tabar/Bordelongue/Mermoz /La Faourette\nSecteur Toulouse Rive Gauche\nMaire de quartier : Franck Biasotto",
@@ -191,7 +194,8 @@
         "id": "146",
         "crs": {"type": "name", "properties": {"name": "EPSG:3943"}},
         "bbox": [1570992.9182999998, 2264223.9966999884, 1572725.4322999998, 2267194.8869999885]
-    }, {
+    },
+        {
         "type": "Feature",
         "properties": {
             "infobulle": "2.4\nCasselardit / Fontaine-Bayonne / Cartoucherie\nSecteur Toulouse Rive Gauche\nMaire de quartier : Marthe Marti",
@@ -222,7 +226,8 @@
         "id": "147",
         "crs": {"type": "name", "properties": {"name": "EPSG:3943"}},
         "bbox": [1570574.4162999997, 2266243.698999989, 1572482.3614999999, 2268867.7112999903]
-    }, {
+    },
+        {
         "type": "Feature",
         "properties": {
             "infobulle": "3.1\nMinimes / Barrière de Paris / Ponts-Jumeaux\nSecteur Toulouse Nord\nMaire de quartier : Maxime Boyer",
