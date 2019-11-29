@@ -9,7 +9,7 @@ module Decidim
         include Decidim::HomepageInteractiveMap::InteractiveMapHelper
 
         def geolocalized_assemblies
-          @geolocalized_assemblies ||= Decidim::Assembly.where(organization: current_organization).where(scope: geolocalized_scopes)
+          @geolocalized_assemblies ||= Decidim::Assembly.where(organization: current_organization).where(scope: geolocalized_scopes).published
         end
 
         private
@@ -48,7 +48,7 @@ module Decidim
         end
 
         def participatory_processes(assembly)
-          assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes")
+          assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes").select { |participatory_process| participatory_process if (participatory_process.published? && participatory_process.active?) }
         end
 
         def participatory_process_path(participatory_process)
