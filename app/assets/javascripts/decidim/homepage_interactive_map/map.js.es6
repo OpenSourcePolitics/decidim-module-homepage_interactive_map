@@ -24,9 +24,21 @@ $(document).ready(() => {
     const here_app_id = $("#interactive_map").data("here-app-id");
     const here_app_code = $("#interactive_map").data("here-app-code");
     const geoJson = $("#interactive_map").data("geojson-data");
-    let markerClusters = L.markerClusterGroup();
     const popupTemplateId = "marker-popup";
     $.template(popupTemplateId, $(`#${popupTemplateId}`).html());
+    let markerClusters = L.markerClusterGroup({
+            zoomToBoundsOnClick: true,
+            removeOutsideVisibleBounds: true,
+            spiderfyDistanceMultiplier: 2,
+            chunkedLoading: true,
+            showCoverageOnHover: false,
+            spiderLegPolylineOptions: {
+                weight: 2,
+                color: getComputedStyle(document.documentElement).getPropertyValue('--secondary'),
+                opacity: 0.75
+            }
+        }
+    );
 
     const map = L.map('interactive_map');
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");

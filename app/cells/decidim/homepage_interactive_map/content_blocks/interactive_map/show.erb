@@ -1,30 +1,28 @@
 <% unless geolocalized_assemblies.blank? %>
   <section class="extended home-section" id="html-block">
     <div class="wrapper-home">
-      <div class="column">
-        <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
-          <template id="marker-popup">
-            <div class="map-info__content homepage_interactive_map">
-              <h3>${title}</h3>
-              <div id="bodyContent">
-                <div class="card__datetime">
-                  <div class="card__datetime__date">
-                    ${start_date} - ${end_date}
-                  </div>
-                </div>
-                <div class="map-info__button">
-                  <a href="${link}" class="button button--sc">
-                    <%= t(".view_participatory_processes") %>
-                  </a>
+      <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
+        <template id="marker-popup">
+          <div class="map-info__content homepage_interactive_map">
+            <h3>${title}</h3>
+            <div id="bodyContent">
+              <div class="card__datetime">
+                <div class="card__datetime__date">
+                  ${start_date} - ${end_date}
                 </div>
               </div>
+              <div class="map-info__button">
+                <a href="${link}" class="button button--sc">
+                  <%= t(".view_participatory_processes") %>
+                </a>
+              </div>
             </div>
-          </template>
-          <%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
-          <%= stylesheet_link_tag "decidim/map" %>
-          <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
-        <% end %>
-      </div>
+          </div>
+        </template>
+        <%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
+        <%= stylesheet_link_tag "decidim/map" %>
+        <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
+      <% end %>
     </div>
   </section>
 <% end %>
