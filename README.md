@@ -12,13 +12,15 @@ Space.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'decidim-homepage_interactive_map
+gem "decidim-homepage_interactive_map"
 ```
 
 And then execute:
 
 ```bash
 bundle
+bundle exec rake decidim_homepage_interactive_map:install:migrations
+bundle exec rake db:migrate
 ```
 
 ## Contributing
