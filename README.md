@@ -12,7 +12,7 @@ Space.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "decidim-homepage_interactive_map"
+gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git"
 ```
 
 And then execute:
