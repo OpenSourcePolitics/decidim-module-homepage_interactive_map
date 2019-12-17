@@ -7,7 +7,7 @@ module Decidim
         return if Rails.application.secrets.geocoder.blank?
 
         map_html_options = {
-            class: "google-map",
+            class: "map",
             id: "interactive_map",
             "data-geojson-data" => geoJson.to_json,
             "data-here-app-id" => Rails.application.secrets.geocoder[:here_app_id],

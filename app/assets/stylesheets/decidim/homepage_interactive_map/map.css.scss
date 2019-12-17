@@ -1,11 +1,25 @@
-#mapid {
-  height: 800px;
-}
+#homepage_map {
+  .wrapper-home {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
 
-.homepage_interactive_map {
+  .map {
+    width: 100%;
+    height: 600px;
+    background-color: #e8e8e8;
+    margin-bottom: 0;
 
-  .card__datetime {
-    justify-content: center;
+    @media screen and (max-width: 800px) {
+      height: 450px;
+    }
+  }
+
+  .homepage_interactive_map {
+
+    .card__datetime {
+      justify-content: center;
+    }
   }
 }
 

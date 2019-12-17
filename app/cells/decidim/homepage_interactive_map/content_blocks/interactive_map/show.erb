@@ -1,5 +1,5 @@
 <% unless geolocalized_assemblies.blank? %>
-  <section class="extended home-section" id="html-block">
+  <section class="extended home-section" id="homepage_map">
     <div class="wrapper-home">
       <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
         <template id="marker-popup">
