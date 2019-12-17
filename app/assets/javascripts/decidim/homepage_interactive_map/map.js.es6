@@ -26,6 +26,11 @@ $(document).ready(() => {
     const geoJson = $("#interactive_map").data("geojson-data");
     const popupTemplateId = "marker-popup";
     $.template(popupTemplateId, $(`#${popupTemplateId}`).html());
+    const colorOpacity = 0.2;
+    const hoverColorOpacity = 0.5;
+    const strokeWeight = 1;
+    const polyLineColor = 0.75;
+
     let markerClusters = L.markerClusterGroup({
             zoomToBoundsOnClick: true,
             removeOutsideVisibleBounds: true,
@@ -35,7 +40,7 @@ $(document).ready(() => {
             spiderLegPolylineOptions: {
                 weight: 2,
                 color: getComputedStyle(document.documentElement).getPropertyValue('--secondary'),
-                opacity: 0.75
+                opacity: polyLineColor
             }
         }
     );
@@ -76,11 +81,11 @@ $(document).ready(() => {
         });
 
         layer.on("mouseover", function () {
-            this.setStyle({fillOpacity: 0.5});
+            this.setStyle({fillOpacity: hoverColorOpacity});
         });
 
         layer.on("mouseout", function () {
-            this.setStyle({fillOpacity: 0.2});
+            this.setStyle({fillOpacity: colorOpacity});
         });
     }
 
@@ -89,8 +94,9 @@ $(document).ready(() => {
         style: (feature) => {
             return {
                 color: feature.color,
-                stroke: false,
-                fillOpacity: 0.2
+                stroke: true,
+                weight: strokeWeight,
+                fillOpacity: colorOpacity
             }
         }
     });
