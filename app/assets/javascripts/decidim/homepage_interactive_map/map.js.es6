@@ -56,6 +56,22 @@ $(document).ready(() => {
         continuousWorld: true
     }).addTo(map);
 
+    function popupMaxwidth() {
+        if ($(window).width() < 600) {
+            return 260
+        } else {
+            return 640
+        }
+    }
+
+    function popupMinwidth() {
+        if ($(window).width() < 600) {
+            return 204
+        } else {
+            return 500
+        }
+    }
+
     function addMarker(feature, layer) {
         feature.participatory_processes.forEach((process) => {
             let marker = L.marker(layer.getBounds().getCenter(), {
@@ -65,8 +81,8 @@ $(document).ready(() => {
 
             $.tmpl(popupTemplateId, process).appendTo(node);
             marker.bindPopup(node, {
-                maxwidth: 640,
-                minWidth: 500,
+                maxwidth: popupMaxwidth(),
+                minWidth: popupMinwidth(),
                 keepInView: true,
                 className: "map-info"
             }).openPopup();
@@ -123,5 +139,5 @@ $(document).ready(() => {
 
     geoJsonLayer.addTo(map);
     markerClusters.addTo(map);
-    map.fitBounds(geoJsonLayer.getBounds());
+    map.fitBounds(geoJsonLayer.getBounds(), {padding: [25, 25]});
 });
