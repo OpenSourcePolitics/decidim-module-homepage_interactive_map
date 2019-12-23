@@ -105,5 +105,5 @@ $(document).ready(() => {
 
     geoJsonLayer.addTo(map);
     markerClusters.addTo(map);
-    map.fitBounds(geoJsonLayer.getBounds());
+    map.fitBounds(geoJsonLayer.getBounds(), {padding: [25, 25]});
 });
