@@ -74,8 +74,17 @@ $(document).ready(() => {
         });
     }
 
+    function addIcon(feature, layer) {
+        const icon = L.divIcon({
+            className: 'district-number',
+            html: feature.code
+        });
+        L.marker(layer.getBounds().getCenter(), {icon: icon}).addTo(map);
+    }
+
     function onEachFeature(feature, layer) {
         addMarker(feature, layer);
+        addIcon(feature, layer);
         layer.on("click", (e) => {
             return window.location = feature.link;
         });
@@ -98,6 +107,15 @@ $(document).ready(() => {
                 weight: strokeWeight,
                 fillOpacity: colorOpacity
             }
+        }
+    });
+
+    map.on('zoomend', function () {
+        if (map.getZoom() > 12) {
+            const newzoom = '' + (Math.round(1.75 * (map.getZoom()))) + 'px';
+            $('#interactive_map .district-number').css({'font-size': newzoom});
+        } else {
+            $('#interactive_map .district-number').css({'font-size': ''});
         }
     });
 
