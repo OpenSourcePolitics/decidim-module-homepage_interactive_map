@@ -26,10 +26,11 @@ $(document).ready(() => {
     const geoJson = $("#interactive_map").data("geojson-data");
     const popupTemplateId = "marker-popup";
     $.template(popupTemplateId, $(`#${popupTemplateId}`).html());
-    const colorOpacity = 0.2;
-    const hoverColorOpacity = 0.5;
-    const strokeWeight = 1;
-    const polyLineColor = 0.75;
+    const colorOpacity = 0.5;
+    const hoverColorOpacity = 0.8;
+    const strokeWeight = 1.5;
+    const polyLineColor = 1;
+    const strokeColor = "#8a8a8a";
 
     let markerClusters = L.markerClusterGroup({
             zoomToBoundsOnClick: true,
@@ -102,9 +103,10 @@ $(document).ready(() => {
         onEachFeature: onEachFeature,
         style: (feature) => {
             return {
-                color: feature.color,
+                color: strokeColor,
                 stroke: true,
                 weight: strokeWeight,
+                fillColor: feature.color,
                 fillOpacity: colorOpacity
             }
         }
