@@ -8,15 +8,16 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
   let!(:participatory_process_groups) do
     create_list(:participatory_process_group, 3, organization: organization)
   end
+  let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
+  let(:latitude) { 40.1234 }
+  let(:longitude) { 2.1234 }
 
   before do
+    stub_geocoding(address, [latitude, longitude])
     switch_to_host(organization.host)
     login_as user, scope: :user
     visit decidim_admin_participatory_processes.participatory_processes_path
   end
-
-  it_behaves_like "manage processes examples"
-  it_behaves_like "manage processes announcements"
 
   context "when creating a participatory process" do
     let(:image1_filename) { "city.jpeg" }
@@ -32,33 +33,35 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
     it "creates a new participatory process" do
       within ".new_participatory_process" do
         fill_in_i18n(
-          :participatory_process_title,
-          "#participatory_process-title-tabs",
-          en: "My participatory process",
-          es: "Mi proceso participativo",
-          ca: "El meu procés participatiu"
+            :participatory_process_title,
+            "#participatory_process-title-tabs",
+            en: "My participatory process",
+            es: "Mi proceso participativo",
+            ca: "El meu procés participatiu"
         )
         fill_in_i18n(
-          :participatory_process_subtitle,
-          "#participatory_process-subtitle-tabs",
-          en: "Subtitle",
-          es: "Subtítulo",
-          ca: "Subtítol"
+            :participatory_process_subtitle,
+            "#participatory_process-subtitle-tabs",
+            en: "Subtitle",
+            es: "Subtítulo",
+            ca: "Subtítol"
         )
         fill_in_i18n_editor(
-          :participatory_process_short_description,
-          "#participatory_process-short_description-tabs",
-          en: "Short description",
-          es: "Descripción corta",
-          ca: "Descripció curta"
+            :participatory_process_short_description,
+            "#participatory_process-short_description-tabs",
+            en: "Short description",
+            es: "Descripción corta",
+            ca: "Descripció curta"
         )
         fill_in_i18n_editor(
-          :participatory_process_description,
-          "#participatory_process-description-tabs",
-          en: "A longer description",
-          es: "Descripción más larga",
-          ca: "Descripció més llarga"
+            :participatory_process_description,
+            "#participatory_process-description-tabs",
+            en: "A longer description",
+            es: "Descripción más larga",
+            ca: "Descripció més llarga"
         )
+
+        fill_in "Address", with: address
 
         group_name = participatory_process_groups.first.name["en"]
         select group_name, from: :participatory_process_participatory_process_group_id
@@ -82,7 +85,7 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
   end
 
   context "when updating a participatory process" do
-    let!(:participatory_process3) { create(:participatory_process, organization: organization) }
+    let!(:participatory_process3) { create(:participatory_process, address: address, organization: organization) }
 
     before do
       visit decidim_admin_participatory_processes.participatory_processes_path

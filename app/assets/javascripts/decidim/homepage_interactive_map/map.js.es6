@@ -72,9 +72,17 @@ $(document).ready(() => {
         }
     }
 
+    function processPosition(process, layer) {
+        if (process.location[0] === null && process.location[1] === null) {
+            layer.getBounds().getCenter()
+        } else {
+            process.location
+        }
+    }
+
     function addMarker(feature, layer) {
         feature.participatory_processes.forEach((process) => {
-            let marker = L.marker(layer.getBounds().getCenter(), {
+            let marker = L.marker(processPosition(process, layer), {
                 icon: new L.DivIcon.SVGIcon.DecidimIcon()
             });
             let node = document.createElement("div");

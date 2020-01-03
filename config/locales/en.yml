@@ -15,6 +15,22 @@ en:
         polygon:
           no_assembly: No assembly
           view_assemblies: View assemblies
+    participatory_processes:
+      admin:
+        participatory_processes:
+          form:
+            address_help: Address help
+            announcement_help: Announcement help
+            duration: Duration
+            filters: Filters
+            images: Images
+            metadata: Metadata
+            other: Other
+            select_an_area: Select an area
+            select_process_group: Select process group
+            slug_help: Slug help
+            title: Title
+            visbility: Visbility
     scope:
       errors:
         geojson_error: Geojson error

@@ -12,38 +12,48 @@ module Decidim::ParticipatoryProcesses
     let(:area) { create :area, organization: organization }
     let(:current_user) { create :user, :admin, organization: organization }
     let(:errors) { double.as_null_object }
+    let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
+    let(:latitude) { 40.1234 }
+    let(:longitude) { 2.1234 }
     let(:form) do
       instance_double(
-        Admin::ParticipatoryProcessForm,
-        invalid?: invalid,
-        title: { en: "title" },
-        subtitle: { en: "subtitle" },
-        slug: "slug",
-        hashtag: "hashtag",
-        meta_scope: "meta scope",
-        hero_image: nil,
-        banner_image: nil,
-        promoted: nil,
-        developer_group: "developer group",
-        local_area: "local",
-        target: "target",
-        participatory_scope: "participatory scope",
-        participatory_structure: "participatory structure",
-        start_date: nil,
-        end_date: nil,
-        description: { en: "description" },
-        short_description: { en: "short_description" },
-        current_user: current_user,
-        current_organization: organization,
-        scopes_enabled: true,
-        private_space: false,
-        scope: scope,
-        area: area,
-        errors: errors,
-        participatory_process_group: participatory_process_group
+          Admin::ParticipatoryProcessForm,
+          invalid?: invalid,
+          title: { en: "title" },
+          subtitle: { en: "subtitle" },
+          slug: "slug",
+          hashtag: "hashtag",
+          meta_scope: "meta scope",
+          hero_image: nil,
+          banner_image: nil,
+          promoted: nil,
+          developer_group: "developer group",
+          local_area: "local",
+          target: "target",
+          participatory_scope: "participatory scope",
+          participatory_structure: "participatory structure",
+          start_date: nil,
+          end_date: nil,
+          description: { en: "description" },
+          short_description: { en: "short_description" },
+          current_user: current_user,
+          current_organization: organization,
+          scopes_enabled: true,
+          private_space: false,
+          scope: scope,
+          area: area,
+          errors: errors,
+          participatory_process_group: participatory_process_group,
+          address: address,
+          latitude: latitude,
+          longitude: longitude
       )
     end
     let(:invalid) { false }
+
+    before do
+      stub_geocoding(address, [latitude, longitude])
+    end
 
     context "when the form is not valid" do
       let(:invalid) { true }
@@ -56,13 +66,13 @@ module Decidim::ParticipatoryProcesses
     context "when the process is not persisted" do
       let(:invalid_process) do
         instance_double(
-          Decidim::ParticipatoryProcess,
-          persisted?: false,
-          valid?: false,
-          errors: {
-            hero_image: "Image too big",
-            banner_image: "Image too big"
-          }
+            Decidim::ParticipatoryProcess,
+            persisted?: false,
+            valid?: false,
+            errors: {
+                hero_image: "Image too big",
+                banner_image: "Image too big"
+            }
         ).as_null_object
       end
 
@@ -90,9 +100,9 @@ module Decidim::ParticipatoryProcesses
 
       it "traces the creation", versioning: true do
         expect(Decidim::ActionLogger)
-          .to receive(:log)
-          .with("create", current_user, a_kind_of(Decidim::ParticipatoryProcess), a_kind_of(Integer))
-          .and_call_original
+            .to receive(:log)
+                    .with("create", current_user, a_kind_of(Decidim::ParticipatoryProcess), a_kind_of(Integer))
+                    .and_call_original
 
         expect { subject.call }.to change(Decidim::ActionLog, :count)
 

@@ -44,7 +44,8 @@ module Decidim
               title: translated_attribute(participatory_process.title),
               start_date: l(participatory_process.start_date, format: :decidim_short),
               end_date: l(participatory_process.end_date, format: :decidim_short),
-              link: participatory_process_path(participatory_process)
+              link: participatory_process_path(participatory_process),
+              location: [participatory_process.latitude, participatory_process.longitude]
           }
         end
 

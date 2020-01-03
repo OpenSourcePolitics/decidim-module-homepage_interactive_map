@@ -11,55 +11,57 @@ module Decidim
         let(:organization) { create :organization }
         let(:title) do
           {
-            en: "Title",
-            es: "Título",
-            ca: "Títol"
+              en: "Title",
+              es: "Título",
+              ca: "Títol"
           }
         end
         let(:subtitle) do
           {
-            en: "Subtitle",
-            es: "Subtítulo",
-            ca: "Subtítol"
+              en: "Subtitle",
+              es: "Subtítulo",
+              ca: "Subtítol"
           }
         end
         let(:description) do
           {
-            en: "Description",
-            es: "Descripción",
-            ca: "Descripció"
+              en: "Description",
+              es: "Descripción",
+              ca: "Descripció"
           }
         end
         let(:short_description) do
           {
-            en: "Short description",
-            es: "Descripción corta",
-            ca: "Descripció curta"
+              en: "Short description",
+              es: "Descripción corta",
+              ca: "Descripció curta"
           }
         end
         let(:slug) { "slug" }
         let(:attachment) { Decidim::Dev.test_file("city.jpeg", "image/jpeg") }
         let(:show_statistics) { true }
+        let(:address) { nil }
         let(:attributes) do
           {
-            "participatory_process" => {
-              "title_en" => title[:en],
-              "title_es" => title[:es],
-              "title_ca" => title[:ca],
-              "subtitle_en" => subtitle[:en],
-              "subtitle_es" => subtitle[:es],
-              "subtitle_ca" => subtitle[:ca],
-              "description_en" => description[:en],
-              "description_es" => description[:es],
-              "description_ca" => description[:ca],
-              "short_description_en" => short_description[:en],
-              "short_description_es" => short_description[:es],
-              "short_description_ca" => short_description[:ca],
-              "hero_image" => attachment,
-              "banner_image" => attachment,
-              "slug" => slug,
-              "show_statistics" => show_statistics
-            }
+              "participatory_process" => {
+                  "title_en" => title[:en],
+                  "title_es" => title[:es],
+                  "title_ca" => title[:ca],
+                  "subtitle_en" => subtitle[:en],
+                  "subtitle_es" => subtitle[:es],
+                  "subtitle_ca" => subtitle[:ca],
+                  "description_en" => description[:en],
+                  "description_es" => description[:es],
+                  "description_ca" => description[:ca],
+                  "short_description_en" => short_description[:en],
+                  "short_description_es" => short_description[:es],
+                  "short_description_ca" => short_description[:ca],
+                  "hero_image" => attachment,
+                  "banner_image" => attachment,
+                  "slug" => slug,
+                  "show_statistics" => show_statistics,
+                  "address" => address
+              }
           }
         end
 
@@ -94,7 +96,7 @@ module Decidim
         context "when default language in title is missing" do
           let(:title) do
             {
-              ca: "Títol"
+                ca: "Títol"
             }
           end
 
@@ -104,7 +106,7 @@ module Decidim
         context "when default language in subtitle is missing" do
           let(:subtitle) do
             {
-              ca: "Subtítol"
+                ca: "Subtítol"
             }
           end
 
@@ -114,7 +116,7 @@ module Decidim
         context "when default language in description is missing" do
           let(:description) do
             {
-              ca: "Descripció"
+                ca: "Descripció"
             }
           end
 
@@ -124,7 +126,7 @@ module Decidim
         context "when default language in short_description is missing" do
           let(:short_description) do
             {
-              ca: "Descripció curta"
+                ca: "Descripció curta"
             }
           end
 
@@ -163,6 +165,22 @@ module Decidim
             it "is valid" do
               expect(subject).to be_valid
             end
+          end
+        end
+
+        context "when address is present" do
+          before do
+            stub_geocoding(address, [latitude, longitude])
+          end
+
+          let(:latitude) { 40.1234 }
+          let(:longitude) { 2.1234 }
+          let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
+
+          it "is valid" do
+            expect(subject).to be_valid
+            expect(subject.latitude).to eq(latitude)
+            expect(subject.longitude).to eq(longitude)
           end
         end
       end
