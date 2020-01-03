@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "decidim/core/test/factories"
+require "decidim/proposals/test/factories"
+require "decidim/participatory_processes/test/factories"
 
 FactoryBot.define do
   factory :homepage_interactive_map_component, parent: :component do
@@ -8,6 +10,12 @@ FactoryBot.define do
     manifest_name :homepage_interactive_map
     participatory_space { create(:participatory_process, :with_steps) }
   end
+end
 
-  # Add engine factories here
+FactoryBot.modify do
+  factory :participatory_process, class: "Decidim::ParticipatoryProcess" do
+    address { Faker::Lorem.sentence(3) }
+    latitude { Faker::Address.latitude }
+    longitude { Faker::Address.longitude }
+  end
 end
