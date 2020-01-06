@@ -40,32 +40,32 @@ module Decidim
 
         def create_participatory_process
           process = ParticipatoryProcess.new(
-              organization: form.current_organization,
-              title: form.title,
-              subtitle: form.subtitle,
-              slug: form.slug,
-              hashtag: form.hashtag,
-              description: form.description,
-              short_description: form.short_description,
-              hero_image: form.hero_image,
-              banner_image: form.banner_image,
-              promoted: form.promoted,
-              scopes_enabled: form.scopes_enabled,
-              scope: form.scope,
-              private_space: form.private_space,
-              developer_group: form.developer_group,
-              local_area: form.local_area,
-              area: form.area,
-              target: form.target,
-              participatory_scope: form.participatory_scope,
-              participatory_structure: form.participatory_structure,
-              meta_scope: form.meta_scope,
-              start_date: form.start_date,
-              end_date: form.end_date,
-              participatory_process_group: form.participatory_process_group,
-              address: form.address,
-              latitude: form.latitude,
-              longitude: form.longitude
+            organization: form.current_organization,
+            title: form.title,
+            subtitle: form.subtitle,
+            slug: form.slug,
+            hashtag: form.hashtag,
+            description: form.description,
+            short_description: form.short_description,
+            hero_image: form.hero_image,
+            banner_image: form.banner_image,
+            promoted: form.promoted,
+            scopes_enabled: form.scopes_enabled,
+            scope: form.scope,
+            private_space: form.private_space,
+            developer_group: form.developer_group,
+            local_area: form.local_area,
+            area: form.area,
+            target: form.target,
+            participatory_scope: form.participatory_scope,
+            participatory_structure: form.participatory_structure,
+            meta_scope: form.meta_scope,
+            start_date: form.start_date,
+            end_date: form.end_date,
+            participatory_process_group: form.participatory_process_group,
+            address: form.address,
+            latitude: form.latitude,
+            longitude: form.longitude
           )
 
           return process unless process.valid?
@@ -76,11 +76,11 @@ module Decidim
             log_process_creation(process)
 
             process.steps.create!(
-                title: TranslationsHelper.multi_translation(
-                    "decidim.admin.participatory_process_steps.default_title",
-                    form.current_organization.available_locales
-                ),
-                active: true
+              title: TranslationsHelper.multi_translation(
+                "decidim.admin.participatory_process_steps.default_title",
+                form.current_organization.available_locales
+              ),
+              active: true
             )
 
             process
@@ -89,21 +89,21 @@ module Decidim
 
         def log_process_creation(process)
           Decidim::ActionLogger.log(
-              "create",
-              form.current_user,
-              process,
-              process.versions.last.id
+            "create",
+            form.current_user,
+            process,
+            process.versions.last.id
           )
         end
 
         def add_admins_as_followers(process)
           process.organization.admins.each do |admin|
             form = Decidim::FollowForm
-                       .from_params(followable_gid: process.to_signed_global_id.to_s)
-                       .with_context(
-                           current_organization: process.organization,
-                           current_user: admin
-                       )
+                   .from_params(followable_gid: process.to_signed_global_id.to_s)
+                   .with_context(
+                     current_organization: process.organization,
+                     current_user: admin
+                   )
 
             Decidim::CreateFollow.new(form, admin).call
           end

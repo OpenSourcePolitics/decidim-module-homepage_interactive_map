@@ -14,9 +14,9 @@ module Decidim
       attribute :scope_type_id, Integer
       attribute :geolocalized, Boolean
       jsonb_attribute :geojson, [
-          [:geometry, String],
-          [:parsed_geometry, String],
-          [:color, String]
+        [:geometry, String],
+        [:parsed_geometry, String],
+        [:color, String]
       ]
 
       mimic :scope
@@ -49,8 +49,8 @@ module Decidim
         return true if geolocalized.blank?
 
         begin
-          self.parsed_geometry = JSON.parse(self.geometry)
-        rescue
+          self.parsed_geometry = JSON.parse(geometry)
+        rescue StandardError
           errors.add(:geometry, I18n.t("decidim.scope.errors.geojson_error"))
         end
       end

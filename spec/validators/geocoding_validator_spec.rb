@@ -53,6 +53,7 @@ describe GeocodingValidator do
       it { is_expected.to be_invalid }
     end
   end
+
   describe "geolocalized participatory process" do
     let(:validatable) do
       Class.new do

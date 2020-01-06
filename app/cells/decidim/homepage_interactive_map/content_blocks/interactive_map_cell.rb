@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "json"
 
 module Decidim
@@ -26,10 +27,10 @@ module Decidim
 
         def assembly_data_for_map(assembly)
           assembly.scope.geojson["parsed_geometry"].merge(
-              code: assembly.scope.code,
-              color: assembly.scope.geojson["color"],
-              link: assembly_path(assembly),
-              participatory_processes: participatory_processes_data_for_map(assembly)
+            code: assembly.scope.code,
+            color: assembly.scope.geojson["color"],
+            link: assembly_path(assembly),
+            participatory_processes: participatory_processes_data_for_map(assembly)
           )
         end
 
@@ -41,16 +42,17 @@ module Decidim
 
         def participatory_process_data_for_map(participatory_process)
           {
-              title: translated_attribute(participatory_process.title),
-              start_date: l(participatory_process.start_date, format: :decidim_short),
-              end_date: l(participatory_process.end_date, format: :decidim_short),
-              link: participatory_process_path(participatory_process),
-              location: [participatory_process.latitude, participatory_process.longitude]
+            title: translated_attribute(participatory_process.title),
+            start_date: l(participatory_process.start_date, format: :decidim_short),
+            end_date: l(participatory_process.end_date, format: :decidim_short),
+            link: participatory_process_path(participatory_process),
+            location: [participatory_process.latitude, participatory_process.longitude]
           }
         end
 
         def participatory_processes(assembly)
-          assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes").select { |participatory_process| participatory_process if (participatory_process.published? && participatory_process.active?) }
+          assembly.linked_participatory_space_resources(:participatory_processes, "included_participatory_processes")
+                  .select { |participatory_process| participatory_process if participatory_process.published? && participatory_process.active? }
         end
 
         def participatory_process_path(participatory_process)

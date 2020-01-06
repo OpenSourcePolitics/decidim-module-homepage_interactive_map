@@ -7,9 +7,9 @@ ruby RUBY_VERSION
 gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim", branch: "0.18-merge"
 gem "decidim-homepage_interactive_map", path: "."
 
+gem "bootsnap"
 gem "puma", "~> 3.0"
 gem "uglifier", "~> 4.1"
-gem "bootsnap"
 
 group :development, :test do
   gem "byebug", "~> 10.0", platform: :mri

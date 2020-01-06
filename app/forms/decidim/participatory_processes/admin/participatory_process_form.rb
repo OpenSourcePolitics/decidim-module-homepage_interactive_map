@@ -62,7 +62,7 @@ module Decidim
                   file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_attachment_size } },
                   file_content_type: { allow: ["image/jpeg", "image/png"] }
 
-        alias :organization :current_organization
+        alias organization current_organization
 
         def map_model(model)
           self.scope_id = model.decidim_scope_id
@@ -89,9 +89,9 @@ module Decidim
 
         def slug_uniqueness
           return unless organization_participatory_processes
-                            .where(slug: slug)
-                            .where.not(id: context[:process_id])
-                            .any?
+                        .where(slug: slug)
+                        .where.not(id: context[:process_id])
+                        .any?
 
           errors.add(:slug, :taken)
         end
