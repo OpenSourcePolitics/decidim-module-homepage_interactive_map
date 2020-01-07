@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Generate test app
-          command: bundle exec rake decidim:generate_external_test_app
+          command: bundle exec rake test_app
 
       - run:
           name: Run rubocop
