@@ -18,4 +18,70 @@ FactoryBot.modify do
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
   end
+
+  factory :scope, class: "Decidim::Scope" do
+    trait :with_geojson do
+      geojson do
+        {
+            color: Faker::Color.hex_color,
+            geometry: {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                Faker::Address.latitude,
+                                Faker::Address.longitude,
+                            ], [
+                                Faker::Address.latitude,
+                                Faker::Address.longitude,
+                            ], [
+                                Faker::Address.latitude,
+                                Faker::Address.longitude,
+                            ], [
+                                Faker::Address.latitude,
+                                Faker::Address.longitude,
+                            ]
+                        ]
+                    ]
+                ],
+                "crs": "EPSG:3943"
+            },
+            parsed_geometry: {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    "type": "MultiPolygon",
+                    "coordinates": [
+                        [
+                            [
+                                [
+                                    Faker::Address.latitude,
+                                    Faker::Address.longitude,
+                                ], [
+                                    Faker::Address.latitude,
+                                    Faker::Address.longitude,
+                                ], [
+                                    Faker::Address.latitude,
+                                    Faker::Address.longitude,
+                                ], [
+                                    Faker::Address.latitude,
+                                    Faker::Address.longitude,
+                                ]
+                            ]
+                        ]
+                    ],
+                    "crs": "EPSG:3943"
+                ],
+                "crs": "EPSG:3943"
+            }
+        }
+      end
+    end
+  end
+
+  factory :assembly, class: "Decidim::Assembly" do
+    trait :with_scope do
+      scope { create(:scope, organization: organization) }
+    end
+  end
 end
