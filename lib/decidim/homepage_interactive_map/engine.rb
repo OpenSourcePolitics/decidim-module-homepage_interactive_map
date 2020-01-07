@@ -32,7 +32,7 @@ module Decidim
       end
 
       initializer "decidim_homepage_interactive_map.assets" do |app|
-        app.config.assets.precompile += %w[decidim_homepage_interactive_map_manifest.js decidim_homepage_interactive_map_manifest.css]
+        app.config.assets.precompile += %w(decidim_homepage_interactive_map_manifest.js decidim_homepage_interactive_map_manifest.css)
       end
     end
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "json"
 
 module Decidim
@@ -33,20 +34,20 @@ module Decidim
 
       def create_scope
         Decidim.traceability.create!(
-            Scope,
-            form.current_user,
-            {
-                name: form.name,
-                organization: form.organization,
-                code: form.code,
-                geojson: geojson,
-                scope_type: form.scope_type,
-                parent: @parent_scope
-            },
-            extra: {
-                parent_name: @parent_scope.try(:name),
-                scope_type_name: form.scope_type.try(:name)
-            }
+          Scope,
+          form.current_user,
+          {
+            name: form.name,
+            organization: form.organization,
+            code: form.code,
+            geojson: geojson,
+            scope_type: form.scope_type,
+            parent: @parent_scope
+          },
+          extra: {
+            parent_name: @parent_scope.try(:name),
+            scope_type_name: form.scope_type.try(:name)
+          }
         )
       end
 
@@ -54,9 +55,9 @@ module Decidim
         return nil if form.geolocalized.blank?
 
         {
-            color: form.geojson[:color],
-            geometry: form.geojson[:geometry],
-            parsed_geometry: form.geojson[:parsed_geometry]
+          color: form.geojson[:color],
+          geometry: form.geojson[:geometry],
+          parsed_geometry: form.geojson[:parsed_geometry]
         }
       end
     end

@@ -4,7 +4,13 @@ base_locale: en
 locales: [en, fr]
 
 ignore_unused:
-  - "decidim.components.homepage_interactive_map.name"
+  - decidim.homepage_interactive_map.content_blocks.interactive_map.name
+  - decidim.components.homepage_interactive_map.name
+  - decidim.participatory_processes.interactive_map.name
+  - decidim.homepage_interactive_map.content_blocks.interactive_map.view_participatory_processes
+  - decidim.participatory_processes.interactive_map.view_participatory_processes
+  - decidim.homepage_interactive_map.data.polygon.no_assembly
+  - decidim.homepage_interactive_map.data.polygon.view_assemblies
 
 ignore_missing:
   - decidim.participatory_processes.scopes.global
