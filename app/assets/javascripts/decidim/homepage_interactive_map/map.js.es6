@@ -74,9 +74,9 @@ $(document).ready(() => {
 
     function processPosition(process, layer) {
         if (process.location[0] === null && process.location[1] === null) {
-            layer.getBounds().getCenter()
+            return layer.getBounds().getCenter();
         } else {
-            process.location
+            return L.latLng(proj4("EPSG:3943", process.location));
         }
     }
 
