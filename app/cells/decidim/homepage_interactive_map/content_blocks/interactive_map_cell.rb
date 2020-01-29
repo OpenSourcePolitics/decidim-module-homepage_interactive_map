@@ -42,6 +42,7 @@ module Decidim
 
         def participatory_process_data_for_map(participatory_process)
           {
+            id: participatory_process.id,
             title: translated_attribute(participatory_process.title),
             start_date: l(participatory_process.start_date, format: :decidim_short),
             end_date: l(participatory_process.end_date, format: :decidim_short),

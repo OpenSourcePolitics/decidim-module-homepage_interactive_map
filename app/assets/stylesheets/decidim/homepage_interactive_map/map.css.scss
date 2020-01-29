@@ -1,3 +1,11 @@
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
 #homepage_map {
   .wrapper-home {
     padding-top: 1rem;
@@ -23,11 +31,61 @@
   }
 
   #interactive_map {
+
+    $dnIconSize: 28px;
+
     .district-number {
-      font-size: 12px;
-      color: #111111;
+      color: #666;
+      border: 2px solid transparent;
+      background-color: rgba(255, 255, 255, .4);
+      text-align: center;
+      font-weight: bold;
+
+    // This part might be overwritten by JS
+      font-size: ( $dnIconSize / 2 ) - 2 ;
+      width: $dnIconSize - 2px ;
+      height: $dnIconSize - 2px ;
+      line-height: $dnIconSize - 2px ;
+      border-radius: $dnIconSize / 2 ;
+    // -------------------------------------
+
+      &:hover {
+        border-color: rgba(255, 255, 255, .4);
+      }
+
+      &:focus, &:active {
+        color: rgba(239, 96, 77, 1);
+        border-color: rgba(239, 96, 77, 1);
+      }
+    }
+
+    .marker-cluster {
+      background-clip: padding-box;
+      border-radius: $dnIconSize / 4;
+
+      div {
+        background-color: rgba(239, 96, 77, 1);
+        color: white;
+        margin: 0;
+        font-weight: bold;
+
+        // This part might be overwritten by JS
+          font-size: round( strip-unit($dnIconSize) / 3) * 1px ;
+          width: $dnIconSize / 2;
+          height: $dnIconSize / 2;
+          line-height: $dnIconSize / 2;
+          border-radius: $dnIconSize / 4;
+        // -------------------------------------
+
+      }
+    }
+  }
+
+  .svg-icon {
+    opacity: .75;
+
+    &:hover {
+      opacity: 1;
     }
   }
 }
-
-

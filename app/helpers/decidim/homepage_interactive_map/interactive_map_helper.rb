@@ -10,8 +10,7 @@ module Decidim
           class: "map",
           id: "interactive_map",
           "data-geojson-data" => geojson.to_json,
-          "data-here-app-id" => Rails.application.secrets.geocoder[:here_app_id],
-          "data-here-app-code" => Rails.application.secrets.geocoder[:here_app_code]
+          "data-here-api-key" => Rails.application.secrets.geocoder[:here_api_key]
         }
         content = capture { yield }.html_safe
         content_tag :div, class: css_class do
