@@ -1,4 +1,4 @@
-name: "[CI] Polis"
+name: "[CI] Homepage Interactive Map"
 
 on:
   push:
