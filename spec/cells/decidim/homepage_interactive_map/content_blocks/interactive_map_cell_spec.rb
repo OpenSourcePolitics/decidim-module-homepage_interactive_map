@@ -4,7 +4,7 @@ require "spec_helper"
 
 describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, type: :cell do
   include Decidim::TranslationsHelper
-  subject(:interactive_map_cell) { described_class.new }
+  subject { described_class.new }
 
   let(:organization) { create(:organization) }
   let!(:geolocalized_scopes) { create(:scope, :with_geojson, organization: organization) }
@@ -14,7 +14,7 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
   before do
     allow(controller).to receive(:current_organization).and_return(organization)
     # rubocop:disable RSpec/SubjectStub
-    allow(interactive_map_cell).to receive(:current_organization).and_return(organization)
+    allow(subject).to receive(:current_organization).and_return(organization)
     # rubocop:enable RSpec/SubjectStub
   end
 
@@ -22,8 +22,8 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   describe "#geolocalized_scopes" do
     it "returns geolocalized scopes" do
-      expect(interactive_map_cell.send(:geolocalized_scopes)).to include(geolocalized_scopes)
-      expect(interactive_map_cell.send(:geolocalized_scopes)).not_to include(not_geolocalized_scopes)
+      expect(subject.send(:geolocalized_scopes)).to include(geolocalized_scopes)
+      expect(subject.send(:geolocalized_scopes)).not_to include(not_geolocalized_scopes)
     end
   end
 
