@@ -4,7 +4,7 @@ require "spec_helper"
 
 describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, type: :cell do
   include Decidim::TranslationsHelper
-  subject { described_class.new }
+  subject(:interactive_map_cell) { described_class.new }
 
   let(:organization) { create(:organization) }
   let!(:geolocalized_scopes) { create(:scope, :with_geojson, organization: organization) }
@@ -13,15 +13,17 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   before do
     allow(controller).to receive(:current_organization).and_return(organization)
-    allow(subject).to receive(:current_organization).and_return(organization)
+    # rubocop:disable RSpec/SubjectStub
+    allow(interactive_map_cell).to receive(:current_organization).and_return(organization)
+    # rubocop:enable RSpec/SubjectStub
   end
 
   controller Decidim::PagesController
 
   describe "#geolocalized_scopes" do
     it "returns geolocalized scopes" do
-      expect(subject.send(:geolocalized_scopes)).to include(geolocalized_scopes)
-      expect(subject.send(:geolocalized_scopes)).not_to include(not_geolocalized_scopes)
+      expect(interactive_map_cell.send(:geolocalized_scopes)).to include(geolocalized_scopes)
+      expect(interactive_map_cell.send(:geolocalized_scopes)).not_to include(not_geolocalized_scopes)
     end
   end
 
@@ -160,11 +162,11 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   def create_link(assembly, participatory_process)
     Decidim::ParticipatorySpaceLink.create!(
-        from_type: assembly.class,
-        from_id: assembly.id,
-        to_type: participatory_process.class,
-        to_id: participatory_process.id,
-        name: "included_participatory_processes"
+      from_type: assembly.class,
+      from_id: assembly.id,
+      to_type: participatory_process.class,
+      to_id: participatory_process.id,
+      name: "included_participatory_processes"
     )
   end
 end
