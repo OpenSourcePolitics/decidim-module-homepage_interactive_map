@@ -20,7 +20,6 @@ module Decidim
         #
         # Returns nothing.
         def call
-          byebug
           return broadcast(:invalid) if form.invalid?
 
           process = create_participatory_process
@@ -108,11 +107,6 @@ module Decidim
 
             Decidim::CreateFollow.new(form, admin).call
           end
-        end
-
-        def edit
-          byebug
-        end
         end
       end
     end
