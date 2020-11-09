@@ -75,7 +75,6 @@ module Decidim
         end
 
         def area
-          byebug
           @area ||= current_organization.areas.find_by(id: area_id)
         end
 

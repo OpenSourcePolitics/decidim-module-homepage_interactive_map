@@ -32,13 +32,16 @@ FactoryBot.modify do
                   [
                     Faker::Address.latitude,
                     Faker::Address.longitude
-                  ], [
+                  ],
+                  [
                     Faker::Address.latitude,
                     Faker::Address.longitude
-                  ], [
+                  ],
+                  [
                     Faker::Address.latitude,
                     Faker::Address.longitude
-                  ], [
+                  ],
+                  [
                     Faker::Address.latitude,
                     Faker::Address.longitude
                   ]
@@ -57,13 +60,16 @@ FactoryBot.modify do
                     [
                       Faker::Address.latitude,
                       Faker::Address.longitude
-                    ], [
+                    ],
+                    [
                       Faker::Address.latitude,
                       Faker::Address.longitude
-                    ], [
+                    ],
+                    [
                       Faker::Address.latitude,
                       Faker::Address.longitude
-                    ], [
+                    ],
+                    [
                       Faker::Address.latitude,
                       Faker::Address.longitude
                     ]
