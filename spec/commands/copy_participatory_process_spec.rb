@@ -95,12 +95,11 @@ module Decidim::ParticipatoryProcesses
       let(:copy_categories) { true }
 
       it "duplicates a participatory process and the categories" do
-        # byebug
         expect { subject.call }.to change { Decidim::Category.count }.by(1)
         expect(Decidim::Category.all.uniq.pluck(:decidim_participatory_space_id).count).to eq 2
 
         old_participatory_process_category = Decidim::Category.first
-        new_participatory_process_category = Decidim::Category.second
+        new_participatory_process_category = Decidim::Category.last
 
         expect(new_participatory_process_category.name).to eq(old_participatory_process_category.name)
         expect(new_participatory_process_category.description).to eq(old_participatory_process_category.description)
