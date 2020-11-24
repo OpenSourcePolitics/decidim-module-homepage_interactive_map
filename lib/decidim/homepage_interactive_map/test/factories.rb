@@ -23,57 +23,63 @@ FactoryBot.modify do
     trait :with_geojson do
       geojson do
         {
-            color: Faker::Color.hex_color,
-            geometry: {
-                "type": "MultiPolygon",
-                "coordinates": [
+          color: Faker::Color.hex_color,
+          geometry: {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    Faker::Address.latitude,
+                    Faker::Address.longitude
+                  ],
+                  [
+                    Faker::Address.latitude,
+                    Faker::Address.longitude
+                  ],
+                  [
+                    Faker::Address.latitude,
+                    Faker::Address.longitude
+                  ],
+                  [
+                    Faker::Address.latitude,
+                    Faker::Address.longitude
+                  ]
+                ]
+              ]
+            ],
+            "crs": "EPSG:3943"
+          },
+          parsed_geometry: {
+            "type": "MultiPolygon",
+            "coordinates": [
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
                     [
-                        [
-                            [
-                                Faker::Address.latitude,
-                                Faker::Address.longitude,
-                            ], [
-                                Faker::Address.latitude,
-                                Faker::Address.longitude,
-                            ], [
-                                Faker::Address.latitude,
-                                Faker::Address.longitude,
-                            ], [
-                                Faker::Address.latitude,
-                                Faker::Address.longitude,
-                            ]
-                        ]
-                    ]
-                ],
-                "crs": "EPSG:3943"
-            },
-            parsed_geometry: {
-                "type": "MultiPolygon",
-                "coordinates": [
-                    "type": "MultiPolygon",
-                    "coordinates": [
-                        [
-                            [
-                                [
-                                    Faker::Address.latitude,
-                                    Faker::Address.longitude,
-                                ], [
-                                    Faker::Address.latitude,
-                                    Faker::Address.longitude,
-                                ], [
-                                    Faker::Address.latitude,
-                                    Faker::Address.longitude,
-                                ], [
-                                    Faker::Address.latitude,
-                                    Faker::Address.longitude,
-                                ]
-                            ]
-                        ]
+                      Faker::Address.latitude,
+                      Faker::Address.longitude
                     ],
-                    "crs": "EPSG:3943"
-                ],
-                "crs": "EPSG:3943"
-            }
+                    [
+                      Faker::Address.latitude,
+                      Faker::Address.longitude
+                    ],
+                    [
+                      Faker::Address.latitude,
+                      Faker::Address.longitude
+                    ],
+                    [
+                      Faker::Address.latitude,
+                      Faker::Address.longitude
+                    ]
+                  ]
+                ]
+              ],
+              "crs": "EPSG:3943"
+            ],
+            "crs": "EPSG:3943"
+          }
         }
       end
     end

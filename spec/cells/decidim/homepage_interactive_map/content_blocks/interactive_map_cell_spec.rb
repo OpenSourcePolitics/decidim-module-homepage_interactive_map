@@ -13,7 +13,9 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   before do
     allow(controller).to receive(:current_organization).and_return(organization)
+    # rubocop:disable RSpec/SubjectStub
     allow(subject).to receive(:current_organization).and_return(organization)
+    # rubocop:enable RSpec/SubjectStub
   end
 
   controller Decidim::PagesController
@@ -160,11 +162,11 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   def create_link(assembly, participatory_process)
     Decidim::ParticipatorySpaceLink.create!(
-        from_type: assembly.class,
-        from_id: assembly.id,
-        to_type: participatory_process.class,
-        to_id: participatory_process.id,
-        name: "included_participatory_processes"
+      from_type: assembly.class,
+      from_id: assembly.id,
+      to_type: participatory_process.class,
+      to_id: participatory_process.id,
+      name: "included_participatory_processes"
     )
   end
 end
