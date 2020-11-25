@@ -63,7 +63,7 @@ end
 Decidim::ContentBlock.create!(
   decidim_organization_id: first_scope.organization.id,
   weight: 1,
-  scope: "homepage",
+  scope_name: "homepage",
   manifest_name: :interactive_map,
   published_at: Time.current
 )
