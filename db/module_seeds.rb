@@ -55,7 +55,7 @@ Decidim::ParticipatorySpaceLink.create!(
 )
 
 puts "-- Adding ContentBlock to homepage"
-Decidim::ContentBlock.where(scope: "homepage").each do |content_block|
+Decidim::ContentBlock.where(scope_name: "homepage").each do |content_block|
   content_block.update!(weight: content_block.weight + 1)
 end
 
