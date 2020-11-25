@@ -1,0 +1,22 @@
+name: ERB Lint
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.5.3
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.5.3
+      - name: Install bundler
+        run: |
+          gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+      - name: Install gems
+        run: |
+          bundle install --jobs 4 --retry 3
+      - name: ERB files linting
+        run: ./.github/run_erblint.sh
