@@ -15,8 +15,15 @@ jobs:
       - name: Install bundler
         run: |
           gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
       - name: Install gems
         run: |
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: ERB files linting
         run: ./.github/run_erblint.sh
