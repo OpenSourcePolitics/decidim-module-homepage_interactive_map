@@ -28,7 +28,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   $(document).ready(() => {
     const here_api_key = $("#interactive_map").data("here-api-key");
     const geoJson = $("#interactive_map").data("geojson-data");
-    const popupTemplateId = "marker-popup";
+    const popupTemplateId = "marker-popup-interactive_map";
     $.template(popupTemplateId, $(`#${popupTemplateId}`).html());
 
     // Used to prevent click event when double click navigating
@@ -248,12 +248,14 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
         );
 
         let node = document.createElement("div");
+        console.log(popupTemplateId)
         $.tmpl(popupTemplateId, participatory_process).appendTo(node);
+          console.log(node)
         marker.bindPopup(node, {
           maxwidth: popupMaxwidth(),
           minWidth: popupMinwidth(),
           keepInView: true,
-          className: "map-info"
+          className: "interactive-map-info"
         }).openPopup();
 
         marker.participatory_process_data = participatory_process;
