@@ -3,7 +3,7 @@
     <section class="extended home-section" id="homepage_map">
       <div class="wrapper-home">
         <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
-          <template id="marker-popup">
+          <template id="marker-popup-interactive_map">
             <div class="map-info__content homepage_interactive_map">
               <h3>${title}</h3>
               <div id="bodyContent">
@@ -20,7 +20,6 @@
               </div>
             </div>
           </template>
-          <%= javascript_include_tag "decidim/homepage_interactive_map/map" %>
           <%= stylesheet_link_tag "decidim/map" %>
           <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
         <% end %>
