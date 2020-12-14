@@ -4,7 +4,6 @@
 // = require leaflet.markercluster
 // = require proj4
 // = require proj4leaflet
-// = require jquery-tmpl
 // = require leaflet-polylabel-centroid
 // = require_self
 
