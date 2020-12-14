@@ -1,7 +1,4 @@
-// = require leaflet
-// = require leaflet-tilelayer-here
-// = require leaflet-svg-icon
-// = require leaflet.markercluster
+
 // = require proj4
 // = require proj4leaflet
 // = require leaflet-polylabel-centroid
@@ -43,11 +40,11 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const strokeColor = "#8a8a8a";
     const iconSize = 28;
 
-    const map = L.map('interactive_map');
+    const interactiveMap = L.map('interactive_map');
     // Add Proj4 configurations
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
-    let zoomOrigin = map.getZoom();
+    let zoomOrigin = interactiveMap.getZoom();
     let allZonesLayer = L.featureGroup();
     let allZonesMarkers = [];
     let allProcessesLinks = {};
@@ -97,26 +94,28 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function updateProcessMarkerPosition(marker, delta, zoom) {
-      let oldPoint = map.project(L.latLng(marker.origin), zoom);
+        // TODO: When there is multiple maps on homepage, this function can't fetch the lat and long
+      return;
+      let oldPoint = interactiveMap.project(L.latLng(marker.origin), zoom);
       let radius = ( delta / 2 ) + ( marker.getRadius() / 1.75 ) ;
       let newPoint = L.point(
         oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
         oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
       );
-      marker.setLatLng(map.unproject(newPoint, zoom));
+      marker.setLatLng(interactiveMap.unproject(newPoint, zoom));
     }
 
     function calculateIconSize() {
-      const delta = Math.round(1.75 * (map.getZoom()));
+      const delta = Math.round(1.75 * (interactiveMap.getZoom()));
       return (delta + 2) * 2;
     }
 
     L.tileLayer.here({
       apiKey: here_api_key,
       scheme: "normal.day.grey"
-    }, {continuousWorld: true}).addTo(map);
+    }, {continuousWorld: true}).addTo(interactiveMap);
 
-    map.createPane("processPane").style.zIndex = 610;
+  interactiveMap.createPane("processPane").style.zIndex = 610;
     let allProcessesLayer = L.markerClusterGroup({
       clusterPane: "processPane",
       zoomToBoundsOnClick: false,
@@ -131,7 +130,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
         opacity: polyLineColor
       },
       iconCreateFunction: (cluster) => {
-        let actualIconSize = ( map.getZoom() > zoomOrigin ) ? calculateIconSize() : iconSize;
+        let actualIconSize = ( interactiveMap.getZoom() > zoomOrigin ) ? calculateIconSize() : iconSize;
 
         let style = Object.entries(processMarkerIconCSS(actualIconSize)).map(
           (v) => `${v[0]}: ${v[1]};`
@@ -216,7 +215,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       zoneMarker.on("dblclick", (e) => {
         clearTimeout(clickTimer);
         clickPrevent = true;
-        map.fitBounds(zoneLayer.getBounds(), {
+          interactiveMap.fitBounds(zoneLayer.getBounds(), {
           padding: [25, 25]
         });
       });
@@ -267,16 +266,15 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     });
 
     // Add zones to map
-    allZonesLayer.addTo(map);
+    allZonesLayer.addTo(interactiveMap);
 
     // Map is centered on all the zone
-    map.fitBounds(allZonesLayer.getBounds(), {
+      interactiveMap.fitBounds(allZonesLayer.getBounds(), {
       padding: [25, 25]
     });
 
     // Update the starting zoom
-    zoomOrigin = map.getZoom();
-
+    zoomOrigin = interactiveMap.getZoom();
 
     // Noww, all the element are actually projected on the map
     allProcessesLayer.eachLayer((marker) => {
@@ -307,23 +305,23 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       // Translate the marker centered on the zone outside the zone label
       // ( like an notification badge )
       if(!hasLocation(marker.participatory_process_data)) {
-        updateProcessMarkerPosition(marker, iconSize, map.getZoom());
+        updateProcessMarkerPosition(marker, iconSize, interactiveMap.getZoom());
       }
     });
 
     // Add markers to map
-    allProcessesLayer.addTo(map);
+    allProcessesLayer.addTo(interactiveMap);
 
 
     // Map zoom events
-    map.on('zoomstart', (e) => {
+    interactiveMap.on('zoomstart', (e) => {
       $('#interactive_map .leaflet-process-pane').hide();
     });
 
-    map.on('zoomend', (e) => {
+    interactiveMap.on('zoomend', (e) => {
       let actualIconSize = iconSize;
 
-      if (map.getZoom() > zoomOrigin) {
+      if (interactiveMap.getZoom() > zoomOrigin) {
         actualIconSize = calculateIconSize()
         $('#interactive_map .district-number').css(zoneMarkerIconCSS(actualIconSize));
       } else {
@@ -338,7 +336,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
 
       allProcessesLayer.eachLayer((marker) => {
         if(!hasLocation(marker.participatory_process_data)) {
-          updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
+          updateProcessMarkerPosition(marker, actualIconSize, interactiveMap.getZoom());
         }
       });
 
