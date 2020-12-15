@@ -94,15 +94,16 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function updateProcessMarkerPosition(marker, delta, zoom) {
-        // TODO: When there is multiple maps on homepage, this function can't fetch the lat and long
-      return;
       let oldPoint = interactiveMap.project(L.latLng(marker.origin), zoom);
       let radius = ( delta / 2 ) + ( marker.getRadius() / 1.75 ) ;
       let newPoint = L.point(
         oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
         oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
       );
-      marker.setLatLng(interactiveMap.unproject(newPoint, zoom));
+
+        marker._latlng = interactiveMap.unproject(newPoint, zoom);
+        // TODO: Check why setLatLng causes a JS error
+//        marker.setLatLng(interactiveMap.unproject(newPoint, zoom));
     }
 
     function calculateIconSize() {
