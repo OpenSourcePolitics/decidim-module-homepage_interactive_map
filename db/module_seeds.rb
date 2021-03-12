@@ -55,7 +55,7 @@ Decidim::ParticipatorySpaceLink.create!(
 )
 
 puts "-- Adding ContentBlock to homepage"
-Decidim::ContentBlock.where(scope: "homepage").each do |content_block|
+Decidim::ContentBlock.where(scope_name: "homepage").each do |content_block|
   content_block.update!(weight: content_block.weight + 1)
 end
 
@@ -63,7 +63,7 @@ end
 Decidim::ContentBlock.create!(
   decidim_organization_id: first_scope.organization.id,
   weight: 1,
-  scope: "homepage",
+  scope_name: "homepage",
   manifest_name: :interactive_map,
   published_at: Time.current
 )
