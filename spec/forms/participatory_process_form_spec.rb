@@ -175,16 +175,15 @@ module Decidim
         end
 
         context "when address is present" do
-          before do
-            stub_geocoding(address, [latitude, longitude])
-          end
-
           let(:latitude) { 40.1234 }
           let(:longitude) { 2.1234 }
           let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
 
+          before do
+            stub_geocoding(address, [latitude, longitude])
+          end
+
           it "is valid" do
-            byebug
             expect(subject).to be_valid
             expect(subject.latitude).to eq(latitude)
             expect(subject.longitude).to eq(longitude)

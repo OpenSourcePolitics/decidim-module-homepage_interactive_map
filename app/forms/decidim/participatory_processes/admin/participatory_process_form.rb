@@ -52,7 +52,7 @@ module Decidim
         attribute :longitude, Float
         attribute :display_linked_assemblies, Boolean
 
-        validates :address, geocoding: true, if: ->(form) { form.address.present? }
+        validates :address, geocoding: true, if: proc { |object| object.address.present? }
         validates :area, presence: true, if: proc { |object| object.area_id.present? }
         validates :scope, presence: true, if: proc { |object| object.scope_id.present? }
         validates :slug, presence: true, format: { with: Decidim::ParticipatoryProcess.slug_format }
