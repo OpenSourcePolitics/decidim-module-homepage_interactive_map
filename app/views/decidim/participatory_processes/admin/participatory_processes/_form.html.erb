@@ -32,20 +32,13 @@
     </div>
 
     <div class="row column">
-      <%= form.translated :editor, :description, toolbar: :image, lines: 25 %>
+      <%= form.translated :editor, :description, toolbar: :full, lines: 25 %>
     </div>
 
     <div class="row column">
       <%= form.translated :editor, :announcement %>
       <p class="help-text"><%== t(".announcement_help") %></p>
     </div>
-
-    <% if Decidim.geocoder.present? %>
-      <div class="row column">
-        <%= form.text_field :address %>
-        <p class="help-text"><%== t(".address_help") %></p>
-      </div>
-    <% end %>
   </div>
 
   <div class="card-divider">
@@ -123,6 +116,18 @@
 
     <div class="row column">
       <%= scopes_picker_field form, :scope_id, root: nil %>
+
+      <div class="row" id="scope-depth ">
+        <%= form.collection_select :scope_type_max_depth_id,
+                                   organization_scope_depths,
+                                   :id,
+                                   :name,
+                                   scope_type_depth_select_options,
+                                   scope_type_depth_select_html_options %>
+        <p class="help-text">
+          <%== t(".scope_type_max_depth_help") %>
+        </p>
+      </div>
     </div>
 
     <div class="row column">
@@ -153,8 +158,20 @@
       <%= form.check_box :promoted %>
     </div>
   </div>
-  <div class="row column">
-    <%= form.check_box :display_linked_assemblies %>
+
+  <div class="card-divider">
+    <h2 class="card-title"><%= t(".related_processes") %></h2>
+  </div>
+
+  <div class="card-section">
+    <div class="row column">
+      <%= form.select(
+              :related_process_ids,
+              @form.processes.order(title: :asc).map{|process| [translated_attribute(process.title), process.id]},
+              { include_blank: true },
+              { multiple: true, class: "chosen-select" }
+          ) %>
+    </div>
   </div>
 
   <div class="card-divider">
@@ -164,6 +181,10 @@
   <div class="card-section">
     <div class="row column">
       <%= form.check_box :show_statistics %>
+    </div>
+
+    <div class="row column">
+      <%= form.check_box :show_metrics %>
     </div>
   </div>
 </div>

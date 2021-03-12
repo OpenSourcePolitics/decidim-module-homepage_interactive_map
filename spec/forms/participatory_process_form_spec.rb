@@ -11,57 +11,59 @@ module Decidim
         let(:organization) { create :organization }
         let(:title) do
           {
-            en: "Title",
-            es: "Título",
-            ca: "Títol"
+              en: "Title",
+              es: "Título",
+              ca: "Títol"
           }
         end
         let(:subtitle) do
           {
-            en: "Subtitle",
-            es: "Subtítulo",
-            ca: "Subtítol"
+              en: "Subtitle",
+              es: "Subtítulo",
+              ca: "Subtítol"
           }
         end
         let(:description) do
           {
-            en: "Description",
-            es: "Descripción",
-            ca: "Descripció"
+              en: "Description",
+              es: "Descripción",
+              ca: "Descripció"
           }
         end
         let(:short_description) do
           {
-            en: "Short description",
-            es: "Descripción corta",
-            ca: "Descripció curta"
+              en: "Short description",
+              es: "Descripción corta",
+              ca: "Descripció curta"
           }
         end
         let(:slug) { "slug" }
         let(:attachment) { Decidim::Dev.test_file("city.jpeg", "image/jpeg") }
+        let(:show_metrics) { true }
         let(:show_statistics) { true }
         let(:address) { nil }
         let(:attributes) do
           {
-            "participatory_process" => {
-              "title_en" => title[:en],
-              "title_es" => title[:es],
-              "title_ca" => title[:ca],
-              "subtitle_en" => subtitle[:en],
-              "subtitle_es" => subtitle[:es],
-              "subtitle_ca" => subtitle[:ca],
-              "description_en" => description[:en],
-              "description_es" => description[:es],
-              "description_ca" => description[:ca],
-              "short_description_en" => short_description[:en],
-              "short_description_es" => short_description[:es],
-              "short_description_ca" => short_description[:ca],
-              "hero_image" => attachment,
-              "banner_image" => attachment,
-              "slug" => slug,
-              "show_statistics" => show_statistics,
-              "address" => address
-            }
+              "participatory_process" => {
+                  "title_en" => title[:en],
+                  "title_es" => title[:es],
+                  "title_ca" => title[:ca],
+                  "subtitle_en" => subtitle[:en],
+                  "subtitle_es" => subtitle[:es],
+                  "subtitle_ca" => subtitle[:ca],
+                  "description_en" => description[:en],
+                  "description_es" => description[:es],
+                  "description_ca" => description[:ca],
+                  "short_description_en" => short_description[:en],
+                  "short_description_es" => short_description[:es],
+                  "short_description_ca" => short_description[:ca],
+                  "hero_image" => attachment,
+                  "banner_image" => attachment,
+                  "slug" => slug,
+                  "show_metrics" => show_metrics,
+                  "show_statistics" => show_statistics,
+                  "address" => address
+              }
           }
         end
 
@@ -71,7 +73,9 @@ module Decidim
 
         context "when hero_image is too big" do
           before do
-            allow(Decidim).to receive(:maximum_attachment_size).and_return(5.megabytes)
+            organization.settings.tap do |settings|
+              settings.upload.maximum_file_size.default = 5
+            end
             expect(subject.hero_image).to receive(:size).twice.and_return(6.megabytes)
           end
 
@@ -80,7 +84,9 @@ module Decidim
 
         context "when banner_image is too big" do
           before do
-            allow(Decidim).to receive(:maximum_attachment_size).and_return(5.megabytes)
+            organization.settings.tap do |settings|
+              settings.upload.maximum_file_size.default = 5
+            end
             expect(subject.banner_image).to receive(:size).twice.and_return(6.megabytes)
           end
 
@@ -96,7 +102,7 @@ module Decidim
         context "when default language in title is missing" do
           let(:title) do
             {
-              ca: "Títol"
+                ca: "Títol"
             }
           end
 
@@ -106,7 +112,7 @@ module Decidim
         context "when default language in subtitle is missing" do
           let(:subtitle) do
             {
-              ca: "Subtítol"
+                ca: "Subtítol"
             }
           end
 
@@ -116,7 +122,7 @@ module Decidim
         context "when default language in description is missing" do
           let(:description) do
             {
-              ca: "Descripció"
+                ca: "Descripció"
             }
           end
 
@@ -126,7 +132,7 @@ module Decidim
         context "when default language in short_description is missing" do
           let(:short_description) do
             {
-              ca: "Descripció curta"
+                ca: "Descripció curta"
             }
           end
 
@@ -178,6 +184,7 @@ module Decidim
           let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
 
           it "is valid" do
+            byebug
             expect(subject).to be_valid
             expect(subject.latitude).to eq(latitude)
             expect(subject.longitude).to eq(longitude)
