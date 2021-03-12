@@ -3,7 +3,6 @@
 module Decidim
   module HomepageInteractiveMap
     module InteractiveMapHelper
-
       def geolocation_enabled?
         Decidim::Map.available?(:geocoding)
       end
