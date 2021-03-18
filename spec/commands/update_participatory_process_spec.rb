@@ -19,8 +19,8 @@ module Decidim::ParticipatoryProcesses
             slug: my_process.slug,
             hashtag: my_process.hashtag,
             meta_scope: my_process.meta_scope,
-            hero_image: nil,
-            banner_image: nil,
+            hero_image: my_process.hero_image,
+            banner_image: my_process.banner_image,
             promoted: my_process.promoted,
             description_en: my_process.description,
             description_ca: my_process.description,
@@ -34,6 +34,7 @@ module Decidim::ParticipatoryProcesses
             area: my_process.area,
             errors: my_process.errors,
             participatory_process_group: my_process.participatory_process_group,
+            show_metrics: my_process.show_metrics,
             show_statistics: my_process.show_statistics,
             private_space: my_process.private_space
           }
@@ -113,8 +114,22 @@ module Decidim::ParticipatoryProcesses
           expect(action_log.version).to be_present
         end
 
+        context "with related processes" do
+          let!(:another_process) { create :participatory_process, organization: my_process.organization }
+
+          it "links related processes" do
+            allow(form).to receive(:related_process_ids).and_return([another_process.id])
+            command.call
+
+            linked_processes = my_process.linked_participatory_space_resources(:participatory_process, "related_processes")
+            expect(linked_processes).to match_array([another_process])
+          end
+        end
+
         context "when no homepage image is set" do
           it "does not replace the homepage image" do
+            expect(my_process).not_to receive(:hero_image=)
+
             command.call
             my_process.reload
 
@@ -124,6 +139,8 @@ module Decidim::ParticipatoryProcesses
 
         context "when no banner image is set" do
           it "does not replace the banner image" do
+            expect(my_process).not_to receive(:banner_image=)
+
             command.call
             my_process.reload
 

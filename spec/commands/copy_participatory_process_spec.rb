@@ -14,19 +14,19 @@ module Decidim::ParticipatoryProcesses
     let!(:component) { create :component, manifest_name: :dummy, participatory_space: participatory_process }
     let(:form) do
       instance_double(
-        Admin::ParticipatoryProcessCopyForm,
-        invalid?: invalid,
-        title: { en: "title" },
-        slug: "copied-slug",
-        copy_steps?: copy_steps,
-        copy_categories?: copy_categories,
-        copy_components?: copy_components
+          Admin::ParticipatoryProcessCopyForm,
+          invalid?: invalid,
+          title: { en: "title" },
+          slug: "copied-slug",
+          copy_steps?: copy_steps,
+          copy_categories?: copy_categories,
+          copy_components?: copy_components
       )
     end
     let!(:category) do
       create(
-        :category,
-        participatory_space: participatory_process
+          :category,
+          participatory_space: participatory_process
       )
     end
 
@@ -96,10 +96,10 @@ module Decidim::ParticipatoryProcesses
 
       it "duplicates a participatory process and the categories" do
         expect { subject.call }.to change { Decidim::Category.count }.by(1)
-        expect(Decidim::Category.all.uniq.pluck(:decidim_participatory_space_id).count).to eq 2
+        expect(Decidim::Category.unscoped.distinct.pluck(:decidim_participatory_space_id).count).to eq 2
 
-        old_participatory_process_category = Decidim::Category.first
-        new_participatory_process_category = Decidim::Category.last
+        old_participatory_process_category = Decidim::Category.unscoped.first
+        new_participatory_process_category = Decidim::Category.unscoped.last
 
         expect(new_participatory_process_category.name).to eq(old_participatory_process_category.name)
         expect(new_participatory_process_category.description).to eq(old_participatory_process_category.description)
