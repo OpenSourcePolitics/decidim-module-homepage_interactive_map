@@ -8,6 +8,7 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
   let!(:participatory_process_groups) do
     create_list(:participatory_process_group, 3, organization: organization)
   end
+
   let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
   let(:latitude) { 40.1234 }
   let(:longitude) { 2.1234 }
@@ -18,6 +19,9 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
     login_as user, scope: :user
     visit decidim_admin_participatory_processes.participatory_processes_path
   end
+
+  it_behaves_like "manage processes examples"
+  it_behaves_like "manage processes announcements"
 
   context "when creating a participatory process" do
     let(:image1_filename) { "city.jpeg" }
@@ -60,7 +64,6 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
           es: "Descripción más larga",
           ca: "Descripció més llarga"
         )
-
         fill_in "Address", with: address
 
         group_name = participatory_process_groups.first.name["en"]
@@ -78,7 +81,7 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
 
       within ".container" do
         expect(page).to have_current_path decidim_admin_participatory_processes.participatory_process_steps_path(Decidim::ParticipatoryProcess.last)
-        expect(page).to have_content("PHASES")
+        expect(page).to have_content("Phases")
         expect(page).to have_content("Introduction")
       end
     end
@@ -102,3 +105,4 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
     end
   end
 end
+
