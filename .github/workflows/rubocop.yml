@@ -1,6 +1,14 @@
 name: RuboCop
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - develop
+      - release/*
+      - "*-stable"
+  pull_request:
+    branches-ignore:
+      - "chore/l10n*"
 
 jobs:
   build:
