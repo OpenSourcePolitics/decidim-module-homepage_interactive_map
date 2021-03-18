@@ -8,10 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby 2.5.3
+      - name: Set up Ruby 2.6.6
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.5.3
+          ruby-version: 2.6.6
       - name: Install bundler
         run: |
           gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
