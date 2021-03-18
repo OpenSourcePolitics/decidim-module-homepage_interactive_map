@@ -14,19 +14,19 @@ module Decidim::ParticipatoryProcesses
     let!(:component) { create :component, manifest_name: :dummy, participatory_space: participatory_process }
     let(:form) do
       instance_double(
-          Admin::ParticipatoryProcessCopyForm,
-          invalid?: invalid,
-          title: { en: "title" },
-          slug: "copied-slug",
-          copy_steps?: copy_steps,
-          copy_categories?: copy_categories,
-          copy_components?: copy_components
+        Admin::ParticipatoryProcessCopyForm,
+        invalid?: invalid,
+        title: { en: "title" },
+        slug: "copied-slug",
+        copy_steps?: copy_steps,
+        copy_categories?: copy_categories,
+        copy_components?: copy_components
       )
     end
     let!(:category) do
       create(
-          :category,
-          participatory_space: participatory_process
+        :category,
+        participatory_space: participatory_process
       )
     end
 

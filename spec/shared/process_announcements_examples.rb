@@ -30,4 +30,3 @@ shared_examples "manage processes announcements" do
     expect(page).to have_content("An important announcement")
   end
 end
-

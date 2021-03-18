@@ -197,4 +197,3 @@ shared_examples "manage processes examples" do
     end
   end
 end
-

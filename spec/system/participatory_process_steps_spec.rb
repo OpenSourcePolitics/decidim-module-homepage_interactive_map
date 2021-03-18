@@ -58,4 +58,3 @@ describe "Participatory Process Steps", type: :system do
     end
   end
 end
-

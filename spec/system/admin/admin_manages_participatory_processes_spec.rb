@@ -105,4 +105,3 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
     end
   end
 end
-
