@@ -4,16 +4,18 @@ require "spec_helper"
 
 describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, type: :cell do
   include Decidim::TranslationsHelper
-  subject { described_class.new }
+  subject { cell(content_block.cell, content_block) }
 
   let(:organization) { create(:organization) }
+  let(:content_block) { create :content_block, organization: organization, manifest_name: :interactive_map, scope: :homepage }
   let!(:geolocalized_scopes) { create(:scope, :with_geojson, organization: organization) }
   let!(:not_geolocalized_scopes) { create(:scope, organization: organization) }
   let!(:assembly) { create(:assembly, :with_scope, :published, organization: organization, scope: geolocalized_scopes) }
 
+  controller Decidim::PagesController
+
   before do
     allow(controller).to receive(:current_organization).and_return(organization)
-    allow(subject).to receive(:current_organization).and_return(organization)
   end
 
   controller Decidim::PagesController
@@ -160,11 +162,11 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   def create_link(assembly, participatory_process)
     Decidim::ParticipatorySpaceLink.create!(
-        from_type: assembly.class,
-        from_id: assembly.id,
-        to_type: participatory_process.class,
-        to_id: participatory_process.id,
-        name: "included_participatory_processes"
+      from_type: assembly.class,
+      from_id: assembly.id,
+      to_type: participatory_process.class,
+      to_id: participatory_process.id,
+      name: "included_participatory_processes"
     )
   end
 end
