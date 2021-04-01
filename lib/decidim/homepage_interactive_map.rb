@@ -3,7 +3,6 @@
 require "decidim/homepage_interactive_map/admin"
 require "decidim/homepage_interactive_map/engine"
 require "decidim/homepage_interactive_map/admin_engine"
-require "decidim/homepage_interactive_map/component"
 
 module Decidim
   # This namespace holds the logic of the `HomepageInteractiveMap` component. This component
