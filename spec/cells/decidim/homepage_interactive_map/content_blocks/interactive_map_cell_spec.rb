@@ -7,7 +7,7 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
   subject { cell(content_block.cell, content_block) }
 
   let(:organization) { create(:organization) }
-  let(:content_block) { create :content_block, organization: organization, manifest_name: :interactive_map, scope: :homepage }
+  let(:content_block) { create :content_block, organization: organization, manifest_name: :interactive_map, scope_name: :homepage }
   let!(:geolocalized_scopes) { create(:scope, :with_geojson, organization: organization) }
   let!(:not_geolocalized_scopes) { create(:scope, organization: organization) }
   let!(:assembly) { create(:assembly, :with_scope, :published, organization: organization, scope: geolocalized_scopes) }
@@ -16,9 +16,6 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
 
   before do
     allow(controller).to receive(:current_organization).and_return(organization)
-    # rubocop:disable RSpec/SubjectStub
-    allow(subject).to receive(:current_organization).and_return(organization)
-    # rubocop:enable RSpec/SubjectStub
   end
 
   controller Decidim::PagesController
