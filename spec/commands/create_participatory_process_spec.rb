@@ -12,6 +12,7 @@ module Decidim::ParticipatoryProcesses
     let(:area) { create :area, organization: organization }
     let(:current_user) { create :user, :admin, organization: organization }
     let(:errors) { double.as_null_object }
+    let(:related_process_ids) { [] }
     let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
     let(:latitude) { 40.1234 }
     let(:longitude) { 2.1234 }
@@ -23,15 +24,15 @@ module Decidim::ParticipatoryProcesses
         subtitle: { en: "subtitle" },
         slug: "slug",
         hashtag: "hashtag",
-        meta_scope: "meta scope",
+        meta_scope: { en: "meta scope" },
         hero_image: nil,
         banner_image: nil,
         promoted: nil,
-        developer_group: "developer group",
-        local_area: "local",
-        target: "target",
-        participatory_scope: "participatory scope",
-        participatory_structure: "participatory structure",
+        developer_group: { en: "developer group" },
+        local_area: { en: "local" },
+        target: { en: "target" },
+        participatory_scope: { en: "participatory scope" },
+        participatory_structure: { en: "participatory structure" },
         start_date: nil,
         end_date: nil,
         description: { en: "description" },
@@ -41,8 +42,10 @@ module Decidim::ParticipatoryProcesses
         scopes_enabled: true,
         private_space: false,
         scope: scope,
+        scope_type_max_depth: nil,
         area: area,
         errors: errors,
+        related_process_ids: related_process_ids,
         participatory_process_group: participatory_process_group,
         address: address,
         latitude: latitude,
@@ -125,6 +128,18 @@ module Decidim::ParticipatoryProcesses
       it "adds the admins as followers" do
         subject.call
         expect(current_user.follows?(process)).to be true
+      end
+
+      context "with related processes" do
+        let!(:another_process) { create :participatory_process, organization: organization }
+        let(:related_process_ids) { [another_process.id] }
+
+        it "links related processes" do
+          subject.call
+
+          linked_processes = process.linked_participatory_space_resources(:participatory_process, "related_processes")
+          expect(linked_processes).to match_array([another_process])
+        end
       end
     end
   end

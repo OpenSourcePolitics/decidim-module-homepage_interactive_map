@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "json"
-
 module Decidim
   module Admin
     # A command with all the business logic when updating a scope.

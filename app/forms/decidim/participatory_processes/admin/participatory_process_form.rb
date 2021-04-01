@@ -8,6 +8,7 @@ module Decidim
       #
       class ParticipatoryProcessForm < Form
         include TranslatableAttributes
+        include Decidim::HasUploadValidations
 
         mimic :participatory_process
 
@@ -23,21 +24,19 @@ module Decidim
         translatable_attribute :title, String
         translatable_attribute :target, String
 
-        attribute :address, String
-        attribute :latitude, Float
-        attribute :longitude, Float
-
         attribute :hashtag, String
         attribute :slug, String
 
         attribute :area_id, Integer
         attribute :participatory_process_group_id, Integer
         attribute :scope_id, Integer
+        attribute :related_process_ids, Array[Integer]
+        attribute :scope_type_max_depth_id, Integer
 
         attribute :private_space, Boolean
         attribute :promoted, Boolean
-        attribute :display_linked_assemblies, Boolean
         attribute :scopes_enabled, Boolean
+        attribute :show_metrics, Boolean
         attribute :show_statistics, Boolean
 
         attribute :end_date, Decidim::Attributes::LocalizedDate
@@ -48,30 +47,38 @@ module Decidim
         attribute :remove_banner_image
         attribute :remove_hero_image
 
+        attribute :address, String
+        attribute :latitude, Float
+        attribute :longitude, Float
+        attribute :display_linked_assemblies, Boolean
+
+        validates :address, geocoding: true, if: proc { |object| object.address.present? }
         validates :area, presence: true, if: proc { |object| object.area_id.present? }
         validates :scope, presence: true, if: proc { |object| object.scope_id.present? }
         validates :slug, presence: true, format: { with: Decidim::ParticipatoryProcess.slug_format }
-        validates :address, geocoding: true, if: ->(form) { form.address.present? }
+
         validate :slug_uniqueness
 
         validates :title, :subtitle, :description, :short_description, translatable_presence: true
 
-        validates :banner_image,
-                  file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_attachment_size } },
-                  file_content_type: { allow: ["image/jpeg", "image/png"] }
-        validates :hero_image,
-                  file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_attachment_size } },
-                  file_content_type: { allow: ["image/jpeg", "image/png"] }
+        validates :banner_image, passthru: { to: Decidim::ParticipatoryProcess }
+        validates :hero_image, passthru: { to: Decidim::ParticipatoryProcess }
 
         alias organization current_organization
 
         def map_model(model)
           self.scope_id = model.decidim_scope_id
           self.participatory_process_group_id = model.decidim_participatory_process_group_id
+          self.related_process_ids = model.linked_participatory_space_resources(:participatory_process, "related_processes").pluck(:id)
+          @processes = Decidim::ParticipatoryProcess.where(organization: model.organization).where.not(id: model.id)
         end
 
         def scope
           @scope ||= current_organization.scopes.find_by(id: scope_id)
+        end
+
+        def scope_type_max_depth
+          @scope_type_max_depth ||= current_organization.scope_types.find_by(id: scope_type_max_depth_id)
         end
 
         def area
@@ -80,6 +87,10 @@ module Decidim
 
         def participatory_process_group
           Decidim::ParticipatoryProcessGroup.find_by(id: participatory_process_group_id)
+        end
+
+        def processes
+          @processes ||= Decidim::ParticipatoryProcess.where(organization: current_organization)
         end
 
         private

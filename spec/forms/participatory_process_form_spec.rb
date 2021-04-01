@@ -39,6 +39,7 @@ module Decidim
         end
         let(:slug) { "slug" }
         let(:attachment) { Decidim::Dev.test_file("city.jpeg", "image/jpeg") }
+        let(:show_metrics) { true }
         let(:show_statistics) { true }
         let(:address) { nil }
         let(:attributes) do
@@ -59,6 +60,7 @@ module Decidim
               "hero_image" => attachment,
               "banner_image" => attachment,
               "slug" => slug,
+              "show_metrics" => show_metrics,
               "show_statistics" => show_statistics,
               "address" => address
             }
@@ -71,7 +73,9 @@ module Decidim
 
         context "when hero_image is too big" do
           before do
-            allow(Decidim).to receive(:maximum_attachment_size).and_return(5.megabytes)
+            organization.settings.tap do |settings|
+              settings.upload.maximum_file_size.default = 5
+            end
             expect(subject.hero_image).to receive(:size).twice.and_return(6.megabytes)
           end
 
@@ -80,7 +84,9 @@ module Decidim
 
         context "when banner_image is too big" do
           before do
-            allow(Decidim).to receive(:maximum_attachment_size).and_return(5.megabytes)
+            organization.settings.tap do |settings|
+              settings.upload.maximum_file_size.default = 5
+            end
             expect(subject.banner_image).to receive(:size).twice.and_return(6.megabytes)
           end
 
@@ -169,13 +175,13 @@ module Decidim
         end
 
         context "when address is present" do
-          before do
-            stub_geocoding(address, [latitude, longitude])
-          end
-
           let(:latitude) { 40.1234 }
           let(:longitude) { 2.1234 }
           let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
+
+          before do
+            stub_geocoding(address, [latitude, longitude])
+          end
 
           it "is valid" do
             expect(subject).to be_valid

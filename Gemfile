@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "decidim", git: "https://github.com/decidim/decidim", tag: "v0.21.0"
+gem "decidim", git: "https://github.com/decidim/decidim", tag: "v0.23.4"
 gem "decidim-homepage_interactive_map", path: "."
 
 gem "bootsnap"
@@ -14,7 +14,7 @@ gem "uglifier", "~> 4.1"
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", git: "https://github.com/decidim/decidim", tag: "v0.21.0"
+  gem "decidim-dev", git: "https://github.com/decidim/decidim", tag: "v0.23.4"
 end
 
 group :development do
