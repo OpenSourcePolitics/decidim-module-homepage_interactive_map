@@ -30,10 +30,15 @@ jobs:
         run: |
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Run tests
+      - name: Generate test app
         env:
           RAILS_ENV: test
           DATABASE_USERNAME: postgres
         run: |
           bundle exec rake test_app
-          bundle exec rake spec
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_USERNAME: postgres
+        run: |
+          bundle exec rspec
