@@ -22,6 +22,7 @@ module Decidim::ParticipatoryProcesses
             hero_image: nil,
             banner_image: nil,
             promoted: my_process.promoted,
+            display_linked_assemblies: false,
             description_en: my_process.description,
             description_ca: my_process.description,
             description_es: my_process.description,
