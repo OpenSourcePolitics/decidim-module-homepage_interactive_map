@@ -2,10 +2,15 @@
 
 require "decidim/dev/common_rake"
 
+def external_seeds
+  'load("../db/module_seeds.rb")'
+end
+
 def install_module(path)
   Dir.chdir(path) do
     system("bundle exec rake decidim_homepage_interactive_map:install:migrations")
     system("bundle exec rake db:migrate")
+    File.write("db/seeds.rb", external_seeds, mode: "a")
   end
 end
 
@@ -22,6 +27,19 @@ task test_app: "decidim:generate_external_test_app" do
 end
 
 desc "Generates a development app"
-task development_app: "decidim:generate_external_development_app" do
+task :development_app do
+  Bundler.with_original_env do
+    generate_decidim_app(
+      "development_app",
+      "--app_name",
+      "#{base_app_name}_development_app",
+      "--path",
+      "..",
+      "--recreate_db",
+      "--demo"
+    )
+  end
+
   install_module("development_app")
+  seed_db("development_app")
 end

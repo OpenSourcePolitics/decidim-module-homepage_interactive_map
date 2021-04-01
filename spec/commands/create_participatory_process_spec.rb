@@ -46,7 +46,8 @@ module Decidim::ParticipatoryProcesses
         participatory_process_group: participatory_process_group,
         address: address,
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        display_linked_assemblies: false
       )
     end
     let(:invalid) { false }

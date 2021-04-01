@@ -96,7 +96,7 @@ module Decidim::ParticipatoryProcesses
 
       it "duplicates a participatory process and the categories" do
         expect { subject.call }.to change { Decidim::Category.count }.by(1)
-        expect(Decidim::Category.distinct.pluck(:decidim_participatory_space_id).count).to eq 2
+        expect(Decidim::Category.all.uniq.pluck(:decidim_participatory_space_id).count).to eq 2
 
         old_participatory_process_category = Decidim::Category.first
         new_participatory_process_category = Decidim::Category.last
