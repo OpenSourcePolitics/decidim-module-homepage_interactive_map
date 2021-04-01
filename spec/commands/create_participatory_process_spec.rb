@@ -27,6 +27,7 @@ module Decidim::ParticipatoryProcesses
         hero_image: nil,
         banner_image: nil,
         promoted: nil,
+        display_linked_assemblies: false,
         developer_group: "developer group",
         local_area: "local",
         target: "target",

@@ -1,0 +1,24 @@
+<%
+  edit_link(
+      decidim_admin.edit_organization_path,
+      :update,
+      :organization,
+      organization: current_organization
+  )
+%>
+
+<% content_blocks = Decidim::ContentBlock.published.for_scope(:homepage, organization: current_organization) %>
+
+<% content_blocks.each do |content_block| %>
+  <% next unless content_block.manifest %>
+
+  <%= cell content_block.manifest.cell, content_block %>
+<% end %>
+
+<%=
+  if content_blocks.map(&:manifest_name).include?("interactive_map") && content_blocks.map(&:manifest_name).include?("upcoming_events")
+    javascript_include_tag "decidim/homepage_interactive_map/interactive_map_without_dependencies"
+  elsif content_blocks.map(&:manifest_name).include?("interactive_map")
+    javascript_include_tag "decidim/homepage_interactive_map/interactive_map"
+  end
+%>
