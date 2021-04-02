@@ -26,6 +26,8 @@ en:
             images: Images
             metadata: Metadata
             other: Other
+            related_processes: Related processes
+            scope_type_max_depth_help: Scope type max depth help
             select_an_area: Select an area
             select_process_group: Select process group
             slug_help: Slug help
