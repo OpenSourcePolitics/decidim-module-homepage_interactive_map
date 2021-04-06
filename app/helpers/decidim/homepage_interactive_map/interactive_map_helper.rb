@@ -22,6 +22,16 @@ module Decidim
           content_tag(:div, "", map_html_options) + content
         end
       end
+
+      def interactive_map_script(content_blocks)
+        if content_blocks.map(&:manifest_name).include?("interactive_map") && content_blocks.map(&:manifest_name).include?("upcoming_events")
+          "decidim/homepage_interactive_map/interactive_map_without_dependencies"
+        elsif content_blocks.map(&:manifest_name).include?("interactive_map")
+          "decidim/homepage_interactive_map/interactive_map"
+        else
+          ""
+        end
+      end
     end
   end
 end

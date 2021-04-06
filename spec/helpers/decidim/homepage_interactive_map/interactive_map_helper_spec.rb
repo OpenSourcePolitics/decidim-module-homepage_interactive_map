@@ -71,6 +71,35 @@ module Decidim
           end
         end
       end
+
+      describe "#interactive_map_script" do
+        subject { helper.interactive_map_script(content_blocks) }
+
+        let(:content_blocks) { Decidim::ContentBlock.published.for_scope(:homepage, organization: organization) }
+
+        before do
+          create :content_block, organization: organization, scope_name: :homepage, manifest_name: :hero
+          create :content_block, organization: organization, scope_name: :homepage, manifest_name: :last_activity
+        end
+
+        it { is_expected.to be_empty }
+
+        context "when interactive_map content block is defined" do
+          before do
+            create :content_block, organization: organization, scope_name: :homepage, manifest_name: :interactive_map
+          end
+
+          it { is_expected.to eq("decidim/homepage_interactive_map/interactive_map") }
+
+          context "and upcoming_events content block is also defined" do
+            before do
+              create :content_block, organization: organization, scope_name: :homepage, manifest_name: :upcoming_events
+            end
+
+            it { is_expected.to eq("decidim/homepage_interactive_map/interactive_map_without_dependencies") }
+          end
+        end
+      end
     end
   end
 end
