@@ -25,6 +25,11 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const here_api_key = $("#interactive_map").data("here-api-key");
     const geoJson = $("#interactive_map").data("geojson-data");
     const popupInteractiveTemplateId = "marker-popup-interactive_map";
+
+    if (here_api_key === undefined && geoJson === undefined) {
+      return;
+    }
+
     $.template(popupInteractiveTemplateId, $(`#${popupInteractiveTemplateId}`).html());
 
     // Used to prevent click event when double click navigating
