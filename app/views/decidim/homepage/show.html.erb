@@ -16,7 +16,11 @@
 <% end %>
 
 <%=
-  if geolocation_enabled?
-    javascript_include_tag interactive_map_script(content_blocks)
+  if Decidim::Map.available?(:geocoding)
+    if content_blocks.map(&:manifest_name).include?("interactive_map") && content_blocks.map(&:manifest_name).include?("upcoming_events")
+      javascript_include_tag "decidim/homepage_interactive_map/interactive_map_without_dependencies"
+    elsif content_blocks.map(&:manifest_name).include?("interactive_map")
+      javascript_include_tag "decidim/homepage_interactive_map/interactive_map"
+    end
   end
 %>
