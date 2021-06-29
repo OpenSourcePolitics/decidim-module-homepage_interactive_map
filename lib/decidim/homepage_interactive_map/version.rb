@@ -4,7 +4,7 @@ module Decidim
   # This holds the decidim-meetings version.
   module HomepageInteractiveMap
     def self.version
-      "0.23.6"
+      "0.24.2"
     end
   end
 end
