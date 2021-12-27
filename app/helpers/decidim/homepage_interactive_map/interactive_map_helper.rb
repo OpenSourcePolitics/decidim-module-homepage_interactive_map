@@ -8,8 +8,7 @@ module Decidim
       end
 
       def interactive_map_for(geojson, css_class = "row column")
-        return unless geolocation_enabled?
-        return if Decidim::Map.configuration[:api_key].blank?
+        return if Rails.application.secrets.maps.blank?
 
         map_html_options = {
           class: "map",
