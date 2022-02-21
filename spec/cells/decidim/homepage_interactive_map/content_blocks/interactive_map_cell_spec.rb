@@ -81,7 +81,7 @@ describe Decidim::HomepageInteractiveMap::ContentBlocks::InteractiveMapCell, typ
     end
 
     context "when not published and active" do
-      let!(:linked_participatory_processes) { create_list(:participatory_process, 3, organization: organization) }
+      let!(:linked_participatory_processes) { create_list(:participatory_process, 3, :unpublished, :past, organization: organization) }
 
       it "doesn't returns participatory_processes" do
         expect(expected).to eq([])
