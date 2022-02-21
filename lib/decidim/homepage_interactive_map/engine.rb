@@ -13,6 +13,12 @@ module Decidim
         get "/data/polygon/:id", to: "data#polygon", as: :data_polygon
       end
 
+      initializer "decidim_homepage_interactive_map.add_helper" do
+        ActiveSupport.on_load :action_controller do
+          helper Decidim::HomepageInteractiveMap::InteractiveMapHelper
+        end
+      end
+
       initializer "decidim_homepage_interactive_map.mount_routes" do |_app|
         Decidim::Core::Engine.routes do
           mount Decidim::HomepageInteractiveMap::Engine => "/homepage_interactive_map"

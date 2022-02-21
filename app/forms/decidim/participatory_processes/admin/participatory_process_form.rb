@@ -27,11 +27,17 @@ module Decidim
         attribute :hashtag, String
         attribute :slug, String
 
+        attribute :address, String
+        attribute :latitude, Float
+        attribute :longitude, Float
+        attribute :display_linked_assemblies, Boolean
+
         attribute :area_id, Integer
         attribute :participatory_process_group_id, Integer
         attribute :scope_id, Integer
         attribute :related_process_ids, Array[Integer]
         attribute :scope_type_max_depth_id, Integer
+        attribute :weight, Integer, default: 0
 
         attribute :private_space, Boolean
         attribute :promoted, Boolean
@@ -47,11 +53,6 @@ module Decidim
         attribute :remove_banner_image
         attribute :remove_hero_image
 
-        attribute :address, String
-        attribute :latitude, Float
-        attribute :longitude, Float
-        attribute :display_linked_assemblies, Boolean
-
         validates :address, geocoding: true, if: proc { |object| object.address.present? }
         validates :area, presence: true, if: proc { |object| object.area_id.present? }
         validates :scope, presence: true, if: proc { |object| object.scope_id.present? }
@@ -63,6 +64,8 @@ module Decidim
 
         validates :banner_image, passthru: { to: Decidim::ParticipatoryProcess }
         validates :hero_image, passthru: { to: Decidim::ParticipatoryProcess }
+
+        validates :weight, presence: true
 
         alias organization current_organization
 

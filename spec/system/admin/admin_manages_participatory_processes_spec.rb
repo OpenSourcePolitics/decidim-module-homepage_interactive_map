@@ -64,13 +64,14 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
           es: "Descripción más larga",
           ca: "Descripció més llarga"
         )
-        fill_in "Address", with: address
 
-        group_name = participatory_process_groups.first.name["en"]
-        select group_name, from: :participatory_process_participatory_process_group_id
+        fill_in "Address", with: address
+        group_title = participatory_process_groups.first.title["en"]
+        select group_title, from: :participatory_process_participatory_process_group_id
 
         fill_in :participatory_process_slug, with: "slug"
         fill_in :participatory_process_hashtag, with: "#hashtag"
+        fill_in :participatory_process_weight, with: 1
         attach_file :participatory_process_hero_image, image1_path
         attach_file :participatory_process_banner_image, image2_path
 
