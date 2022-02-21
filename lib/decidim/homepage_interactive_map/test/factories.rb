@@ -14,7 +14,7 @@ end
 
 FactoryBot.modify do
   factory :participatory_process, class: "Decidim::ParticipatoryProcess" do
-    address { Faker::Lorem.sentence(3) }
+    address { Faker::Lorem.sentence(word_count: 3) }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
   end
