@@ -2,19 +2,21 @@
 
 source "https://rubygems.org"
 
+DECIDIM_VERSION = "release/0.24-stable"
+
 ruby RUBY_VERSION
 
-gem "decidim", git: "https://github.com/decidim/decidim", tag: "v0.23.4"
+gem "decidim", git: "https://github.com/decidim/decidim", branch: DECIDIM_VERSION
 gem "decidim-homepage_interactive_map", path: "."
 
-gem "bootsnap"
-gem "puma", "~> 4.3"
+gem "bootsnap", "~> 1.4"
+gem "puma", "~> 5.3.1"
 gem "uglifier", "~> 4.1"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", git: "https://github.com/decidim/decidim", tag: "v0.23.4"
+  gem "decidim-dev", git: "https://github.com/decidim/decidim", branch: DECIDIM_VERSION
 end
 
 group :development do
