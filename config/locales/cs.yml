@@ -1,0 +1,36 @@
+---
+cs:
+  decidim:
+    components:
+      homepage_interactive_map:
+        map:
+          view_participatory_processes: Zobrazit participační procesy
+        name: Interaktivní mapa na úvodní straně
+    homepage_interactive_map:
+      content_blocks:
+        interactive_map:
+          name: Interaktivní mapa
+          view_participatory_processes: Zobrazit participační procesy
+      data:
+        polygon:
+          no_assembly: Žádné shromáždění
+          view_assemblies: Zobrazit shromáždění
+    participatory_processes:
+      admin:
+        participatory_processes:
+          form:
+            address_help: Nápověda k Adrese
+            announcement_help: Nápověda k oznámení
+            duration: Trvání
+            filters: Filtry
+            images: Obrázky
+            metadata: Metadata
+            other: Jiné
+            select_an_area: Vybrat oblast
+            select_process_group: Vybrat skupinu Procesu
+            slug_help: Slug nápověda
+            title: Nadpis
+            visbility: Viditelnost
+    scope:
+      errors:
+        geojson_error: Geojson chyba
