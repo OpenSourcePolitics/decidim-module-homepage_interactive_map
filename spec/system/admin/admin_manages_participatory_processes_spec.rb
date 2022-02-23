@@ -64,7 +64,6 @@ describe "Admin manages participatory processes", versioning: true, type: :syste
           es: "Descripción más larga",
           ca: "Descripció més llarga"
         )
-
         fill_in "Address", with: address
         group_title = participatory_process_groups.first.title["en"]
         select group_title, from: :participatory_process_participatory_process_group_id
