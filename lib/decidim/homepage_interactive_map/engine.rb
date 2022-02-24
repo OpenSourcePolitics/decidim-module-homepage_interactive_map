@@ -15,7 +15,7 @@ module Decidim
 
       initializer "decidim_homepage_interactive_map.add_helper" do
         ActiveSupport.on_load :action_controller do
-          helper Decidim::HomepageInteractiveMap::InteractiveMapHelper
+          ::ActionController::Base.helper Decidim::HomepageInteractiveMap::InteractiveMapHelper
         end
       end
 
