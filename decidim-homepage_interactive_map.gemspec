@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,lib,vendor}/**/*", "LICENSE-AGPLv3.txt", "Rakefile", "README.md"]
 
-  s.add_dependency "decidim-admin", Decidim::HomepageInteractiveMap.version
-  s.add_dependency "decidim-core", Decidim::HomepageInteractiveMap.version
-  s.add_dependency "decidim-dev", Decidim::HomepageInteractiveMap.version
+  s.add_dependency "decidim-admin", Decidim::HomepageInteractiveMap.decidim_compatibility_version
+  s.add_dependency "decidim-core", Decidim::HomepageInteractiveMap.decidim_compatibility_version
+  s.add_dependency "decidim-dev", Decidim::HomepageInteractiveMap.decidim_compatibility_version
 end
