@@ -16,11 +16,10 @@ module Decidim::ParticipatoryProcesses
             subtitle_en: my_process.subtitle,
             subtitle_ca: my_process.subtitle,
             subtitle_es: my_process.subtitle,
+            weight: my_process.weight,
             slug: my_process.slug,
             hashtag: my_process.hashtag,
             meta_scope: my_process.meta_scope,
-            hero_image: my_process.hero_image,
-            banner_image: my_process.banner_image,
             promoted: my_process.promoted,
             description_en: my_process.description,
             description_ca: my_process.description,
@@ -37,7 +36,13 @@ module Decidim::ParticipatoryProcesses
             show_metrics: my_process.show_metrics,
             show_statistics: my_process.show_statistics,
             private_space: my_process.private_space
-          }
+          }.merge(attachment_params)
+        }
+      end
+      let(:attachment_params) do
+        {
+          hero_image: my_process.hero_image.blob,
+          banner_image: my_process.banner_image.blob
         }
       end
       let(:user) { create :user, :admin, :confirmed, organization: my_process.organization }
@@ -55,7 +60,7 @@ module Decidim::ParticipatoryProcesses
 
       describe "when the form is not valid" do
         before do
-          allow(form).to receive(:invalid?).and_return(true)
+          expect(form).to receive(:invalid?).and_return(true)
         end
 
         it "broadcasts invalid" do
@@ -72,7 +77,7 @@ module Decidim::ParticipatoryProcesses
 
       describe "when the participatory process is not valid" do
         before do
-          allow(form).to receive(:invalid?).and_return(false)
+          expect(form).to receive(:invalid?).and_return(false)
           expect(my_process).to receive(:valid?).at_least(:once).and_return(false)
           my_process.errors.add(:hero_image, "Image too big")
           my_process.errors.add(:banner_image, "Image too big")
@@ -127,24 +132,36 @@ module Decidim::ParticipatoryProcesses
         end
 
         context "when no homepage image is set" do
+          let(:attachment_params) do
+            {
+              banner_image: my_process.banner_image.blob
+            }
+          end
+
           it "does not replace the homepage image" do
             expect(my_process).not_to receive(:hero_image=)
 
             command.call
             my_process.reload
 
-            expect(my_process.hero_image).to be_present
+            expect(my_process.hero_image.attached?).to be true
           end
         end
 
         context "when no banner image is set" do
+          let(:attachment_params) do
+            {
+              hero_image: my_process.hero_image.blob
+            }
+          end
+
           it "does not replace the banner image" do
             expect(my_process).not_to receive(:banner_image=)
 
             command.call
             my_process.reload
 
-            expect(my_process.banner_image).to be_present
+            expect(my_process.banner_image.attached?).to be true
           end
         end
       end

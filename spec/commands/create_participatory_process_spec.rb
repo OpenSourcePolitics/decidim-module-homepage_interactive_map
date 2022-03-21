@@ -16,12 +16,14 @@ module Decidim::ParticipatoryProcesses
     let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
     let(:latitude) { 40.1234 }
     let(:longitude) { 2.1234 }
+    let(:weight) { 1 }
     let(:form) do
       instance_double(
         Admin::ParticipatoryProcessForm,
         invalid?: invalid,
         title: { en: "title" },
         subtitle: { en: "subtitle" },
+        weight: weight,
         slug: "slug",
         hashtag: "hashtag",
         meta_scope: { en: "meta scope" },
@@ -81,7 +83,7 @@ module Decidim::ParticipatoryProcesses
       end
 
       before do
-        allow(Decidim::ParticipatoryProcess).to receive(:new).and_return(invalid_process)
+        expect(Decidim::ParticipatoryProcess).to receive(:new).and_return(invalid_process)
       end
 
       it "broadcasts invalid" do

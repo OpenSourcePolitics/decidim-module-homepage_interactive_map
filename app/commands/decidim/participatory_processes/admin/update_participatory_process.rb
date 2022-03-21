@@ -6,6 +6,8 @@ module Decidim
       # A command with all the business logic when creating a new participatory
       # process in the system.
       class UpdateParticipatoryProcess < Rectify::Command
+        include ::Decidim::AttachmentAttributesMethods
+
         # Public: Initializes the command.
         #
         # participatory_process - the ParticipatoryProcess to update
@@ -55,6 +57,7 @@ module Decidim
           {
             title: form.title,
             subtitle: form.subtitle,
+            weight: form.weight,
             slug: form.slug,
             hashtag: form.hashtag,
             promoted: form.promoted,
@@ -80,16 +83,9 @@ module Decidim
             address: form.address,
             latitude: form.latitude,
             longitude: form.longitude
-          }.merge(uploader_attributes)
-        end
-
-        def uploader_attributes
-          {
-            hero_image: form.hero_image,
-            remove_hero_image: form.remove_hero_image,
-            banner_image: form.banner_image,
-            remove_banner_image: form.remove_banner_image
-          }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
+          }.merge(
+            attachment_attributes(:hero_image, :banner_image)
+          )
         end
 
         def related_processes
