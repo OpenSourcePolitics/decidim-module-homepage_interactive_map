@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Decidim::HomepageInteractiveMap do
   let(:subject) { described_class }
 
