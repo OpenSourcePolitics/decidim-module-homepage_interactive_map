@@ -42,7 +42,7 @@ jobs:
         run: bundle exec rubocop -P
   test:
     name: Tests
-    needs: [lint]
+    needs: [lint, erblint]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
