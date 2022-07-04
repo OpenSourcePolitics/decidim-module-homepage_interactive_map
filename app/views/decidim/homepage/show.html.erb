@@ -15,4 +15,4 @@
   <%= cell content_block.manifest.cell, content_block %>
 <% end %>
 
-<%= javascript_include_tag interactive_map_script(content_blocks) if geolocation_enabled? %>
+<%= javascript_pack_tag interactive_map_script(content_blocks) if geolocation_enabled? %>
