@@ -11,7 +11,7 @@ describe Decidim::HomepageInteractiveMap do
 
   describe "#decidim_compatibility_version" do
     it "returns module's version" do
-      expect(described_class.decidim_compatibility_version).to eq("0.25.2")
+      expect(described_class.decidim_compatibility_version).to eq("0.26")
     end
   end
 end
