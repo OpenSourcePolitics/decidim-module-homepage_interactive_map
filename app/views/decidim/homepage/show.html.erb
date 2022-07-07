@@ -15,4 +15,4 @@
   <%= cell content_block.manifest.cell, content_block %>
 <% end %>
 
-<%= javascript_pack_tag "decidim_homepage_interactive_map.js" %>
+<%= javascript_pack_tag "decidim_homepage_interactive_map.js" if geolocation_enabled? %>
