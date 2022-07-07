@@ -1,4 +1,5 @@
-import "proj4"
+// import "jquery"
+// import "proj4"
 import "proj4leaflet"
 import "leaflet"
 import "leaflet-tilelayer-here"

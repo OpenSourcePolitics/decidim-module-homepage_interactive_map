@@ -1,3 +1,14 @@
+import "src/vendor/leaflet-polylabel-centroid";
+import * as L from "leaflet";
+// import "proj4";
+import proj4 from "proj4"
+// import "jsrender"
+import "src/decidim/vendor/leaflet-tilelayer-here"
+import "src/decidim/map/icon.js" // comes with Decidim
+import "leaflet.markercluster"; // Comes with Decidim
+import "leaflet.featuregroup.subgroup" // included in this package.json
+import "src/vendor/jquery.truncate"
+
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   options: {
     iconSize: L.point(24,34),

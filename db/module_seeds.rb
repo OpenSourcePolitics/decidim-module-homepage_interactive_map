@@ -67,3 +67,7 @@ Decidim::ContentBlock.create!(
   manifest_name: :interactive_map,
   published_at: Time.current
 )
+
+puts "######## Info #########"
+puts "[Warning !] Don't forget to uncomment map section at development_app/config/initializers/decidim.rb:38"
+puts "#######################"
