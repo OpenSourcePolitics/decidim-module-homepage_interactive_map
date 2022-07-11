@@ -5,7 +5,7 @@ $LOAD_PATH.push File.expand_path("lib", __dir__)
 require "decidim/homepage_interactive_map/version"
 
 Gem::Specification.new do |s|
-  s.version = Decidim::HomepageInteractiveMap.version
+  s.version = Decidim::HomepageInteractiveMap::VERSION
   s.authors = ["Armand"]
   s.email = ["fardeauarmand@gmail.com"]
   s.license = "AGPL-3.0"
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,lib,vendor}/**/*", "LICENSE-AGPLv3.txt", "Rakefile", "README.md"]
 
-  s.add_dependency "decidim-admin", Decidim::HomepageInteractiveMap.decidim_compatibility_version
-  s.add_dependency "decidim-core", Decidim::HomepageInteractiveMap.decidim_compatibility_version
-  s.add_dependency "decidim-dev", Decidim::HomepageInteractiveMap.decidim_compatibility_version
+  s.add_dependency "decidim-admin", Decidim::HomepageInteractiveMap::COMPAT_DECIDIM_VERSION
+  s.add_dependency "decidim-core", Decidim::HomepageInteractiveMap::COMPAT_DECIDIM_VERSION
+  s.add_dependency "decidim-dev", Decidim::HomepageInteractiveMap::COMPAT_DECIDIM_VERSION
 end

@@ -7,7 +7,7 @@ ruby RUBY_VERSION
 base_path = File.basename(__dir__) == "development_app" ? "../" : ""
 require_relative "#{base_path}lib/decidim/homepage_interactive_map/version"
 
-gem "decidim", Decidim::HomepageInteractiveMap.decidim_compatibility_version
+gem "decidim", Decidim::HomepageInteractiveMap::DECIDIM_VERSION
 gem "decidim-homepage_interactive_map", path: "."
 
 gem "bootsnap", "~> 1.4"
@@ -16,7 +16,7 @@ gem "puma", "~> 5.5.1"
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", Decidim::HomepageInteractiveMap.decidim_compatibility_version
+  gem "decidim-dev", Decidim::HomepageInteractiveMap::DECIDIM_VERSION
 end
 
 group :development do
