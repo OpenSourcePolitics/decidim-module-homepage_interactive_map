@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :interactive_map do
+namespace :decidim_homepage_interactive_map do
   desc "Install dependencies for decidim interactive maps"
   task initialize: :environment do
     puts "installing dependencies"
