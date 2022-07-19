@@ -97,15 +97,15 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function updateProcessMarkerPosition(marker, delta, zoom) {
-        let oldPoint = map.project(L.latLng(marker.origin), zoom);
+      let oldPoint = map.project(L.latLng(marker.origin), zoom);
 
-      let radius = ( delta / 2 ) + ( marker.getRadius() / 1.75 ) ;
+      let radius = ( delta / 4 ) + ( marker.getRadius() / 4 ) ;
       let newPoint = L.point(
-        oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
-        oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
+          oldPoint.x +  radius * Math.cos( 0.75 ),
+          oldPoint.y - radius * Math.sin( 0.75 )
       );
 
-      // TODO: setLatLng method can occur error
+      // TODO: setLatLng method can occur error when zoom is changed
       marker._latlng = map.unproject(newPoint, zoom);
       //marker.setLatLng(map.unproject(newPoint, zoom));
     }
