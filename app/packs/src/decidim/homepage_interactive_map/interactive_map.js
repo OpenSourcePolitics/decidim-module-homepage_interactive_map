@@ -106,8 +106,19 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       );
 
       // TODO: setLatLng method can occur error when zoom is changed
-      marker._latlng = map.unproject(newPoint, zoom);
-      //marker.setLatLng(map.unproject(newPoint, zoom));
+
+      if (marker.previousZoom <= zoom) {
+        marker._latlng = map.unproject(newPoint, zoom);
+        console.log(newPoint)
+        marker.previousPoint = [newPoint.x/2, newPoint.y/2];
+        console.log(marker.previousPoint)
+        //marker.setLatLng(map.unproject(newPoint, zoom));
+      }// Else if we zoom out, we need to move the marker to the previous point to keep the same position from the previous zoom
+        else {
+            marker._latlng = map.unproject(marker.previousPoint, zoom);
+      }
+      console.log(zoom)
+      marker.previousZoom = zoom;
     }
 
     function calculateIconSize() {
@@ -245,6 +256,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
             pane: "processPane",
             radius: Math.round(iconSize / 4),
             weight: 0,
+            iconAnchor: new L.Point(0, 0),
             fillOpacity: 1,
             fillColor: getComputedStyle(document.documentElement).getPropertyValue('--primary'),
           }
@@ -311,6 +323,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       // Translate the marker centered on the zone outside the zone label
       // ( like an notification badge )
       if(!hasLocation(marker.participatory_process_data)) {
+        marker.previousZoom = marker.previousZoom || map.getZoom();
         updateProcessMarkerPosition(marker, iconSize, map.getZoom());
       }
     });
@@ -341,6 +354,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
       allProcessesLayer.eachLayer((marker) => {
+        marker.previousZoom = marker.previousZoom || map.getZoom();
         if(!hasLocation(marker.participatory_process_data)) {
           updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
         }
