@@ -19,10 +19,11 @@ Decidim::Webpacker.register_path("#{base_path}/app/packs")
 # SCSS files within the entrypoints, they become available for inclusion using
 # `stylesheet_pack_tag`.
 Decidim::Webpacker.register_entrypoints(
-  decidim_homepage_interactive_map: "#{base_path}/app/packs/entrypoints/decidim_homepage_interactive_map.js"
+  decidim_homepage_interactive_map: "#{base_path}/app/packs/entrypoints/decidim_homepage_interactive_map.js",
+  decidim_homepage_interactive_map_css: "#{base_path}/app/packs/entrypoints/decidim_homepage_interactive_map.scss"
 )
 
 # If you want to import some extra SCSS files in the Decidim main SCSS file
 # without adding any extra stylesheet inclusion tags, you can use the following
 # method to register the stylesheet import for the main application.
-Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/homepage_interactive_map/map.scss")
+# Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/homepage_interactive_map/map.scss")

@@ -4,8 +4,8 @@
       <div class="wrapper-home">
         <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
           <input type="hidden" value="<%= t("decidim.components.homepage_interactive_map.map.view_participatory_processes") %>" id="view-participatory-process">
-          <%= stylesheet_link_tag "decidim/map" %>
-          <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
+          <%#= stylesheet_link_tag "decidim/map" %>
+          <%= stylesheet_pack_tag "decidim_homepage_interactive_map_css" %>
         <% end %>
       </div>
     </section>
