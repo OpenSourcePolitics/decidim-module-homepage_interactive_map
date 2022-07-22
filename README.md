@@ -21,7 +21,7 @@ And then execute:
 bundle
 bundle exec rake decidim_homepage_interactive_map:install:migrations
 bundle exec rake db:migrate
-bundle exec rake decidim_homepage_interactive_map:initialize
+bundle exec rake decidim_homepage_interactive_map:webpacker:install
 ```
 
 ## Contributing
