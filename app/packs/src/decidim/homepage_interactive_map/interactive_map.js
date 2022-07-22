@@ -23,12 +23,10 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
 });
 
 (() => {
-
   $(document).ready(() => {
     const here_api_key = $("#interactive_map").data("here-api-key");
     const geoJson = $("#interactive_map").data("geojson-data");
-    const popupInteractiveTemplateId = "marker-popup-interactive_map";
-    $.template(popupInteractiveTemplateId, $(`#${popupInteractiveTemplateId}`).html());
+    const $viewParticipatoryProcess = $("#view-participatory-process");
 
     // Used to prevent click event when double click navigating
     const clickDelay = 500;
@@ -114,6 +112,27 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       const delta = Math.round(1.75 * (map.getZoom()));
       return (delta + 2) * 2;
     }
+
+    function tmpl(participatoryProcess, linkTxt) {
+      return `
+            <div class="map-info__content homepage_interactive_map">
+              <h3>${participatoryProcess.title}</h3>
+              <div id="bodyContent">
+                <div class="card__datetime">
+                  <div class="card__datetime__date">
+                    ${participatoryProcess.start_date} - ${participatoryProcess.end_date}
+                  </div>
+                </div>
+                <div class="map-info__button">
+                  <a href="${participatoryProcess.link}" class="button button--sc">
+                    ${linkTxt}
+                  </a>
+                </div>
+              </div>
+            </div>
+      `
+    }
+
 
     L.tileLayer.here({
       apiKey: here_api_key,
@@ -251,7 +270,8 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
         );
 
         let node = document.createElement("div");
-        $.tmpl(popupInteractiveTemplateId, participatory_process).appendTo(node);
+        $(node).html((tmpl(participatory_process, $viewParticipatoryProcess.val())));
+
         marker.bindPopup(node, {
           maxwidth: popupMaxwidth(),
           minWidth: popupMinwidth(),
