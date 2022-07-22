@@ -30,12 +30,12 @@ namespace :decidim_homepage_interactive_map do
 
     def npm_dependencies
       @npm_dependencies ||= begin
-                                              package_json = JSON.parse(File.read(module_path.join("package.json")))
+        package_json = JSON.parse(File.read(module_path.join("package.json")))
 
-                                              {
-                                                prod: package_json["dependencies"].map { |package, version| "#{package}@#{version}" },
-                                              }.freeze
-                                            end
+        {
+          prod: package_json["dependencies"].map { |package, version| "#{package}@#{version}" }
+        }.freeze
+      end
     end
 
     def module_path
