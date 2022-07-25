@@ -10,6 +10,7 @@ import "src/vendor/jquery.truncate"
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   options: {
     iconSize: L.point(24,34),
+    iconAnchor: L.point(12,34),
     fillColor: getComputedStyle(document.documentElement).getPropertyValue('--primary'),
     fillOpacity: 1,
     opacity: 0,
@@ -42,8 +43,13 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const polyLineColor = 1;
     const strokeColor = "#8a8a8a";
     const iconSize = 28;
+    let allZooms = {};
 
     const map = L.map('interactive_map');
+
+    map.on("contextmenu", function (e) {
+      console.log("Coordinates: " + e.latlng.toString());
+    });
     // Add Proj4 configurations
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -89,7 +95,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function isCoordinates(value, length) {
-      return Array.isArray(value) && (value.length == length) && !!value.reduce((a,v) => (a && (a !== null)));
+      return Array.isArray(value) && (value.length === length) && !!value.reduce((a, v) => (a && (a !== null)));
     }
 
     function hasLocation(participatory_process) {
@@ -105,19 +111,44 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
           oldPoint.y - radius * Math.sin( 0.75 )
       );
 
+      // When we zoom, puts in an hash the zoom value and the position of the marker
+        if (allZooms[zoom.toString() + marker.participatory_process_data.title.toString()] === undefined && marker.previousZoom < zoom) {
+        // Push into allZooms the zoom value and the position of the marker
+          allZooms[zoom.toString() + marker.participatory_process_data.title.toString()] = {
+              point: newPoint,
+          }
+        } else if (allZooms[zoom.toString() + marker.participatory_process_data.title.toString()] !== undefined) {
+          newPoint = L.point(
+              allZooms[zoom.toString() + marker.participatory_process_data.title.toString()].point.x,
+              allZooms[zoom.toString() + marker.participatory_process_data.title.toString()].point.y
+          )
+
+          console.log("Avant ! " + marker._latlng)
+
+          if (zoom < marker.previousZoom) {
+            // Set marker._latlng to the position of newPoint + 0.0001 to each axis
+            //--- TEST THAT DIDN'T WORK YET ---//
+/*            marker._latlng = [
+              parseFloat(map.unproject(newPoint, zoom).lat) + 0.0001,
+              parseFloat(map.unproject(newPoint, zoom).lng) + 0.0003
+            ]
+            console.log("Après modif ! " + marker._latlng)
+            return;*/
+          }
+          marker._latlng = map.unproject(newPoint, zoom);
+          // Add 0.0001 to marker._latlng when unzooming to avoid the marker to be on the same position as the previous one
+
+          console.log("Apres ! " + marker._latlng)
+          // Exit the function
+          return;
+        }
+
+
       // TODO: setLatLng method can occur error when zoom is changed
 
-      if (marker.previousZoom <= zoom) {
-        marker._latlng = map.unproject(newPoint, zoom);
-        console.log(newPoint)
-        marker.previousPoint = [newPoint.x/2, newPoint.y/2];
-        console.log(marker.previousPoint)
-        //marker.setLatLng(map.unproject(newPoint, zoom));
-      }// Else if we zoom out, we need to move the marker to the previous point to keep the same position from the previous zoom
-        else {
-            marker._latlng = map.unproject(marker.previousPoint, zoom);
-      }
-      console.log(zoom)
+      console.log("Avant ! " + marker._latlng)
+      marker._latlng = map.unproject(newPoint, zoom);
+      console.log("Après ! " + marker._latlng)
       marker.previousZoom = zoom;
     }
 
