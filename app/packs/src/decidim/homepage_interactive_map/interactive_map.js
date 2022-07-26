@@ -42,6 +42,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const iconSize = 28;
 
     const map = L.map('interactive_map');
+
     // Add Proj4 configurations
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -87,7 +88,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function isCoordinates(value, length) {
-      return Array.isArray(value) && (value.length == length) && !!value.reduce((a,v) => (a && (a !== null)));
+      return Array.isArray(value) && (value.length === length) && !!value.reduce((a, v) => (a && (a !== null)));
     }
 
     function hasLocation(participatory_process) {
@@ -95,17 +96,14 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function updateProcessMarkerPosition(marker, delta, zoom) {
-        let oldPoint = map.project(L.latLng(marker.origin), zoom);
+      let oldPoint = map.project(L.latLng(marker.origin), zoom);
 
-      let radius = ( delta / 2 ) + ( marker.getRadius() / 1.75 ) ;
+      let radius = ( delta / 2.5 ) + ( marker.getRadius() / 1.75 ) ;
       let newPoint = L.point(
-        oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
-        oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
+          oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
+          oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
       );
-
-      // TODO: setLatLng method can occur error
       marker._latlng = map.unproject(newPoint, zoom);
-      //marker.setLatLng(map.unproject(newPoint, zoom));
     }
 
     function calculateIconSize() {
@@ -302,7 +300,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     zoomOrigin = map.getZoom();
 
 
-    // Noww, all the element are actually projected on the map
+    // Now, all the element are actually projected on the map
     allProcessesLayer.eachLayer((marker) => {
 
       // Each participatory process should highlight its linked assemblies / zones
@@ -335,9 +333,6 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       }
     });
 
-    // Add markers to map
-    allProcessesLayer.addTo(map);
-
 
     // Map zoom events
     map.on('zoomstart', (e) => {
@@ -369,5 +364,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       allProcessesLayer.refreshClusters();
       $('#interactive_map .leaflet-process-pane').show();
     });
+    // Add markers to map
+    allProcessesLayer.addTo(map);
   });
 })(window);
