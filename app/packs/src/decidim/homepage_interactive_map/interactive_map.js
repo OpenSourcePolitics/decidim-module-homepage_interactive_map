@@ -105,51 +105,12 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     function updateProcessMarkerPosition(marker, delta, zoom) {
       let oldPoint = map.project(L.latLng(marker.origin), zoom);
 
-      let radius = ( delta / 4 ) + ( marker.getRadius() / 4 ) ;
+      let radius = ( delta / 2.5 ) + ( marker.getRadius() / 1.75 ) ;
       let newPoint = L.point(
           oldPoint.x +  radius * Math.cos( 0.75 ),
           oldPoint.y - radius * Math.sin( 0.75 )
       );
-
-      // When we zoom, puts in an hash the zoom value and the position of the marker
-        if (allZooms[zoom.toString() + marker.participatory_process_data.title.toString()] === undefined && marker.previousZoom < zoom) {
-        // Push into allZooms the zoom value and the position of the marker
-          allZooms[zoom.toString() + marker.participatory_process_data.title.toString()] = {
-              point: newPoint,
-          }
-        } else if (allZooms[zoom.toString() + marker.participatory_process_data.title.toString()] !== undefined) {
-          newPoint = L.point(
-              allZooms[zoom.toString() + marker.participatory_process_data.title.toString()].point.x,
-              allZooms[zoom.toString() + marker.participatory_process_data.title.toString()].point.y
-          )
-
-          console.log("Avant ! " + marker._latlng)
-
-          if (zoom < marker.previousZoom) {
-            // Set marker._latlng to the position of newPoint + 0.0001 to each axis
-            //--- TEST THAT DIDN'T WORK YET ---//
-/*            marker._latlng = [
-              parseFloat(map.unproject(newPoint, zoom).lat) + 0.0001,
-              parseFloat(map.unproject(newPoint, zoom).lng) + 0.0003
-            ]
-            console.log("Après modif ! " + marker._latlng)
-            return;*/
-          }
-          marker._latlng = map.unproject(newPoint, zoom);
-          // Add 0.0001 to marker._latlng when unzooming to avoid the marker to be on the same position as the previous one
-
-          console.log("Apres ! " + marker._latlng)
-          // Exit the function
-          return;
-        }
-
-
-      // TODO: setLatLng method can occur error when zoom is changed
-
-      console.log("Avant ! " + marker._latlng)
       marker._latlng = map.unproject(newPoint, zoom);
-      console.log("Après ! " + marker._latlng)
-      marker.previousZoom = zoom;
     }
 
     function calculateIconSize() {
@@ -325,7 +286,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     zoomOrigin = map.getZoom();
 
 
-    // Noww, all the element are actually projected on the map
+    // Now, all the element are actually projected on the map
     allProcessesLayer.eachLayer((marker) => {
 
       // Each participatory process should highlight its linked assemblies / zones
@@ -354,13 +315,9 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       // Translate the marker centered on the zone outside the zone label
       // ( like an notification badge )
       if(!hasLocation(marker.participatory_process_data)) {
-        marker.previousZoom = marker.previousZoom || map.getZoom();
         updateProcessMarkerPosition(marker, iconSize, map.getZoom());
       }
     });
-
-    // Add markers to map
-    allProcessesLayer.addTo(map);
 
 
     // Map zoom events
@@ -385,7 +342,6 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
       allProcessesLayer.eachLayer((marker) => {
-        marker.previousZoom = marker.previousZoom || map.getZoom();
         if(!hasLocation(marker.participatory_process_data)) {
           updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
         }
@@ -394,5 +350,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       allProcessesLayer.refreshClusters();
       $('#interactive_map .leaflet-process-pane').show();
     });
+    // Add markers to map
+    allProcessesLayer.addTo(map);
   });
 })(window);
