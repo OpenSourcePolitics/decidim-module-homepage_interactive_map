@@ -10,7 +10,6 @@ import "src/vendor/jquery.truncate"
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   options: {
     iconSize: L.point(24,34),
-    iconAnchor: L.point(12,34),
     fillColor: getComputedStyle(document.documentElement).getPropertyValue('--primary'),
     fillOpacity: 1,
     opacity: 0,
@@ -43,13 +42,9 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const polyLineColor = 1;
     const strokeColor = "#8a8a8a";
     const iconSize = 28;
-    let allZooms = {};
 
     const map = L.map('interactive_map');
 
-    map.on("contextmenu", function (e) {
-      console.log("Coordinates: " + e.latlng.toString());
-    });
     // Add Proj4 configurations
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -107,8 +102,8 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
 
       let radius = ( delta / 2.5 ) + ( marker.getRadius() / 1.75 ) ;
       let newPoint = L.point(
-          oldPoint.x +  radius * Math.cos( 0.75 ),
-          oldPoint.y - radius * Math.sin( 0.75 )
+          oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
+          oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
       );
       marker._latlng = map.unproject(newPoint, zoom);
     }
@@ -248,7 +243,6 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
             pane: "processPane",
             radius: Math.round(iconSize / 4),
             weight: 0,
-            iconAnchor: new L.Point(0, 0),
             fillOpacity: 1,
             fillColor: getComputedStyle(document.documentElement).getPropertyValue('--primary'),
           }
