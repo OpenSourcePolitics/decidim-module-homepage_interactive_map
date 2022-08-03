@@ -326,11 +326,9 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
 
-      // Translate the marker centered on the zone outside the zone label
-      // ( like an notification badge )
-      if(!hasLocation(marker.participatory_process_data)) {
+
         updateProcessMarkerPosition(marker, iconSize, map.getZoom());
-      }
+
     });
 
 
@@ -356,9 +354,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
       allProcessesLayer.eachLayer((marker) => {
-        if(!hasLocation(marker.participatory_process_data)) {
-          updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
-        }
+        updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
       });
 
       allProcessesLayer.refreshClusters();
