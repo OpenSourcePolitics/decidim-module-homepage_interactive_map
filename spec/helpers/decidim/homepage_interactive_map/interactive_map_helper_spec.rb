@@ -91,9 +91,9 @@ module Decidim
 
           it { is_expected.to eq("decidim/homepage_interactive_map/interactive_map") }
 
-          context "and upcoming_events content block is also defined" do
+          context "and upcoming_meetings content block is also defined" do
             before do
-              create :content_block, organization: organization, scope_name: :homepage, manifest_name: :upcoming_events
+              create :content_block, organization: organization, scope_name: :homepage, manifest_name: :upcoming_meetings
             end
 
             it { is_expected.to eq("decidim/homepage_interactive_map/interactive_map_without_dependencies") }

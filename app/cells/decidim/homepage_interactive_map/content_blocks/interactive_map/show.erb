@@ -3,25 +3,9 @@
     <section class="extended home-section" id="homepage_map">
       <div class="wrapper-home">
         <%= interactive_map_for(assemblies_data_for_map(@geolocalized_assemblies)) do %>
-          <template id="marker-popup-interactive_map">
-            <div class="map-info__content homepage_interactive_map">
-              <h3>${title}</h3>
-              <div id="bodyContent">
-                <div class="card__datetime">
-                  <div class="card__datetime__date">
-                    ${start_date} - ${end_date}
-                  </div>
-                </div>
-                <div class="map-info__button">
-                  <a href="${link}" class="button button--sc">
-                    <%= t("decidim.components.homepage_interactive_map.map.view_participatory_processes") %>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </template>
-          <%= stylesheet_link_tag "decidim/map" %>
-          <%= stylesheet_link_tag "decidim/homepage_interactive_map/map" %>
+          <input type="hidden" value="<%= t("decidim.components.homepage_interactive_map.map.view_participatory_processes") %>" id="view-participatory-process">
+          <%= stylesheet_pack_tag "decidim_map" %>
+          <%= stylesheet_pack_tag "decidim_homepage_interactive_map_css" %>
         <% end %>
       </div>
     </section>

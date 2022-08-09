@@ -1,3 +1,12 @@
+import "src/vendor/leaflet-polylabel-centroid";
+import * as L from "leaflet";
+import proj4 from "proj4"
+import "src/decidim/vendor/leaflet-tilelayer-here"
+import "src/decidim/map/icon.js" // comes with Decidim
+import "leaflet.markercluster"; // Comes with Decidim
+import "leaflet.featuregroup.subgroup" // included in this package.json
+import "src/vendor/jquery.truncate"
+
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   options: {
     iconSize: L.point(24,34),
@@ -14,12 +23,10 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
 });
 
 (() => {
-
   $(document).ready(() => {
     const here_api_key = $("#interactive_map").data("here-api-key");
     const geoJson = $("#interactive_map").data("geojson-data");
-    const popupInteractiveTemplateId = "marker-popup-interactive_map";
-    $.template(popupInteractiveTemplateId, $(`#${popupInteractiveTemplateId}`).html());
+    const $viewParticipatoryProcess = $("#view-participatory-process");
 
     // Used to prevent click event when double click navigating
     const clickDelay = 500;
@@ -35,6 +42,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const iconSize = 28;
 
     const map = L.map('interactive_map');
+
     // Add Proj4 configurations
     proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -80,7 +88,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function isCoordinates(value, length) {
-      return Array.isArray(value) && (value.length == length) && !!value.reduce((a,v) => (a && (a !== null)));
+      return Array.isArray(value) && (value.length === length) && !!value.reduce((a, v) => (a && (a !== null)));
     }
 
     function hasLocation(participatory_process) {
@@ -88,23 +96,41 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function updateProcessMarkerPosition(marker, delta, zoom) {
-        let oldPoint = map.project(L.latLng(marker.origin), zoom);
+      let oldPoint = map.project(L.latLng(marker.origin), zoom);
 
-      let radius = ( delta / 2 ) + ( marker.getRadius() / 1.75 ) ;
+      let radius = ( delta / 2.5 ) + ( marker.getRadius() / 1.75 ) ;
       let newPoint = L.point(
-        oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
-        oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
+          oldPoint.x + ( radius * Math.cos( Math.PI / 4 ) ),
+          oldPoint.y - ( radius * Math.sin( Math.PI / 4 ) )
       );
-
-      // TODO: setLatLng method can occur error
       marker._latlng = map.unproject(newPoint, zoom);
-      //marker.setLatLng(map.unproject(newPoint, zoom));
     }
 
     function calculateIconSize() {
       const delta = Math.round(1.75 * (map.getZoom()));
       return (delta + 2) * 2;
     }
+
+    function tmpl(participatoryProcess, linkTxt) {
+      return `
+            <div class="map-info__content homepage_interactive_map">
+              <h3>${participatoryProcess.title}</h3>
+              <div id="bodyContent">
+                <div class="card__datetime">
+                  <div class="card__datetime__date">
+                    ${participatoryProcess.start_date} - ${participatoryProcess.end_date}
+                  </div>
+                </div>
+                <div class="map-info__button">
+                  <a href="${participatoryProcess.link}" class="button button--sc">
+                    ${linkTxt}
+                  </a>
+                </div>
+              </div>
+            </div>
+      `
+    }
+
 
     L.tileLayer.here({
       apiKey: here_api_key,
@@ -242,7 +268,8 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
         );
 
         let node = document.createElement("div");
-        $.tmpl(popupInteractiveTemplateId, participatory_process).appendTo(node);
+        $(node).html((tmpl(participatory_process, $viewParticipatoryProcess.val())));
+
         marker.bindPopup(node, {
           maxwidth: popupMaxwidth(),
           minWidth: popupMinwidth(),
@@ -273,7 +300,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     zoomOrigin = map.getZoom();
 
 
-    // Noww, all the element are actually projected on the map
+    // Now, all the element are actually projected on the map
     allProcessesLayer.eachLayer((marker) => {
 
       // Each participatory process should highlight its linked assemblies / zones
@@ -299,15 +326,10 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
 
-      // Translate the marker centered on the zone outside the zone label
-      // ( like an notification badge )
-      if(!hasLocation(marker.participatory_process_data)) {
-        updateProcessMarkerPosition(marker, iconSize, map.getZoom());
-      }
-    });
 
-    // Add markers to map
-    allProcessesLayer.addTo(map);
+        updateProcessMarkerPosition(marker, iconSize, map.getZoom());
+
+    });
 
 
     // Map zoom events
@@ -332,13 +354,13 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
       allProcessesLayer.eachLayer((marker) => {
-        if(!hasLocation(marker.participatory_process_data)) {
-          updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
-        }
+        updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
       });
 
       allProcessesLayer.refreshClusters();
       $('#interactive_map .leaflet-process-pane').show();
     });
+    // Add markers to map
+    allProcessesLayer.addTo(map);
   });
 })(window);

@@ -246,5 +246,5 @@ function getSegDistSq(px, py, a, b) {
 // ----------------------------------------------------------------------------
 
 L.PolylabelCentroid = function(polygon, precision, debug) {
-  return polylabel(polygon, precision, debug).reverse();
+    return polylabel(polygon, precision, debug).reverse();
 }

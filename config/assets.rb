@@ -19,22 +19,11 @@ Decidim::Webpacker.register_path("#{base_path}/app/packs")
 # SCSS files within the entrypoints, they become available for inclusion using
 # `stylesheet_pack_tag`.
 Decidim::Webpacker.register_entrypoints(
-  decidim_homepage_interactive_map: "#{base_path}/app/packs/entrypoints/decidim_homepage_interactive_map.js"
+  decidim_homepage_interactive_map: "#{base_path}/app/packs/entrypoints/decidim_homepage_interactive_map.js",
+  decidim_homepage_interactive_map_css: "#{base_path}/app/packs/entrypoints/decidim_homepage_interactive_map.scss"
 )
 
 # If you want to import some extra SCSS files in the Decidim main SCSS file
 # without adding any extra stylesheet inclusion tags, you can use the following
 # method to register the stylesheet import for the main application.
-Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/homepage_interactive_map/map.scss")
-
-# If you want to do the same but include the SCSS file for the admin panel's
-# main SCSS file, you can use the following method.
-# Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/foo/admin", group: :admin)
-
-# If you want to override some SCSS variables/settings for Foundation from the
-# module, you can add the following registered import.
-# Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/foo/settings", type: :settings)
-
-# If you want to do the same but override the SCSS variables of the admin
-# panel's styles, you can use the following method.
-# Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/foo/admin_settings", type: :settings, group: :admin)
+# Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/homepage_interactive_map/map.scss")

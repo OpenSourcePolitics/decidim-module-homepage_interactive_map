@@ -36,6 +36,9 @@ last_participatory_process = Decidim::ParticipatoryProcess.last
 
 first_participatory_process.update!(display_linked_assemblies: true)
 last_participatory_process.update!(display_linked_assemblies: true)
+last_participatory_process.update!(address: "Rue de la Fayette")
+last_participatory_process.update!(latitude: 43.604429)
+last_participatory_process.update!(longitude: 1.443812)
 
 puts "-- Linking Participatory processes to Assemblies"
 Decidim::ParticipatorySpaceLink.create!(
@@ -67,3 +70,7 @@ Decidim::ContentBlock.create!(
   manifest_name: :interactive_map,
   published_at: Time.current
 )
+
+puts "######## Info #########"
+puts "[Warning !] Don't forget to uncomment map section at development_app/config/initializers/decidim.rb:38"
+puts "#######################"
