@@ -96,6 +96,9 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     }
 
     function updateProcessMarkerPosition(marker, delta, zoom) {
+      if (marker.origin === undefined) {
+        return;
+      }
       let oldPoint = map.project(L.latLng(marker.origin), zoom);
 
       let radius = ( delta / 2.5 ) + ( marker.getRadius() / 1.75 ) ;
@@ -242,7 +245,6 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
         });
       });
 
-
       // Manage linked participatory processes
       feature.participatory_processes.forEach((participatory_process) => {
 
@@ -307,7 +309,6 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       let linked = allProcessesLinks[marker.participatory_process_data.id.toString()];
 
       linked.forEach((layer) => {
-
         marker.on("mouseover", function() {
           layer.bringToFront().setStyle({
             fillOpacity: hoverColorOpacity,
@@ -325,12 +326,12 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
         });
       });
 
-
-
+      // Translate the marker centered on the zone outside the zone label
+      // ( like an notification badge )
+      if(!hasLocation(marker.participatory_process_data)) {
         updateProcessMarkerPosition(marker, iconSize, map.getZoom());
-
+      }
     });
-
 
     // Map zoom events
     map.on('zoomstart', (e) => {
@@ -354,7 +355,9 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
       });
 
       allProcessesLayer.eachLayer((marker) => {
-        updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
+        if(!hasLocation(marker.participatory_process_data)) {
+          updateProcessMarkerPosition(marker, actualIconSize, map.getZoom());
+        }
       });
 
       allProcessesLayer.refreshClusters();
