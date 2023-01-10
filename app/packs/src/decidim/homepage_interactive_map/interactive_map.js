@@ -1,11 +1,16 @@
+// import "proj4leaflet"
+// import "leaflet"
+// import "leaflet-tilelayer-here"
+// import "leaflet-svgicon"
+// import "leaflet.markercluster"
 import "src/vendor/leaflet-polylabel-centroid";
-import * as L from "leaflet";
-import proj4 from "proj4"
-import "src/decidim/vendor/leaflet-tilelayer-here"
-import "src/decidim/map/icon.js" // comes with Decidim
-import "leaflet.markercluster"; // Comes with Decidim
-import "leaflet.featuregroup.subgroup" // included in this package.json
-import "src/vendor/jquery.truncate"
+// import * as L from "leaflet";
+// import proj4 from "proj4"
+// import "src/decidim/vendor/leaflet-tilelayer-here"
+// import "src/decidim/map/icon.js" // comes with Decidim
+// import "leaflet.markercluster"; // Comes with Decidim
+// import "leaflet.featuregroup.subgroup" // included in this package.json
+// import "src/vendor/jquery.truncate"
 
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   options: {
@@ -44,7 +49,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     const map = L.map('interactive_map', {scrollWheelZoom: false});
 
     // Add Proj4 configurations
-    proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+    //proj4.defs("EPSG:3943", "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
     let zoomOrigin = map.getZoom();
     let allZonesLayer = L.featureGroup();
@@ -170,7 +175,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
     });
 
     // Convert data from GeoJSON
-    const geoJsonLayer = L.Proj.geoJson(geoJson, {
+    const geoJsonLayer = L.geoJson(geoJson, {
       style: (feature) => {
         return {
           interactive: false,
