@@ -114,6 +114,12 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
     it "detects the crs" do
       expect(described_class.detect_crs(geojson)).to eq("EPSG:3943")
     end
+
+    context "when the crs is not present" do
+      it "returns nil" do
+        expect(described_class.detect_crs({})).to be_nil
+      end
+    end
   end
 
   describe ".transform" do
