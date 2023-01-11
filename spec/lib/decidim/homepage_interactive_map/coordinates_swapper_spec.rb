@@ -161,6 +161,12 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
         expect(subject.transform(coordinates, "EPSG:3943", "EPSG:4326")).to eq(expected_coordinates)
       end
     end
+
+    context "when destination and source have the same projection" do
+      it "does not transform the coordinates" do
+        expect(subject.transform(coordinates, "EPSG:3943", "EPSG:3943")).to eq(coordinates)
+      end
+    end
   end
 
   describe ".convert_geojson" do
@@ -281,6 +287,12 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
       expect(converted[:parsed_geometry][:geometry][:coordinates]).to eq(expected_geojson[:parsed_geometry][:geometry][:coordinates])
       expect(converted[:parsed_geometry][:geometry][:crs]).to eq(expected_geojson[:parsed_geometry][:geometry][:crs])
       expect(converted).to eq(expected_geojson)
+    end
+
+    context "when the geojson is nil" do
+      it "returns nil" do
+        expect(subject.convert_geojson(nil)).to be_nil
+      end
     end
   end
 end
