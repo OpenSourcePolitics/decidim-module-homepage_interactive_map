@@ -13,7 +13,12 @@ module Decidim
 
         geojson_clone = geojson.dup.deep_symbolize_keys
         new_coordinates = transform(geojson_clone[:parsed_geometry][:geometry][:coordinates], from, to)
-        new_geometry = geojson_clone[:parsed_geometry][:geometry].merge(coordinates: new_coordinates)
+        new_geometry = geojson_clone[:parsed_geometry][:geometry].merge(
+          {
+            coordinates: new_coordinates,
+            crs: to
+          }
+        )
         new_parsed_geometry = geojson_clone[:parsed_geometry].merge(geometry: new_geometry)
 
         geojson_clone.merge(parsed_geometry: new_parsed_geometry)
