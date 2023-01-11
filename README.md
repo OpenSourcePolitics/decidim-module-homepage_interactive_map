@@ -40,6 +40,13 @@ bundle exec rake db:migrate
 bundle exec rake decidim_homepage_interactive_map:webpacker:install
 ```
 
+* On OSX:
+```bash
+brew install proj
+bundle config build.rgeo-proj4 --with-proj-dir="/opt/homebrew"
+bundle install
+```
+
 In Decidim's backoffice, enable Interactive map content block.
 
 ## How it works
@@ -53,6 +60,7 @@ In Decidim's backoffice, enable Interactive map content block.
 7. Load participatory process
    * If PP has location, places the marker at the defined address
    * Otherwise, place the participatory process on the top right corner of assemblie marker (like a notification badge)
+
 
 ## Contributing
 
