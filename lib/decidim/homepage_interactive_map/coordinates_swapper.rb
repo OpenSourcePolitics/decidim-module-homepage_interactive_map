@@ -9,7 +9,7 @@ module Decidim
     module CoordinatesSwapper
       def self.convert_geojson(geojson, opts = {})
         from = opts[:from] || detect_crs(geojson) || "EPSG:3857"
-        to = opts[:to] || "EPSG:3857"
+        to = opts[:to] || "EPSG:4326"
 
         geojson_clone = geojson.dup.deep_symbolize_keys
         new_coordinates = transform(geojson_clone[:parsed_geometry][:geometry][:coordinates], from, to)
