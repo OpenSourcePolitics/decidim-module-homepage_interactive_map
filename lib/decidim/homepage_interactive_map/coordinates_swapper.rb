@@ -9,7 +9,7 @@ module Decidim
     module CoordinatesSwapper
       def self.convert_geojson(geojson, opts = {})
         return nil if geojson.nil?
-        
+
         from = opts[:from] || detect_crs(geojson) || "EPSG:3857"
         to = opts[:to] || "EPSG:4326"
 

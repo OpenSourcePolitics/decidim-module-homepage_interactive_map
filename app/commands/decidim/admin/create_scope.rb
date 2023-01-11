@@ -38,7 +38,7 @@ module Decidim
             name: form.name,
             organization: form.organization,
             code: form.code,
-            geojson: geojson,
+            geojson: Decidim::HomepageInteractiveMap::CoordinatesSwapper.convert_geojson(geojson),
             scope_type: form.scope_type,
             parent: @parent_scope
           },
