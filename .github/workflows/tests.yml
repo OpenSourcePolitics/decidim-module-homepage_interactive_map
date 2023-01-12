@@ -83,6 +83,8 @@ jobs:
           key: npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             npm-
+      - run: sudo apt-get install libproj-dev proj-bin -y
+        name: Install Proj
       - run: bundle exec rake test_app
         name: Create test app
       - run: mkdir -p ./spec/decidim_dummy_app/tmp/screenshots

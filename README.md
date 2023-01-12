@@ -47,6 +47,11 @@ bundle config set build.rgeo-proj4 --with-proj-dir="/opt/homebrew"
 bundle install
 ```
 
+* On Ubuntu:
+```bash
+sudo apt-get install libproj-dev proj-bin
+```
+
 In Decidim's backoffice, enable Interactive map content block.
 
 ## How it works
