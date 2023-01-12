@@ -50,7 +50,7 @@ bundle install
 * On Ubuntu:
 ```bash
 sudo apt-get install libproj-dev proj-bin
-bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/proj"
+bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/"
 bundle install
 ```
 

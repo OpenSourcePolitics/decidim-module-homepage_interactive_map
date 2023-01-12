@@ -83,9 +83,12 @@ jobs:
           key: npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             npm-
-      - run: sudo apt-get install libproj-dev proj-bin -y
+      - run: |
+          bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/"
+          sudo apt-get install libproj-dev proj-bin -y
+          bundle install
         name: Install Proj
-     # TODO: DELETE
+        # TODO: Still not working
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
       - run: bundle exec rake test_app
