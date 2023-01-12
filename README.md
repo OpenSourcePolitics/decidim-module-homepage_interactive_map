@@ -50,6 +50,8 @@ bundle install
 * On Ubuntu:
 ```bash
 sudo apt-get install libproj-dev proj-bin
+bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/proj"
+bundle install
 ```
 
 In Decidim's backoffice, enable Interactive map content block.

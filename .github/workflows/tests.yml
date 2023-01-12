@@ -85,6 +85,9 @@ jobs:
             npm-
       - run: sudo apt-get install libproj-dev proj-bin -y
         name: Install Proj
+     # TODO: DELETE
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       - run: bundle exec rake test_app
         name: Create test app
       - run: mkdir -p ./spec/decidim_dummy_app/tmp/screenshots
