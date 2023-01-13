@@ -86,7 +86,6 @@ jobs:
       - run: |
           sudo apt-get install libproj-dev proj-bin -y
           bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/"
-          bundle config set build.rgeo --with-proj-dir="/usr/bin/"
           bundle pristine rgeo-proj4
         name: Install Proj
       - run: bundle exec rake test_app
