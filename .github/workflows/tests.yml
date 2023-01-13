@@ -88,6 +88,8 @@ jobs:
         with:
           path: ./proj-9.1.1
           key: proj-9.1.1
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       - name: Install PROJ
         if: steps.proj-cache.outputs.cache-hit != 'true'
         run: |
