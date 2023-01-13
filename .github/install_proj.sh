@@ -5,5 +5,5 @@ cd proj-9.1.1
 mkdir build
 cd build
 cmake ..
-cmake --build .
+cmake --build . -j
 sudo cmake --build . --target install
