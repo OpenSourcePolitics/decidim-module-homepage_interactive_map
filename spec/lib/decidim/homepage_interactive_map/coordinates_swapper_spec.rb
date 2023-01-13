@@ -124,11 +124,11 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
 
   describe ".transform" do
     let(:coordinates) do
-      [1_575_093.2722624019, 2_268_421.172549989]
+      [1_573_864.4303, 2_269_611.967399989]
     end
 
     it "transforms the coordinates" do
-      expect(subject.transform(coordinates, "EPSG:3943", "EPSG:4326")).to eq([1.4527590674487119, 43.6055466243127])
+      expect(subject.transform(coordinates, "EPSG:3943", "EPSG:4326")).to eq([1.4372663283532223, 43.61605815886825])
     end
 
     context "when coordinates are nested" do
