@@ -84,8 +84,9 @@ jobs:
           restore-keys: |
             npm-
       - run: |
-          bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/"
           sudo apt-get install libproj-dev proj-bin -y
+          bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/"
+          bundle config set build.rgeo --with-proj-dir="/usr/bin/"
           bundle install
         name: Install Proj
         # TODO: Still not working
