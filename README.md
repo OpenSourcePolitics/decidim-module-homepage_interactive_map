@@ -42,16 +42,15 @@ bundle exec rake decidim_homepage_interactive_map:webpacker:install
 
 * On OSX:
 ```bash
-brew install proj
-bundle config set build.rgeo-proj4 --with-proj-dir="/opt/homebrew"
-bundle config set build.rgeo --with-proj-dir="/opt/homebrew"
+brew install proj@7
+bundle config set build.rgeo-proj4 --with-proj-dir="/opt/homebrew/opt/proj@7"
 bundle pristine rgeo-proj4
 bundle install
 ```
 
 * On Ubuntu:
 ```bash
-sudo apt-get install libproj-dev proj-bin
+sudo apt-get install libproj-dev proj-bin=7.2.1
 bundle config set build.rgeo-proj4 --with-proj-dir="/usr/bin/"
 bundle config set build.rgeo --with-proj-dir="/usr/bin/"
 bundle pristine rgeo-proj4

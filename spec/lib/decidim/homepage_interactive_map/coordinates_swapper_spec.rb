@@ -128,7 +128,7 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
     end
 
     it "transforms the coordinates" do
-      expect(subject.transform(coordinates, "EPSG:3943", "EPSG:4326")).to eq([1.4372663283532223, 43.61605815886825])
+      expect(subject.transform(coordinates, "EPSG:3943", "EPSG:4326")).to eq([1.4372663283532217, 43.61605815886816])
     end
 
     context "when coordinates are nested" do
@@ -145,16 +145,7 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
         ]
       end
       let(:expected_coordinates) do
-        [
-          [
-            [
-              [1.4372663283532223, 43.61605815886825],
-              [1.4372870486871636, 43.61606225141765],
-              [1.4381631712894696, 43.616167599899605],
-              [1.4385586652364657, 43.61619344103805]
-            ]
-          ]
-        ]
+        [[[[1.4372663283532217, 43.61605815886816], [1.4372870486871632, 43.616062251417574], [1.4381631712894694, 43.61616759989949], [1.4385586652364657, 43.61619344103795]]]]
       end
 
       it "transforms the coordinates" do
@@ -250,16 +241,7 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
           },
           geometry: {
             type: "MultiPolygon",
-            coordinates: [
-              [
-                [
-                  [1.4372663283532223, 43.61605815886825],
-                  [1.4372870486871636, 43.61606225141765],
-                  [1.4381631712894696, 43.616167599899605],
-                  [1.4385586652364657, 43.61619344103805]
-                ]
-              ]
-            ],
+            coordinates: [[[[1.4372663283532217, 43.61605815886816], [1.4372870486871632, 43.616062251417574], [1.4381631712894694, 43.61616759989949], [1.4385586652364657, 43.61619344103795]]]],
             crs: "EPSG:4326"
           },
           centroid: {
