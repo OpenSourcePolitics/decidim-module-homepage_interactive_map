@@ -89,9 +89,6 @@ jobs:
           bundle config set build.rgeo --with-proj-dir="/usr/bin/"
           bundle pristine rgeo-proj4
         name: Install Proj
-        # TODO: Still not working
-#      - name: Setup upterm session
-#        uses: lhotari/action-upterm@v1
       - run: bundle exec rake test_app
         name: Create test app
       - run: mkdir -p ./spec/decidim_dummy_app/tmp/screenshots
