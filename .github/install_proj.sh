@@ -5,5 +5,5 @@ cd proj-9.1.1
 mkdir build
 cd build
 cmake ..
-cmake --build . -j "$(nproc)"
-sudo cmake --build . --target install
+sudo cmake --build . -j "$(nproc)" --target install
+sudo ldconfig
