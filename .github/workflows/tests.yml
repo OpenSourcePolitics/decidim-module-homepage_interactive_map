@@ -5,6 +5,7 @@ env:
   CI: "true"
   CODECOV: "true"
   NODE_VERSION: 16.9.1
+  PROJ_VERSION: proj-9.1.1
   DECIDIM_MODULE: decidim-homepage_interactive_map
 
 jobs:
@@ -86,8 +87,8 @@ jobs:
       - uses: actions/cache@v2
         id: proj-cache
         with:
-          path: ./proj-9.1.1
-          key: proj-9.1.1
+          path: ./${{env.PROJ_VERSION}}
+          key: ${{env.PROJ_VERSION}}
       - name: Install PROJ
         run: |
           ./.github/install_proj.sh

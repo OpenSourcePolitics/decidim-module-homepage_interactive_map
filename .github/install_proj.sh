@@ -1,13 +1,11 @@
-PROJVERSION="proj-9.1.1"
-
 sudo apt-get update && sudo apt install cmake sqlite libtiff-dev curl libcurl4-openssl-dev libssl-dev -y
 
-if [ ! -d $PROJVERSION ]; then
-  curl https://download.osgeo.org/proj/${PROJVERSION}.tar.gz -o ${PROJVERSION}.tar.gz
-  tar -xzf ${PROJVERSION}.tar.gz
+if [ ! -d "$PROJ_VERSION" ]; then
+  curl https://download.osgeo.org/proj/"${PROJ_VERSION}".tar.gz -o "${PROJ_VERSION}".tar.gz
+  tar -xzf "${PROJ_VERSION}".tar.gz
 fi
 
-cd $PROJVERSION || exit
+cd "$PROJ_VERSION" || exit
 
 if [ ! -d "build" ]; then
   mkdir build

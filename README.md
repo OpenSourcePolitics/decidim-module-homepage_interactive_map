@@ -50,7 +50,7 @@ bundle install
 
 * On Ubuntu:
 ```bash
-./.github/install_proj.sh
+PROJ_VERSION=proj-9.1.1 ./.github/install_proj.sh
 bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
 bundle pristine rgeo-proj4
 bundle install
