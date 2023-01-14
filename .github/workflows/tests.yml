@@ -89,15 +89,12 @@ jobs:
           path: ./proj-9.1.1
           key: proj-9.1.1
       - name: Install PROJ
-        if: steps.proj-cache.outputs.cache-hit != 'true'
         run: |
           ./.github/install_proj.sh
       - run: |
           bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
           bundle pristine rgeo-proj4
         name: Setup gem
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
       - run: bundle exec rake test_app
         name: Create test app
       - run: mkdir -p ./spec/decidim_dummy_app/tmp/screenshots

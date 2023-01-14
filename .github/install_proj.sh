@@ -1,9 +1,19 @@
+PROJVERSION="proj-9.1.1"
+
 sudo apt-get update && sudo apt install cmake sqlite libtiff-dev curl libcurl4-openssl-dev libssl-dev -y
-curl https://download.osgeo.org/proj/proj-9.1.1.tar.gz -o proj-9.1.1.tar.gz
-tar -xzf proj-9.1.1.tar.gz
-cd proj-9.1.1
-mkdir build
-cd build
+
+if [ ! -d $PROJVERSION ]; then
+  curl https://download.osgeo.org/proj/${PROJVERSION}.tar.gz -o ${PROJVERSION}.tar.gz
+  tar -xzf ${PROJVERSION}.tar.gz
+fi
+
+cd $PROJVERSION || exit
+
+if [ ! -d "build" ]; then
+  mkdir build
+fi
+
+cd build || exit
 cmake ..
 sudo cmake --build . -j "$(nproc)" --target install
 sudo ldconfig
