@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "decidim/homepage_interactive_map/coordinates_swapper"
+
 module Decidim
   module Admin
     # A command with all the business logic when updating a scope.
