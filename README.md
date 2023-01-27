@@ -56,6 +56,15 @@ bundle pristine rgeo-proj4
 bundle install
 ```
 
+## How to use
+### Existing positions
+```
+bundle exec rake decidim_homepage_interactive_map:repair_data
+```
+
+### New positions
+No need to do anything, the module will automatically transpose the scope position.
+
 In Decidim's backoffice, enable Interactive map content block.
 
 ## How it works
