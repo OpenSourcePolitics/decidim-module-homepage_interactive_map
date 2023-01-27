@@ -53,7 +53,7 @@ module Decidim
       end
 
       def self.detect_crs(geojson)
-        geojson.dig(:parsed_geometry, :geometry, :crs)
+        geojson.dup.deep_symbolize_keys.dig(:parsed_geometry, :geometry, :crs)
       end
     end
   end
