@@ -5,6 +5,7 @@ env:
   CI: "true"
   CODECOV: "true"
   NODE_VERSION: 16.9.1
+  PROJ_VERSION: proj-9.1.1
   DECIDIM_MODULE: decidim-homepage_interactive_map
 
 jobs:
@@ -83,6 +84,18 @@ jobs:
           key: npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             npm-
+      - uses: actions/cache@v2
+        id: proj-cache
+        with:
+          path: ./${{env.PROJ_VERSION}}
+          key: ${{env.PROJ_VERSION}}
+      - name: Install PROJ
+        run: |
+          ./.github/install_proj.sh
+      - run: |
+          bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
+          bundle pristine rgeo-proj4
+        name: Setup gem
       - run: bundle exec rake test_app
         name: Create test app
       - run: mkdir -p ./spec/decidim_dummy_app/tmp/screenshots

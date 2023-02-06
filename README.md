@@ -40,6 +40,31 @@ bundle exec rake db:migrate
 bundle exec rake decidim_homepage_interactive_map:webpacker:install
 ```
 
+* On OSX:
+```bash
+brew install proj
+bundle config set build.rgeo-proj4 --with-proj-dir="/opt/homebrew/"
+bundle pristine rgeo-proj4
+bundle install
+```
+
+* On Ubuntu:
+```bash
+PROJ_VERSION=proj-9.1.1 ./.github/install_proj.sh
+bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
+bundle pristine rgeo-proj4
+bundle install
+```
+
+## How to use
+### Existing positions
+```
+bundle exec rake decidim_homepage_interactive_map:repair_data
+```
+
+### New positions
+No need to do anything, the module will automatically transpose the scope position.
+
 In Decidim's backoffice, enable Interactive map content block.
 
 ## How it works
@@ -53,6 +78,7 @@ In Decidim's backoffice, enable Interactive map content block.
 7. Load participatory process
    * If PP has location, places the marker at the defined address
    * Otherwise, place the participatory process on the top right corner of assemblie marker (like a notification badge)
+
 
 ## Contributing
 

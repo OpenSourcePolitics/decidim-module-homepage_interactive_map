@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "decidim/homepage_interactive_map/coordinates_swapper"
+
 module Decidim
   module Admin
     # A command with all the business logic when creating a static scope.
@@ -38,7 +40,7 @@ module Decidim
             name: form.name,
             organization: form.organization,
             code: form.code,
-            geojson: geojson,
+            geojson: Decidim::HomepageInteractiveMap::CoordinatesSwapper.convert_geojson(geojson),
             scope_type: form.scope_type,
             parent: @parent_scope
           },
