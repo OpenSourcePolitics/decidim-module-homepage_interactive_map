@@ -2,6 +2,26 @@
 # yarn lockfile v1
 
 
+"buffer-builder@^0.2.0":
+  "integrity" "sha512-7VPMEPuYznPSoR21NE1zvd2Xna6c/CloiZCfcMXR1Jny6PjX0N4Nsa38zcBFo/FMK+BlA+FLKbJCQ0i2yxp+Xg=="
+  "resolved" "https://registry.npmjs.org/buffer-builder/-/buffer-builder-0.2.0.tgz"
+  "version" "0.2.0"
+
+"google-protobuf@^3.11.4":
+  "integrity" "sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA=="
+  "resolved" "https://registry.npmjs.org/google-protobuf/-/google-protobuf-3.21.2.tgz"
+  "version" "3.21.2"
+
+"has-flag@^4.0.0":
+  "integrity" "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="
+  "resolved" "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz"
+  "version" "4.0.0"
+
+"immutable@^4.0.0":
+  "integrity" "sha512-WDxL3Hheb1JkRN3sQkyujNlL/xRjAo3rJtaU5xeufUauG66JdMr32bLj4gF+vWl84DIA3Zxw7tiAjneYzRRw+w=="
+  "resolved" "https://registry.npmjs.org/immutable/-/immutable-4.2.4.tgz"
+  "version" "4.2.4"
+
 "inherits@^2.0.3", "inherits@^2.0.4":
   "integrity" "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ=="
   "resolved" "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz"
@@ -58,10 +78,42 @@
     "string_decoder" "^1.1.1"
     "util-deprecate" "^1.0.1"
 
+"rxjs@^7.4.0":
+  "integrity" "sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg=="
+  "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-7.8.0.tgz"
+  "version" "7.8.0"
+  dependencies:
+    "tslib" "^2.1.0"
+
 "safe-buffer@~5.2.0":
   "integrity" "sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ=="
   "resolved" "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz"
   "version" "5.2.1"
+
+"sass-embedded-darwin-x64@1.57.1":
+  "integrity" "sha512-xq2Au8CRLHQ+MqH2p8gQn9rYGtfQ8voCWMRz7klYmmh5kXHFjefG3opPPB8mJeSc3SIqE35SQxQEIhUbsxozpg=="
+  "resolved" "https://registry.npmjs.org/sass-embedded-darwin-x64/-/sass-embedded-darwin-x64-1.57.1.tgz"
+  "version" "1.57.1"
+
+"sass-embedded@~1.57.1":
+  "integrity" "sha512-O0s796x76bRSJIdmJ4lrK+zJLtF3XeP+0tbJzR4NAPSDnWqHLk2boUYSdfx4DnF4x9rGmcVlMWFE8UvnLMNCmw=="
+  "resolved" "https://registry.npmjs.org/sass-embedded/-/sass-embedded-1.57.1.tgz"
+  "version" "1.57.1"
+  dependencies:
+    "buffer-builder" "^0.2.0"
+    "google-protobuf" "^3.11.4"
+    "immutable" "^4.0.0"
+    "rxjs" "^7.4.0"
+    "supports-color" "^8.1.1"
+  optionalDependencies:
+    "sass-embedded-darwin-arm64" "1.57.1"
+    "sass-embedded-darwin-x64" "1.57.1"
+    "sass-embedded-linux-arm" "1.57.1"
+    "sass-embedded-linux-arm64" "1.57.1"
+    "sass-embedded-linux-ia32" "1.57.1"
+    "sass-embedded-linux-x64" "1.57.1"
+    "sass-embedded-win32-ia32" "1.57.1"
+    "sass-embedded-win32-x64" "1.57.1"
 
 "string_decoder@^1.1.1":
   "integrity" "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA=="
@@ -70,6 +122,13 @@
   dependencies:
     "safe-buffer" "~5.2.0"
 
+"supports-color@^8.1.1":
+  "integrity" "sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q=="
+  "resolved" "https://registry.npmjs.org/supports-color/-/supports-color-8.1.1.tgz"
+  "version" "8.1.1"
+  dependencies:
+    "has-flag" "^4.0.0"
+
 "through2@^3.0.1":
   "integrity" "sha512-enaDQ4MUyP2W6ZyT6EsMzqBPZaM/avg8iuo+l2d3QCs0J+6RaqkHV/2/lOwDTueBHeJ/2LG9lrLW3d5rWPucuQ=="
   "resolved" "https://registry.npmjs.org/through2/-/through2-3.0.2.tgz"
@@ -77,6 +136,11 @@
   dependencies:
     "inherits" "^2.0.4"
     "readable-stream" "2 || 3"
+
+"tslib@^2.1.0":
+  "integrity" "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz"
+  "version" "2.5.0"
 
 "util-deprecate@^1.0.1":
   "integrity" "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
