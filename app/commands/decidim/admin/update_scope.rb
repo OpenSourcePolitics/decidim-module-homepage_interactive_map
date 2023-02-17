@@ -5,7 +5,7 @@ require "decidim/homepage_interactive_map/coordinates_swapper"
 module Decidim
   module Admin
     # A command with all the business logic when updating a scope.
-    class UpdateScope < Rectify::Command
+    class UpdateScope < Decidim::Command
       # Public: Initializes the command.
       #
       # scope - The Scope to update

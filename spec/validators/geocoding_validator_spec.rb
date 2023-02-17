@@ -4,8 +4,11 @@ require "spec_helper"
 
 describe GeocodingValidator do
   describe "geolocalized component" do
+    subject { validatable.new(address: address) }
+
     let(:validatable) do
       Class.new do
+        include FactoryBot::Syntax::Methods
         def self.model_name
           ActiveModel::Name.new(self, nil, "Validatable")
         end
@@ -20,7 +23,7 @@ describe GeocodingValidator do
         validates :address, geocoding: true
 
         def component
-          FactoryBot.create(:component)
+          create(:component)
         end
       end
     end
@@ -28,8 +31,6 @@ describe GeocodingValidator do
     let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
     let(:latitude) { 40.1234 }
     let(:longitude) { 2.1234 }
-
-    let(:subject) { validatable.new(address: address) }
 
     context "when the address is valid" do
       before do
@@ -55,8 +56,11 @@ describe GeocodingValidator do
   end
 
   describe "geolocalized participatory process" do
+    subject { validatable.new(address: address) }
+
     let(:validatable) do
       Class.new do
+        include FactoryBot::Syntax::Methods
         def self.model_name
           ActiveModel::Name.new(self, nil, "Validatable")
         end
@@ -71,7 +75,7 @@ describe GeocodingValidator do
         validates :address, geocoding: true
 
         def component
-          FactoryBot.create(:participatory_process)
+          create(:participatory_process)
         end
       end
     end
@@ -79,8 +83,6 @@ describe GeocodingValidator do
     let(:address) { "Carrer Pare Llaurador 113, baixos, 08224 Terrassa" }
     let(:latitude) { 40.1234 }
     let(:longitude) { 2.1234 }
-
-    let(:subject) { validatable.new(address: address) }
 
     context "when the address is valid" do
       before do

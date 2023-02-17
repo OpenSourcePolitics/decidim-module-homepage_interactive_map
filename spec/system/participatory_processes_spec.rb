@@ -8,12 +8,13 @@ describe "Participatory Processes", type: :system do
   let(:show_metrics) { true }
   let(:show_statistics) { true }
   let(:hashtag) { true }
+  let(:base_description) { { en: "Description", ca: "Descripció", es: "Descripción" } }
   let(:base_process) do
     create(
       :participatory_process,
       :active,
       organization: organization,
-      description: { en: "Description", ca: "Descripció", es: "Descripción" },
+      description: base_description,
       short_description: { en: "Short description", ca: "Descripció curta", es: "Descripción corta" },
       show_metrics: show_metrics,
       show_statistics: show_statistics
@@ -236,6 +237,8 @@ describe "Participatory Processes", type: :system do
         let(:promoted_items_titles) { page.all("#highlighted-processes .card__title").map(&:text) }
 
         before do
+          promoted_group.title["en"] = "D'Artagnan #{promoted_group.title["en"]}"
+          promoted_group.save!
           visit decidim_participatory_processes.participatory_processes_path
         end
 
@@ -246,6 +249,13 @@ describe "Participatory Processes", type: :system do
         it "lists only promoted groups" do
           expect(promoted_items_titles).to include(translated(promoted_group.title, locale: :en))
           expect(promoted_items_titles).not_to include(translated(group.title, locale: :en))
+        end
+
+        it "lists all the highlighted process groups" do
+          within "#highlighted-processes" do
+            expect(page).to have_content(translated(promoted_group.title, locale: :en))
+            expect(page).to have_selector(".card--full", count: 2)
+          end
         end
 
         context "and promoted group has defined a CTA content block" do

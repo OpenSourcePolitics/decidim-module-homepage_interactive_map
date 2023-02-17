@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = ["fardeauarmand@gmail.com"]
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-module-homepage_interactive_map"
-  s.required_ruby_version = ">= 2.7"
+  s.required_ruby_version = ">= 3.0"
 
   s.name = "decidim-homepage_interactive_map"
   s.summary = "A decidim homepage_interactive_map module"
@@ -23,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_dependency "decidim-dev", Decidim::HomepageInteractiveMap::COMPAT_DECIDIM_VERSION
   s.add_dependency "rgeo", "~> 2.4"
   s.add_dependency "rgeo-proj4", "~> 3.1"
+  s.metadata["rubygems_mfa_required"] = "true"
 end

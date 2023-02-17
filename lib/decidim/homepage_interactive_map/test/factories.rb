@@ -97,8 +97,8 @@ FactoryBot.modify do
         {
           color: Faker::Color.hex_color,
           geometry: {
-            "type": "MultiPolygon",
-            "coordinates": [
+            type: "MultiPolygon",
+            coordinates: [
               [
                 [
                   [
@@ -120,13 +120,13 @@ FactoryBot.modify do
                 ]
               ]
             ],
-            "crs": "EPSG:3943"
+            crs: "EPSG:3943"
           },
           parsed_geometry: {
-            "type": "MultiPolygon",
-            "coordinates": [
-              "type": "MultiPolygon",
-              "coordinates": [
+            type: "MultiPolygon",
+            coordinates: [
+              type: "MultiPolygon",
+              coordinates: [
                 [
                   [
                     [
@@ -148,9 +148,9 @@ FactoryBot.modify do
                   ]
                 ]
               ],
-              "crs": "EPSG:3943"
+              crs: "EPSG:3943"
             ],
-            "crs": "EPSG:3943"
+            crs: "EPSG:3943"
           }
         }
       end
