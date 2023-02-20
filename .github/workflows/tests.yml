@@ -103,9 +103,6 @@ jobs:
       - uses: nanasess/setup-chromedriver@v1.0.1
       - run: npm install
         name: Add dependencies
-      - run: npm i sass-embedded@~1.57.1
-        name: lock sass embeded version
-        working-directory: ./spec/decidim_dummy_app/
       - run: RAILS_ENV=test bundle exec rails assets:precompile
         name: Precompile assets
         working-directory: ./spec/decidim_dummy_app/
