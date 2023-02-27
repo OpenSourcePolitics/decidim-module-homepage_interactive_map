@@ -12,8 +12,8 @@ namespace :decidim_homepage_interactive_map do
 
   task check_for_repair: :environment do
     puts "Checking for scopes with wrong geojson format"
-    scopes = Decidim::Scope.where.not(geojson: nil).select do |scope|
-      Decidim::HomepageInteractiveMap::CoordinatesSwapper.detect_crs(scope.geojson) != "EPSG:4326"
+    scopes = Decidim::Scope.where.not(geojson: nil).reject do |scope|
+      Decidim::HomepageInteractiveMap::CoordinatesSwapper.detect_crs(scope.geojson) == "EPSG:4326"
     end
 
     if scopes.any?
