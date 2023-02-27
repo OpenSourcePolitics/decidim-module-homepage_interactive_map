@@ -50,8 +50,8 @@ bundle install
 
 * On Ubuntu:
 ```bash
-PROJ_VERSION=proj-9.1.1 ./.github/install_proj.sh
-bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
+sudo apt update && sudo apt install libproj-dev proj-bin -y
+PROJ_DIR=$(which proj) bundle config set build.rgeo-proj4 --with-proj-dir="${PROJ_DIR%proj}"
 bundle pristine rgeo-proj4
 bundle install
 ```
@@ -59,6 +59,7 @@ bundle install
 ## How to use
 ### Existing positions
 ```
+bundle exec rake decidim_homepage_interactive_map:check_for_repair
 bundle exec rake decidim_homepage_interactive_map:repair_data
 ```
 

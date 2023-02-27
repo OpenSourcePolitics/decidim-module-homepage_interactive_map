@@ -9,4 +9,18 @@ namespace :decidim_homepage_interactive_map do
       scope.update!(geojson: Decidim::HomepageInteractiveMap::CoordinatesSwapper.convert_geojson(scope.geojson))
     end
   end
+
+  task check_for_repair: :environment do
+    puts "Checking for scopes with wrong geojson format"
+    scopes = Decidim::Scope.where.not(geojson: nil).reject do |scope|
+      Decidim::HomepageInteractiveMap::CoordinatesSwapper.detect_crs(scope.geojson) == "EPSG:4326"
+    end
+
+    if scopes.any?
+      puts "Found #{scopes.count} scopes with wrong geojson format"
+      puts "Run `rake decidim_homepage_interactive_map:repair_data` to fix them"
+    else
+      puts "All scopes have the correct geojson format"
+    end
+  end
 end
