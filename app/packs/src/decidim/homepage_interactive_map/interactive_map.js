@@ -1,3 +1,4 @@
+import * as L from "leaflet";
 import "src/vendor/leaflet-polylabel-centroid";
 
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
