@@ -38,8 +38,6 @@ end
 
 desc "Generates a development app"
 task :development_app do
-  setup_dependencies("development_app")
-
   Bundler.with_original_env do
     generate_decidim_app(
       "development_app",
@@ -53,4 +51,5 @@ task :development_app do
   end
   install_module("development_app")
   seed_db("development_app")
+  setup_dependencies("development_app")
 end
