@@ -7,7 +7,6 @@ import "src/vendor/jquery.truncate"
 
 import "src/vendor/leaflet-polylabel-centroid";
 
-console.log("okoko")
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
   options: {
     iconSize: L.point(24,34),
