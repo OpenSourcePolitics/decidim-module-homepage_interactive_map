@@ -36,10 +36,6 @@ module Decidim
           content_block.public_name_key = "decidim.homepage_interactive_map.content_blocks.interactive_map.name"
         end
       end
-
-      initializer "decidim_homepage_interactive_map.assets" do |app|
-        app.config.assets.precompile += %w(decidim_homepage_interactive_map_manifest.js decidim_homepage_interactive_map_manifest.css)
-      end
     end
   end
 end

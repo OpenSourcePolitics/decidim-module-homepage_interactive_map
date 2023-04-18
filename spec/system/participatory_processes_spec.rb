@@ -8,12 +8,13 @@ describe "Participatory Processes", type: :system do
   let(:show_metrics) { true }
   let(:show_statistics) { true }
   let(:hashtag) { true }
+  let(:base_description) { { en: "Description", ca: "Descripció", es: "Descripción" } }
   let(:base_process) do
     create(
       :participatory_process,
       :active,
       organization: organization,
-      description: { en: "Description", ca: "Descripció", es: "Descripción" },
+      description: base_description,
       short_description: { en: "Short description", ca: "Descripció curta", es: "Descripción corta" },
       show_metrics: show_metrics,
       show_statistics: show_statistics
@@ -92,6 +93,8 @@ describe "Participatory Processes", type: :system do
         visit decidim_participatory_processes.participatory_processes_path
       end
 
+      it_behaves_like "accessible page"
+
       context "and accessing from the homepage" do
         it "the menu link is not shown" do
           visit decidim.root_path
@@ -111,6 +114,8 @@ describe "Participatory Processes", type: :system do
           promoted_process.save!
           visit decidim_participatory_processes.participatory_processes_path
         end
+
+        it_behaves_like "accessible page"
 
         it "lists all the highlighted processes" do
           within "#highlighted-processes" do
@@ -228,10 +233,12 @@ describe "Participatory Processes", type: :system do
       end
 
       context "when there are promoted participatory process groups" do
-        let!(:promoted_group) { create(:participatory_process_group, :promoted, :with_participatory_processes) }
+        let!(:promoted_group) { create(:participatory_process_group, :promoted, :with_participatory_processes, organization: organization) }
         let(:promoted_items_titles) { page.all("#highlighted-processes .card__title").map(&:text) }
 
         before do
+          promoted_group.title["en"] = "D'Artagnan #{promoted_group.title["en"]}"
+          promoted_group.save!
           visit decidim_participatory_processes.participatory_processes_path
         end
 
@@ -242,6 +249,13 @@ describe "Participatory Processes", type: :system do
         it "lists only promoted groups" do
           expect(promoted_items_titles).to include(translated(promoted_group.title, locale: :en))
           expect(promoted_items_titles).not_to include(translated(group.title, locale: :en))
+        end
+
+        it "lists all the highlighted process groups" do
+          within "#highlighted-processes" do
+            expect(page).to have_content(translated(promoted_group.title, locale: :en))
+            expect(page).to have_selector(".card--full", count: 2)
+          end
         end
 
         context "and promoted group has defined a CTA content block" do
@@ -268,6 +282,16 @@ describe "Participatory Processes", type: :system do
           it "shows a CTA button inside group card" do
             within("#highlighted-processes") do
               expect(page).to have_link(cta_settings[:button_text_en], href: cta_settings[:button_url])
+            end
+          end
+
+          context "and promoted group belongs to another organization" do
+            let!(:promoted_group) { create(:participatory_process_group, :promoted, :with_participatory_processes) }
+
+            it "shows a CTA button inside group card" do
+              within("#highlighted-processes") do
+                expect(page).not_to have_link(cta_settings[:button_text_en], href: cta_settings[:button_url])
+              end
             end
           end
         end
@@ -396,12 +420,12 @@ describe "Participatory Processes", type: :system do
             let(:show_statistics) { true }
 
             it "the stats for those components are visible" do
-              within "#participatory_process-statistics" do
+              within ".section-statistics" do
                 expect(page).to have_css("h3.section-heading", text: "STATISTICS")
-                expect(page).to have_css(".space-stats__title", text: "PROPOSALS")
-                expect(page).to have_css(".space-stats__number", text: "3")
-                expect(page).to have_no_css(".space-stats__title", text: "MEETINGS")
-                expect(page).to have_no_css(".space-stats__number", text: "0")
+                expect(page).to have_css(".statistic__title", text: "PROPOSALS")
+                expect(page).to have_css(".statistic__number", text: "3")
+                expect(page).to have_no_css(".statistic__title", text: "MEETINGS")
+                expect(page).to have_no_css(".statistic__number", text: "0")
               end
             end
           end
@@ -410,9 +434,9 @@ describe "Participatory Processes", type: :system do
             let(:show_statistics) { false }
 
             it "the stats for those components are not visible" do
-              expect(page).to have_no_css("h4.section-heading", text: "STATISTICS")
-              expect(page).to have_no_css(".space-stats__title", text: "PROPOSALS")
-              expect(page).to have_no_css(".space-stats__number", text: "3")
+              expect(page).to have_no_css("h3.section-heading", text: "STATISTICS")
+              expect(page).to have_no_css(".statistic__title", text: "PROPOSALS")
+              expect(page).to have_no_css(".statistic__number", text: "3")
             end
           end
 
