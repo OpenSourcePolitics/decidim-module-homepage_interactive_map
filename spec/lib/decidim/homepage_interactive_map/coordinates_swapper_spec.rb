@@ -8,30 +8,30 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
     {
       color: "#24d36a",
       geometry: {
-        "type": "Feature",
-        "properties": {
-          "infobulle": "1.3\nLes Chalets / Bayard / Belfort / Saint-Aubin / Dupuy\nSecteur Toulouse Centre\nMaire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "quartier": "1.3",
-          "nom_quartier": "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
-          "maire_de_quartier": "Jacqueline Winnepenninckx-Kieser",
-          "secteur": 1,
-          "nom_secteur": "Toulouse Centre",
-          "libelle_maire": "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "oid": 143
+        type: "Feature",
+        properties: {
+          infobulle: "1.3\nLes Chalets / Bayard / Belfort / Saint-Aubin / Dupuy\nSecteur Toulouse Centre\nMaire de quartier : Jacqueline Winnepenninckx-Kieser",
+          quartier: "1.3",
+          nom_quartier: "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
+          maire_de_quartier: "Jacqueline Winnepenninckx-Kieser",
+          secteur: 1,
+          nom_secteur: "Toulouse Centre",
+          libelle_maire: "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
+          oid: 143
         },
-        "formattedProperties": {
-          "infobulle": "1.3<br/>Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy<br/>Secteur Toulouse Centre<br/>Maire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "quartier": "1.3",
-          "nom_quartier": "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
-          "maire_de_quartier": "Jacqueline Winnepenninckx-Kieser",
-          "secteur": "1",
-          "nom_secteur": "Toulouse Centre",
-          "libelle_maire": "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "oid": "143"
+        formattedProperties: {
+          infobulle: "1.3<br/>Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy<br/>Secteur Toulouse Centre<br/>Maire de quartier : Jacqueline Winnepenninckx-Kieser",
+          quartier: "1.3",
+          nom_quartier: "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
+          maire_de_quartier: "Jacqueline Winnepenninckx-Kieser",
+          secteur: "1",
+          nom_secteur: "Toulouse Centre",
+          libelle_maire: "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
+          oid: "143"
         },
-        "geometry": {
-          "type": "MultiPolygon",
-          "coordinates": [
+        geometry: {
+          type: "MultiPolygon",
+          coordinates: [
             [
               [
                 [1_573_864.4303, 2_269_611.967399989],
@@ -41,47 +41,47 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
               ]
             ]
           ],
-          "crs": "EPSG:3943"
+          crs: "EPSG:3943"
         },
-        "centroid": {
-          "type": "Point",
-          "coordinates": [1_575_093.2722624019, 2_268_421.172549989],
-          "crs": "EPSG:3943"
+        centroid: {
+          type: "Point",
+          coordinates: [1_575_093.2722624019, 2_268_421.172549989],
+          crs: "EPSG:3943"
         },
-        "id": "143",
-        "crs": {
-          "type": "name",
-          "properties": {
-            "name": "EPSG:3943"
+        id: "143",
+        crs: {
+          type: "name",
+          properties: {
+            name: "EPSG:3943"
           }
         },
-        "bbox": [1_573_864.4303, 2_267_226.4562999886, 1_575_430.5514999998, 2_269_625.055299987]
+        bbox: [1_573_864.4303, 2_267_226.4562999886, 1_575_430.5514999998, 2_269_625.055299987]
       },
       parsed_geometry: {
-        "type": "Feature",
-        "properties": {
-          "infobulle": "1.3\nLes Chalets / Bayard / Belfort / Saint-Aubin / Dupuy\nSecteur Toulouse Centre\nMaire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "quartier": "1.3",
-          "nom_quartier": "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
-          "maire_de_quartier": "Jacqueline Winnepenninckx-Kieser",
-          "secteur": 1,
-          "nom_secteur": "Toulouse Centre",
-          "libelle_maire": "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "oid": 143
+        type: "Feature",
+        properties: {
+          infobulle: "1.3\nLes Chalets / Bayard / Belfort / Saint-Aubin / Dupuy\nSecteur Toulouse Centre\nMaire de quartier : Jacqueline Winnepenninckx-Kieser",
+          quartier: "1.3",
+          nom_quartier: "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
+          maire_de_quartier: "Jacqueline Winnepenninckx-Kieser",
+          secteur: 1,
+          nom_secteur: "Toulouse Centre",
+          libelle_maire: "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
+          oid: 143
         },
-        "formattedProperties": {
-          "infobulle": "1.3<br/>Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy<br/>Secteur Toulouse Centre<br/>Maire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "quartier": "1.3",
-          "nom_quartier": "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
-          "maire_de_quartier": "Jacqueline Winnepenninckx-Kieser",
-          "secteur": "1",
-          "nom_secteur": "Toulouse Centre",
-          "libelle_maire": "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
-          "oid": "143"
+        formattedProperties: {
+          infobulle: "1.3<br/>Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy<br/>Secteur Toulouse Centre<br/>Maire de quartier : Jacqueline Winnepenninckx-Kieser",
+          quartier: "1.3",
+          nom_quartier: "Les Chalets / Bayard / Belfort / Saint-Aubin / Dupuy",
+          maire_de_quartier: "Jacqueline Winnepenninckx-Kieser",
+          secteur: "1",
+          nom_secteur: "Toulouse Centre",
+          libelle_maire: "Maire de quartier : Jacqueline Winnepenninckx-Kieser",
+          oid: "143"
         },
-        "geometry": {
-          "type": "MultiPolygon",
-          "coordinates": [
+        geometry: {
+          type: "MultiPolygon",
+          coordinates: [
             [
               [
                 [1_573_864.4303, 2_269_611.967399989],
@@ -91,21 +91,21 @@ describe Decidim::HomepageInteractiveMap::CoordinatesSwapper do
               ]
             ]
           ],
-          "crs": "EPSG:3943"
+          crs: "EPSG:3943"
         },
-        "centroid": {
-          "type": "Point",
-          "coordinates": [1_575_093.2722624019, 2_268_421.172549989],
-          "crs": "EPSG:3943"
+        centroid: {
+          type: "Point",
+          coordinates: [1_575_093.2722624019, 2_268_421.172549989],
+          crs: "EPSG:3943"
         },
-        "id": "143",
-        "crs": {
-          "type": "name",
-          "properties": {
-            "name": "EPSG:3943"
+        id: "143",
+        crs: {
+          type: "name",
+          properties: {
+            name: "EPSG:3943"
           }
         },
-        "bbox": [1_573_864.4303, 2_267_226.4562999886, 1_575_430.5514999998, 2_269_625.055299987]
+        bbox: [1_573_864.4303, 2_267_226.4562999886, 1_575_430.5514999998, 2_269_625.055299987]
       }
     }
   end

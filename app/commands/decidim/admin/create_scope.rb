@@ -5,7 +5,7 @@ require "decidim/homepage_interactive_map/coordinates_swapper"
 module Decidim
   module Admin
     # A command with all the business logic when creating a static scope.
-    class CreateScope < Rectify::Command
+    class CreateScope < Decidim::Command
       # Public: Initializes the command.
       #
       # form - A form object with the params.

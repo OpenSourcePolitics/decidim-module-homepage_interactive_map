@@ -128,11 +128,11 @@
 
       <div class="row" id="scope-depth ">
         <%= form.collection_select :scope_type_max_depth_id,
-                                    organization_scope_depths,
-                                    :id,
-                                    :name,
-                                    scope_type_depth_select_options,
-                                    scope_type_depth_select_html_options %>
+                                   organization_scope_depths,
+                                   :id,
+                                   :name,
+                                   scope_type_depth_select_options,
+                                   scope_type_depth_select_html_options %>
         <p class="help-text">
           <%== t(".scope_type_max_depth_help") %>
         </p>
@@ -163,7 +163,7 @@
     <div class="row column">
       <%= form.check_box :private_space %>
     </div>
-        <div class="row column">
+    <div class="row column">
       <%= form.check_box :promoted %>
     </div>
   </div>
@@ -175,11 +175,11 @@
   <div class="card-section">
     <div class="row column">
       <%= form.select(
-        :related_process_ids,
-        @form.processes.order(title: :asc).map{|process| [translated_attribute(process.title), process.id]},
-        { include_blank: true },
-        { multiple: true, class: "chosen-select" }
-      ) %>
+            :related_process_ids,
+            @form.processes.order(title: :asc).map{|process| [translated_attribute(process.title), process.id]},
+            { include_blank: true },
+            { multiple: true, class: "chosen-select" }
+          ) %>
     </div>
   </div>
 
@@ -195,6 +195,16 @@
     <div class="row column">
       <%= form.check_box :show_metrics %>
     </div>
+
+    <% if @form.participatory_process_types_for_select.present? %>
+      <div class="row column">
+        <%= form.select(
+              :participatory_process_type_id,
+              @form.participatory_process_types_for_select,
+              include_blank: t(".select_participatory_process_type")
+            ) %>
+      </div>
+    <% end %>
   </div>
 </div>
 
