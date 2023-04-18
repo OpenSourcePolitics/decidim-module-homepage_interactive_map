@@ -1,3 +1,10 @@
+import * as L from "leaflet";
+import "src/decidim/vendor/leaflet-tilelayer-here"
+import "src/decidim/map/icon.js" // comes with Decidim
+import "leaflet.markercluster"; // Comes with Decidim
+import "leaflet.featuregroup.subgroup" // included in this package.json
+import "src/vendor/jquery.truncate"
+
 import "src/vendor/leaflet-polylabel-centroid";
 
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
