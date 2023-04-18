@@ -10,7 +10,7 @@ module Decidim
       def self.convert_geojson(geojson, opts = {})
         return nil if geojson.nil?
 
-        from = opts[:from] || detect_crs(geojson) || "EPSG:3857"
+        from = opts[:from] || detect_crs(geojson) || "EPSG:4326"
         to = opts[:to] || "EPSG:4326"
 
         geojson_clone = geojson.dup.deep_symbolize_keys
