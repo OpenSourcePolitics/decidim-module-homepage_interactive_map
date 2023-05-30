@@ -1,10 +1,3 @@
-import * as L from "leaflet";
-import "src/decidim/vendor/leaflet-tilelayer-here"
-import "src/decidim/map/icon.js" // comes with Decidim
-import "leaflet.markercluster"; // Comes with Decidim
-import "leaflet.featuregroup.subgroup" // included in this package.json
-import "src/vendor/jquery.truncate"
-
 import "src/vendor/leaflet-polylabel-centroid";
 
 L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
@@ -24,6 +17,9 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
 
 (() => {
   $(document).ready(() => {
+    if($("#interactive_map").length === 0) {
+      return;
+    }
     const here_api_key = $("#interactive_map").data("here-api-key");
     const geoJson = $("#interactive_map").data("geojson-data");
     const $viewParticipatoryProcess = $("#view-participatory-process");
