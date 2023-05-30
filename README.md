@@ -51,7 +51,7 @@ bundle install
 * On Ubuntu:
 ```bash
 sudo apt update && sudo apt install libproj-dev proj-bin -y
-PROJ_DIR=$(which proj) bundle config set build.rgeo-proj4 --with-proj-dir="${PROJ_DIR%proj}"
+PROJ_DIR=$(which proj) bundle config set build.rgeo-proj4 --with-proj-dir="$(echo ${PROJ_DIR%/proj})"
 bundle pristine rgeo-proj4
 bundle install
 ```
