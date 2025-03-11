@@ -42,14 +42,14 @@ end
 desc "Generates a dummy app for testing"
 task test_app: "decidim:generate_external_test_app" do
   ENV["RAILS_ENV"] = "test"
-  #setup_dependencies("spec/decidim_dummy_app")
+  # setup_dependencies("spec/decidim_dummy_app")
   fix_babel_config("spec/decidim_dummy_app")
   install_module("spec/decidim_dummy_app")
 end
 
 desc "Generates a development app"
 task :development_app do
-  #setup_dependencies("development_app")
+  # setup_dependencies("development_app")
 
   Bundler.with_original_env do
     generate_decidim_app(
