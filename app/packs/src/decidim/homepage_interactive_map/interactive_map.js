@@ -24,7 +24,6 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
 
 (() => {
   $(document).ready(() => {
-    const here_api_key = $("#interactive_map").data("here-api-key");
     const geoJson = $("#interactive_map").data("geojson-data");
     const $viewParticipatoryProcess = $("#view-participatory-process");
 
@@ -130,7 +129,7 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
             </div>
       `
     }
-    
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
