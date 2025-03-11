@@ -130,12 +130,10 @@ L.DivIcon.SVGIcon.DecidimIcon = L.DivIcon.SVGIcon.extend({
             </div>
       `
     }
-
-
-    L.tileLayer.here({
-      apiKey: here_api_key,
-      scheme: "normal.day.grey"
-    }, {continuousWorld: true}).addTo(map);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
     map.createPane("processPane").style.zIndex = 610;
     let allProcessesLayer = L.markerClusterGroup({
