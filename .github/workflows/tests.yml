@@ -70,6 +70,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - run: |
+          sudo apt install libu2f-udev imagemagick
+        name: Install libu2f-udev and imagemagick gems
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NODE_VERSION }}
