@@ -92,13 +92,7 @@ jobs:
           path: ./${{env.PROJ_VERSION}}
           key: ${{env.PROJ_VERSION}}
       - name: Install PROJ
-        run: |
-          ./.github/install_proj.sh
-      - name: Locate PROJ installation
-        run: |
-          echo "Searching for PROJ installation..."
-          find /usr -name "proj" 2>/dev/null || true
-          find /usr -name "libproj*" 2>/dev/null || true
+        run: sudo apt install proj-bin libproj-dev
       - run: |
           bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
           bundle pristine rgeo-proj4
