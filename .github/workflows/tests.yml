@@ -94,11 +94,11 @@ jobs:
       - name: Install PROJ
         run: |
           ./.github/install_proj.sh
-      - name: Check PROJ installation
+      - name: Locate PROJ installation
         run: |
-          echo "Checking PROJ installation..."
-          ls -l /usr/local/bin/proj
-          ls -l /usr/local/lib/libproj*
+          echo "Searching for PROJ installation..."
+          find /usr -name "proj" 2>/dev/null || true
+          find /usr -name "libproj*" 2>/dev/null || true
       - run: |
           bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
           bundle pristine rgeo-proj4
