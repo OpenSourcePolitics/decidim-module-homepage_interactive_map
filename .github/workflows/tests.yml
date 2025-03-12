@@ -107,10 +107,6 @@ jobs:
       - run: RAILS_ENV=test bundle exec rails assets:precompile
         name: Precompile assets
         working-directory: ./spec/decidim_dummy_app/
-      - run: |
-          bundle list | grep rgeo
-          bundle list | grep activerecord
-        name: See versions rgeo and activerecord
       - run: bundle exec rspec
         name: RSpec
       - uses: codecov/codecov-action@v1
