@@ -70,27 +70,29 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - run: |
+          sudo apt install libu2f-udev imagemagick
+        name: Install libu2f-udev and imagemagick gems
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Get npm cache directory path
         id: npm-cache-dir-path
         run: echo "::set-output name=dir::$(npm get cache)-${{ env.DECIDIM_MODULE }}"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: npm-cache
         with:
           path: ${{ steps.npm-cache-dir-path.outputs.dir }}
           key: npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             npm-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: proj-cache
         with:
           path: ./${{env.PROJ_VERSION}}
           key: ${{env.PROJ_VERSION}}
       - name: Install PROJ
-        run: |
-          ./.github/install_proj.sh
+        run: sudo apt install proj-bin libproj-dev
       - run: |
           bundle config set build.rgeo-proj4 --with-proj-dir="/usr/local/bin/"
           bundle pristine rgeo-proj4
@@ -108,7 +110,7 @@ jobs:
       - run: bundle exec rspec
         name: RSpec
       - uses: codecov/codecov-action@v1
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: screenshots

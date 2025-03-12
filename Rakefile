@@ -16,6 +16,16 @@ def install_module(path)
   end
 end
 
+# Temporary fix to overcome the issue with babel plugin updates, see:
+# https://github.com/decidim/decidim/pull/10916
+def fix_babel_config(path)
+  Dir.chdir(path) do
+    babel_config = "#{Dir.pwd}/babel.config.json"
+    File.delete(babel_config) if File.exist?(babel_config)
+    FileUtils.cp("#{__dir__}/babel.config.json", Dir.pwd)
+  end
+end
+
 def setup_dependencies(path)
   Dir.chdir(path) do
     raise "You must install Proj4 to use this module, please check https://github.com/rgeo/rgeo-proj4" if `which proj` == ""
@@ -32,13 +42,14 @@ end
 desc "Generates a dummy app for testing"
 task test_app: "decidim:generate_external_test_app" do
   ENV["RAILS_ENV"] = "test"
-  setup_dependencies("spec/decidim_dummy_app")
+  # setup_dependencies("spec/decidim_dummy_app")
+  fix_babel_config("spec/decidim_dummy_app")
   install_module("spec/decidim_dummy_app")
 end
 
 desc "Generates a development app"
 task :development_app do
-  setup_dependencies("development_app")
+  # setup_dependencies("development_app")
 
   Bundler.with_original_env do
     generate_decidim_app(
@@ -51,6 +62,7 @@ task :development_app do
       "--demo"
     )
   end
+  fix_babel_config("development_app")
   install_module("development_app")
   seed_db("development_app")
 end
